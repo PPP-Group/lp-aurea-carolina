@@ -49,6 +49,25 @@
   scrollbar-color: var(--color-roxo) var(--color-papel-fundo);
 }
 
+/* O `scrollbar-color` acima já resolve o Firefox. Chrome, Edge e Safari
+   ignoram essa propriedade em contêineres específicos e olham só para os
+   pseudo-elementos abaixo — sem eles, esta barra ficaria cinza-padrão mesmo
+   com o resto da página já tematizado. */
+.pecas__mural::-webkit-scrollbar {
+  height: 0.7rem;
+}
+.pecas__mural::-webkit-scrollbar-track {
+  background: var(--color-papel-fundo);
+}
+.pecas__mural::-webkit-scrollbar-thumb {
+  background: var(--color-roxo);
+  border: 2px solid var(--color-papel-fundo);
+  border-radius: 999px;
+}
+.pecas__mural::-webkit-scrollbar-thumb:hover {
+  background: var(--color-roxo-fundo);
+}
+
 .pecas__item {
   flex: none;
   scroll-snap-align: center;

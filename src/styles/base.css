@@ -64,6 +64,48 @@ a {
   color: var(--color-bege);
 }
 
+/* ---------------------------------------------------------------------------
+   BARRA DE ROLAGEM
+
+   O cinza padrão do navegador quebra a moldura de cor da campanha. Aqui ela
+   ganha a mesma dupla que assina a marca: trilho vinho, do tom da barra de
+   navegação, e arrasto no degradê da pétala — o mesmo amarelo-laranja usado
+   no 500 e nos números da seção de provas.
+
+   `scrollbar-color` cobre o Firefox e herda para qualquer contêiner com
+   rolagem própria, sem precisar repetir a regra. O Firefox não aceita
+   degradê no trilho, então recebe a versão sólida em amarelo. Chrome, Edge e
+   Safari usam os pseudo-elementos `::-webkit-scrollbar-*` — como eles não
+   herdam, a regra é escrita no seletor universal para valer em toda a
+   página de uma vez. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-amarelo) var(--color-vinho);
+}
+
+::-webkit-scrollbar {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-vinho);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--grad-petala);
+  border: 2px solid var(--color-vinho);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-amarelo);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-vinho);
+}
+
 /* Foco visível e da cor da marca. Nunca remover. */
 :where(a, button, summary, input, [tabindex]):focus-visible {
   outline: 3px solid var(--color-roxo);
