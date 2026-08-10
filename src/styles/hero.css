@@ -1,0 +1,282 @@
+/* ============================================================================
+   HERÓI
+   ----------------------------------------------------------------------------
+   Um cartaz de tela cheia. A luz nasce atrás da Áurea: o degradê radial põe o
+   amarelo claro no ponto onde ela está e deixa o laranja escorrer para as
+   bordas, que é como as peças da campanha são compostas.
+   ========================================================================== */
+
+.heroi {
+  --sol-x: 50%;
+  --sol-y: 40%;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  padding-block: clamp(1.25rem, 3.5vh, 2.5rem) 0;
+  overflow: clip;
+  background:
+    radial-gradient(
+      95% 70% at var(--sol-x) var(--sol-y),
+      #ffdf5e 0%,
+      var(--color-amarelo) 38%,
+      #ff9a1c 74%,
+      var(--color-laranja) 100%
+    );
+  color: var(--color-vinho);
+}
+
+.heroi__ceu {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heroi__sol {
+  --sol-cor: rgb(255 255 255 / 0.3);
+  top: var(--sol-y);
+  left: var(--sol-x);
+  width: 170vmax;
+  translate: -50% -50%;
+}
+
+.heroi__interior {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-areas:
+    'assinatura'
+    'retrato'
+    'grito'
+    'pe';
+  grid-template-rows: auto 1fr auto auto;
+  align-content: start;
+  min-height: calc(100svh - clamp(1.25rem, 3.5vh, 2.5rem));
+}
+
+/* ---------------------------------------------------------------------------
+   Assinatura
+
+   A flor pousa no canto de cima do letreiro, como no arquivo oficial da marca,
+   e por isso sai do fluxo em vez de ficar ao lado.
+   ------------------------------------------------------------------------- */
+
+.heroi__assinatura {
+  grid-area: assinatura;
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+}
+
+.heroi__marca {
+  position: relative;
+  display: block;
+  padding-right: clamp(2rem, 6vw, 3.5rem);
+}
+
+.letreiro {
+  display: block;
+}
+.letreiro svg {
+  width: 100%;
+  height: auto;
+}
+
+.heroi__letreiro {
+  width: clamp(11.5rem, 36vw, 21rem);
+  color: var(--color-vinho);
+}
+
+.heroi__flor {
+  position: absolute;
+  top: -6%;
+  right: 0;
+  width: clamp(3.4rem, 10vw, 6rem);
+  height: auto;
+  filter: drop-shadow(0 6px 18px rgb(80 0 43 / 0.22));
+}
+
+.heroi__credencial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.9rem;
+}
+
+.heroi__legenda {
+  font-family: var(--font-faixa);
+  font-size: clamp(0.6rem, 1.4vw, 0.76rem);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  /* Vinho cheio: sobre a parte laranja do degradê, qualquer transparência
+     derruba este rótulo abaixo do contraste mínimo. */
+  color: var(--color-vinho);
+}
+
+/* ---------------------------------------------------------------------------
+   Retrato
+   ------------------------------------------------------------------------- */
+
+/* No celular a altura do retrato é o que decide se o segundo botão cabe na
+   primeira tela. 40svh é o limite em que os dois ainda entram num aparelho de
+   844px, que é a altura mais comum. */
+.heroi__retrato {
+  grid-area: retrato;
+  justify-self: center;
+  align-self: end;
+  width: auto;
+  max-width: 108%;
+  height: clamp(13rem, 40svh, 26rem);
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 24px 44px rgb(80 0 43 / 0.28));
+}
+
+/* ---------------------------------------------------------------------------
+   O grito
+
+   Regra do manual: contorno em volta e sombra dura. O contorno é vinho, e é
+   ele que garante que o bege continue legível por cima de qualquer ponto do
+   degradê de fundo.
+   ------------------------------------------------------------------------- */
+
+.heroi__grito {
+  grid-area: grito;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  justify-items: start;
+  gap: 0.4rem;
+  margin-top: -8svh; /* o grito sobe por cima do retrato, como no cartaz */
+}
+
+.heroi__titulo {
+  --traco: 0.04em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.045em;
+  --cor-sombra: var(--color-roxo);
+
+  margin: 0;
+  font-size: var(--text-cartaz);
+  letter-spacing: 0.005em;
+  color: var(--color-bege);
+}
+
+.heroi__palavra {
+  display: block;
+}
+
+.heroi__numero {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.heroi__numero-rotulo {
+  font-family: var(--font-faixa);
+  font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-vinho);
+}
+
+.heroi__numero-digitos {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 8vw, 4.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  color: var(--color-vinho);
+  text-shadow: 0.04em 0.04em 0 var(--color-bege);
+}
+
+/* ---------------------------------------------------------------------------
+   Pé do herói
+   ------------------------------------------------------------------------- */
+
+.heroi__pe {
+  grid-area: pe;
+  display: grid;
+  gap: 0.9rem;
+  padding-block: clamp(0.9rem, 2vh, 1.75rem) clamp(1.25rem, 3.5vh, 2.5rem);
+}
+
+.heroi__apoio {
+  max-width: 34rem;
+  font-size: clamp(0.9375rem, 1.1vw + 0.7rem, 1.15rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-vinho);
+}
+
+.heroi__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  /* Sem isto o segundo botão fica embaixo do balão de compartilhar. */
+  padding-right: 4rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Desktop: o retrato passa para a direita e ocupa a coluna inteira. O sol
+   acompanha, e volta a nascer atrás dela.
+   ------------------------------------------------------------------------- */
+
+@media (min-width: 62rem) {
+  .heroi {
+    --sol-x: 74%;
+    --sol-y: 34%;
+  }
+
+  .heroi__interior {
+    grid-template-areas:
+      'assinatura retrato'
+      'grito      retrato'
+      'pe         retrato';
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    grid-template-rows: auto 1fr auto;
+    column-gap: 1rem;
+  }
+
+  .heroi__retrato {
+    justify-self: end;
+    align-self: end;
+    height: min(90svh, 50rem);
+    max-width: none;
+    margin-right: clamp(-6rem, -4vw, -2rem);
+  }
+
+  .heroi__grito {
+    align-self: center;
+    margin-top: 0;
+    padding-block: 1.5vh;
+    grid-template-columns: auto auto;
+    align-items: end;
+    column-gap: 1.75rem;
+  }
+
+  .heroi__numero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    padding-bottom: 0.35em;
+  }
+
+  .heroi__pe {
+    align-self: end;
+  }
+
+  .heroi__acoes {
+    padding-right: 0;
+  }
+}
+
+/* Telas largas e baixas (notebook antigo): o retrato encolhe antes do texto,
+   porque o texto é o que precisa ser lido. */
+@media (min-width: 62rem) and (max-height: 44rem) {
+  .heroi__retrato {
+    height: 80svh;
+  }
+}

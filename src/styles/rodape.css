@@ -1,0 +1,228 @@
+/* ============================================================================
+   RODAPÉ
+   ----------------------------------------------------------------------------
+   A borda de baixo do cartaz: assinatura completa, o grito da campanha, e o
+   bloco legal em corpo menor mas legível.
+   ========================================================================== */
+
+.rodape {
+  position: relative;
+  isolation: isolate;
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  background: var(--color-preto);
+  color: var(--color-bege);
+  overflow: clip;
+}
+
+/* Denso e largo: a esta escala, o traço padrão do sol vira faixa grossa e o
+   rodapé fica listrado em vez de iluminado. */
+.rodape__sol {
+  --sol-cor: rgb(250 196 0 / 0.07);
+  bottom: -70%;
+  left: 50%;
+  width: min(120rem, 220vw);
+  translate: -50% 0;
+  z-index: 0;
+}
+
+.rodape__interior {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* ---------------------------------------------------------------------------
+   Assinatura
+   ------------------------------------------------------------------------- */
+
+.marca--completa {
+  display: grid;
+  gap: 0.65rem;
+  justify-items: start;
+}
+
+.marca__topo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.marca--completa .marca__letreiro {
+  width: clamp(10rem, 26vw, 14rem);
+  color: var(--color-bege);
+}
+
+.marca__flor {
+  width: clamp(2.75rem, 7vw, 4rem);
+  height: auto;
+}
+
+.marca__base {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+
+.marca__descritor {
+  font-family: var(--font-faixa);
+  font-size: clamp(0.68rem, 1.6vw, 0.82rem);
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--color-claro-fraco);
+}
+
+.marca__numero {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  background: var(--grad-petala);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.rodape__grito {
+  margin-top: 1.25rem;
+  font-family: var(--font-mao);
+  font-size: clamp(1.5rem, 5vw, 2.35rem);
+  line-height: 1.05;
+  color: var(--color-amarelo);
+}
+
+/* ---------------------------------------------------------------------------
+   Colunas
+   ------------------------------------------------------------------------- */
+
+.rodape__rotulo {
+  margin-bottom: 1rem;
+  font-family: var(--font-faixa);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-amarelo);
+}
+
+.rodape__mapa ul,
+.rodape__redes {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rodape__mapa a,
+.rodape__redes a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.2rem 0;
+  font-size: 1.0625rem;
+  color: var(--color-bege);
+  text-decoration: none;
+  transition: color 0.16s var(--ease-saida);
+}
+
+.rodape__mapa a:hover,
+.rodape__redes a:hover {
+  color: var(--color-amarelo);
+}
+
+.rodape__arroba {
+  margin-top: 1.25rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--color-amarelo);
+}
+
+.rodape__site {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.9375rem;
+  color: var(--color-claro-fraco);
+}
+
+/* ---------------------------------------------------------------------------
+   Legal
+   ------------------------------------------------------------------------- */
+
+.rodape__legal {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 0.4rem;
+  /* O balão de compartilhar é fixo no canto: a folga extra embaixo evita que
+     ele cubra o bloco legal, que é informação obrigatória. */
+  padding-block: 1.5rem 5.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-bege) 18%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-claro-fraco);
+}
+
+@media (min-width: 52rem) {
+  .rodape__interior {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3rem;
+  }
+  .rodape__legal {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+  }
+  .rodape__legal p:last-child {
+    padding-right: 12rem;
+    text-align: right;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Botão flutuante de compartilhar
+   ------------------------------------------------------------------------- */
+
+.compartilhar {
+  position: fixed;
+  right: clamp(0.85rem, 3vw, 1.75rem);
+  bottom: clamp(0.85rem, 3vw, 1.75rem);
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.15rem;
+  border: 3px solid var(--color-vinho);
+  border-radius: 999px;
+  background: var(--color-amarelo);
+  color: var(--color-vinho);
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--color-vinho);
+  transition:
+    transform 0.18s var(--ease-saida),
+    box-shadow 0.18s var(--ease-saida);
+}
+
+.compartilhar:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--color-vinho);
+}
+
+.compartilhar__texto {
+  display: none;
+}
+
+@media (min-width: 30rem) {
+  .compartilhar__texto {
+    display: inline;
+  }
+}

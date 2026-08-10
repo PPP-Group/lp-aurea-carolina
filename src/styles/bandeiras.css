@@ -1,0 +1,249 @@
+/* ============================================================================
+   BANDEIRAS
+   ----------------------------------------------------------------------------
+   A parede de lambe-lambe. Sete blocos de cor cheia, cada um com o compromisso
+   curto na frente e o argumento inteiro atrás do clique.
+
+   O `<details>` fechado mostra a versão enxuta do documento; aberto, mostra a
+   versão completa. Fundo escuro para todas: assim a paleta pode aparecer em
+   100%, como o manual prefere para peça de campanha.
+   ========================================================================== */
+
+.bandeiras {
+  background: var(--color-preto);
+  color: var(--color-bege);
+}
+
+.bandeiras__cabeca {
+  max-width: 44rem;
+}
+
+.bandeiras__tarja {
+  color: var(--color-amarelo);
+  margin-bottom: 1rem;
+}
+
+.bandeiras__titulo {
+  --traco: 0.028em;
+  --cor-traco: var(--color-preto);
+  --sombra: 0.035em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: var(--text-mega);
+  color: var(--color-bege);
+}
+
+.bandeiras__apoio {
+  margin-top: 1.25rem;
+  color: var(--color-claro-fraco);
+}
+
+/* `align-items: start` para que abrir uma bandeira não estique as vizinhas
+   junto com ela e deixe metade de um bloco de cor vazio. O `min-height` na
+   caixa é o que mantém a parede alinhada enquanto todas estão fechadas. */
+.bandeiras__lista {
+  display: grid;
+  align-items: start;
+  gap: 0.75rem;
+  margin: clamp(2.25rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Cada bandeira
+   ------------------------------------------------------------------------- */
+
+.bandeira {
+  --tinta: var(--color-bege);
+}
+
+.bandeira[data-cor='roxo'] {
+  --fundo: var(--color-roxo-fundo);
+}
+.bandeira[data-cor='laranja'] {
+  --fundo: var(--color-laranja);
+  --tinta: var(--color-vinho);
+}
+.bandeira[data-cor='amarelo'] {
+  --fundo: var(--color-amarelo);
+  --tinta: var(--color-vinho);
+}
+.bandeira[data-cor='verde'] {
+  --fundo: var(--color-verde);
+}
+.bandeira[data-cor='vinho'] {
+  --fundo: var(--color-vinho);
+}
+
+.bandeira__caixa {
+  border-radius: 1.25rem;
+  background: var(--fundo);
+  color: var(--tinta);
+  overflow: hidden;
+  transition: transform 0.22s var(--ease-saida);
+}
+
+.bandeira__caixa:hover {
+  transform: translateY(-3px);
+}
+
+.bandeira__topo {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  padding: clamp(1.35rem, 3vw, 1.9rem);
+  cursor: pointer;
+  list-style: none;
+}
+
+.bandeira__topo::-webkit-details-marker {
+  display: none;
+}
+
+.bandeira__icone {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid color-mix(in srgb, currentColor 40%, transparent);
+  border-radius: 999px;
+}
+
+.bandeira__dizer {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bandeira__titulo {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* Cor cheia, sem transparência: descontar opacidade aqui sairia direto do
+   contraste, e estes pares já trabalham perto do mínimo. */
+.bandeira__chamada {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.bandeira__abrir {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 15%, transparent);
+  transition: transform 0.25s var(--ease-saida);
+}
+
+.bandeira__caixa[open] .bandeira__abrir {
+  transform: rotate(45deg);
+}
+
+/* A chamada é o resumo do compromisso; o corpo é o compromisso inteiro, e o
+   primeiro parágrafo dele diz a mesma coisa com mais palavras. Aberta, a
+   bandeira mostra só a versão completa — repetir seria fazer a pessoa ler
+   duas vezes para chegar ao que ela clicou para ver. */
+.bandeira__caixa[open] .bandeira__chamada {
+  display: none;
+}
+
+.bandeira__corpo {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0 clamp(1.35rem, 3vw, 1.9rem) clamp(1.5rem, 3vw, 2rem);
+  font-size: 1rem;
+  line-height: 1.58;
+}
+
+/* A linha que separa a chamada do argumento inteiro. */
+.bandeira__corpo::before {
+  content: '';
+  height: 2px;
+  margin-bottom: 0.35rem;
+  background: color-mix(in srgb, currentColor 28%, transparent);
+}
+
+/* No celular a coluna do ícone comeria um terço da largura do texto. Aqui o
+   ícone sobe para a linha do título e a chamada ocupa a caixa inteira.
+   `display: contents` dissolve o embrulho para que título e chamada participem
+   da mesma grade do topo. */
+@media (max-width: 34rem) {
+  .bandeira__topo {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'icone titulo abrir'
+      'chamada chamada chamada';
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .bandeira__icone {
+    grid-area: icone;
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .bandeira__dizer {
+    display: contents;
+  }
+
+  .bandeira__titulo {
+    grid-area: titulo;
+  }
+
+  .bandeira__chamada {
+    grid-area: chamada;
+  }
+
+  .bandeira__abrir {
+    grid-area: abrir;
+  }
+}
+
+@media (min-width: 46rem) {
+  .bandeiras__lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Com as chamadas variando de duas a cinco linhas, este piso deixa a parede
+     alinhada sem obrigar cada caixa a acompanhar a mais alta da fileira. */
+  .bandeira__caixa {
+    min-height: 13rem;
+  }
+}
+
+@media (min-width: 72rem) {
+  .bandeiras__lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* São sete bandeiras numa grade de três. A primeira e a última ocupam duas
+     colunas: fecha a grade sem sobra e, de quebra, dá o lugar mais largo às
+     duas que mais precisam dele — "Mulheres vivas", que atravessa a trajetória
+     inteira dela, e "De olho no STF", que fecha a seção. */
+  .bandeira:first-child,
+  .bandeira:last-child {
+    grid-column: span 2;
+  }
+
+  /* Na caixa larga o texto vai para o lado do título, em vez de escorrer para
+     baixo e deixar meio bloco vazio. */
+  .bandeira:first-child .bandeira__dizer,
+  .bandeira:last-child .bandeira__dizer {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .bandeira:first-child .bandeira__titulo,
+  .bandeira:last-child .bandeira__titulo {
+    font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+  }
+}

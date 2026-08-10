@@ -1,0 +1,25 @@
+{
+  "name": "lp-aurea-carolina",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing page de campanha - Áurea Carolina 500 - Senado Federal por Minas Gerais",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "lenis": "^1.1.20",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "puppeteer-core": "^25.5.0",
+    "tailwindcss": "^4.1.0",
+    "vite": "^6.3.5"
+  }
+}

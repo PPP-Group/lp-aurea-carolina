@@ -1,0 +1,225 @@
+/* ============================================================================
+   BARRA E MENU
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  transform: translateY(-101%);
+  transition: transform 0.34s var(--ease-saida);
+}
+
+.nav[data-visivel='sim'] {
+  transform: none;
+}
+
+.nav__interior {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  min-height: 4.25rem;
+  padding-block: 0.6rem;
+}
+
+.nav__marca {
+  flex: none;
+  text-decoration: none;
+}
+
+/* ---------- A marca em linha ---------- */
+
+.marca--linha {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.marca--linha .marca__letreiro {
+  width: 7.5rem;
+  color: var(--color-bege);
+}
+
+.marca__numero--pequeno {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--grad-petala);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Links ---------- */
+
+.nav__links {
+  display: none;
+  gap: clamp(0.6rem, 1.6vw, 1.6rem);
+  margin-inline: auto;
+}
+
+.nav__link {
+  position: relative;
+  padding: 0.4rem 0.15rem;
+  font-family: var(--font-leitura);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--color-bege) 78%, transparent);
+  text-decoration: none;
+  transition: color 0.18s var(--ease-saida);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  inset: auto 0.15rem -0.1rem;
+  height: 3px;
+  background: var(--grad-petala);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.24s var(--ease-saida);
+}
+
+.nav__link:hover,
+.nav__link[aria-current] {
+  color: var(--color-bege);
+}
+.nav__link[aria-current]::after,
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Chamada de voto ---------- */
+
+.nav__voto {
+  display: none;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-amarelo);
+  color: var(--color-vinho);
+  text-decoration: none;
+  transition: transform 0.18s var(--ease-saida);
+}
+.nav__voto:hover {
+  transform: translateY(-2px);
+}
+
+.nav__voto-rotulo {
+  font-family: var(--font-faixa);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav__voto-numero {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
+}
+
+/* ---------- Botão do menu ---------- */
+
+.nav__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+  padding: 0.55rem 1rem;
+  border: 2px solid color-mix(in srgb, var(--color-bege) 45%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-bege);
+  font-family: var(--font-faixa);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (min-width: 62rem) {
+  .nav__links,
+  .nav__voto {
+    display: flex;
+  }
+  .nav__botao {
+    display: none;
+  }
+  .marca--linha .marca__letreiro {
+    width: 9rem;
+  }
+}
+
+/* ---------- Painel do celular ---------- */
+
+.painel {
+  position: fixed;
+  inset: var(--nav-altura) 0 0;
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 6vw, 3rem) 3rem;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  overflow-y: auto;
+}
+
+.painel__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.painel__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-bege) 20%, transparent);
+  color: inherit;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(-1rem);
+  animation: painel-entrar 0.42s var(--ease-saida) forwards;
+  animation-delay: var(--atraso);
+}
+
+.painel__rotulo {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.painel__link svg {
+  flex: none;
+  color: var(--color-amarelo);
+}
+
+.painel__voto {
+  align-self: flex-start;
+}
+
+@keyframes painel-entrar {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .painel__link {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

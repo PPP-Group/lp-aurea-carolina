@@ -1,0 +1,179 @@
+﻿/* ============================================================================
+   QUEM SOU EU
+   ----------------------------------------------------------------------------
+   O painel de papel. Fundo bege, coluna de leitura estreita, tipografia
+   calma. Depois do cartaz, é aqui que a página baixa a voz.
+   ========================================================================== */
+
+.quem {
+  background: var(--color-papel);
+}
+
+.quem__interior {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+.quem__tarja {
+  color: var(--color-roxo-tinta);
+  margin-bottom: 1.1rem;
+}
+
+/* "Título de paz": o manual reserva o peso leve da Origin para os momentos em
+   que a marca não está gritando. Este é um deles. */
+.quem__titulo {
+  font-weight: 300;
+  font-size: var(--text-mega);
+  letter-spacing: -0.035em;
+  color: var(--color-vinho);
+}
+
+.quem__texto {
+  display: grid;
+  gap: 1.15rem;
+  max-width: var(--largura-leitura);
+  margin-top: 1.75rem;
+  color: var(--color-tinta);
+}
+
+/* O parágrafo que a campanha escreveu como virada do texto. Sai da coluna,
+   ganha barra e escala: é o argumento inteiro em quatro frases. */
+.quem__destaque {
+  position: relative;
+  max-width: 44rem;
+  margin: 2.5rem 0 0;
+  padding: 1.5rem 0 1.5rem clamp(1.25rem, 3vw, 2.25rem);
+  border-left: 6px solid var(--color-roxo);
+}
+
+.quem__destaque p {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: var(--text-medio);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--color-vinho);
+}
+
+.quem__fecho {
+  max-width: var(--largura-leitura);
+  margin-top: 2rem;
+  color: var(--color-tinta);
+}
+
+/* ---------------------------------------------------------------------------
+   Figura
+   ------------------------------------------------------------------------- */
+
+.quem__figura {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+}
+
+.quem__figura img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  max-width: 24rem;
+}
+
+.quem__sol {
+  --sol-cor: rgb(204 58 160 / 0.22);
+  top: 42%;
+  left: 50%;
+  width: min(120%, 34rem);
+  translate: -50% -50%;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Princípios
+
+   Três blocos de cor cheia. O manual manda dar protagonismo a amarelo, bege,
+   vinho e roxo, e deixar laranja, verde e preto como complementares: é
+   exatamente essa a divisão aqui — os complementares aparecem uma vez cada,
+   nesta faixa, e não voltam a pintar fundo em nenhuma outra seção.
+   ------------------------------------------------------------------------- */
+
+.quem__principios {
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+}
+
+.quem__tarja--principios {
+  color: var(--color-vinho);
+  margin-bottom: 1.5rem;
+}
+
+.principios {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.principio {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: 1.25rem;
+  background: var(--principio-fundo);
+  color: var(--principio-tinta);
+}
+
+.principio[data-cor='laranja'] {
+  --principio-fundo: var(--color-laranja);
+  --principio-tinta: var(--color-vinho);
+}
+.principio[data-cor='roxo'] {
+  --principio-fundo: var(--color-roxo-fundo);
+  --principio-tinta: var(--color-bege);
+}
+.principio[data-cor='verde'] {
+  --principio-fundo: var(--color-verde);
+  --principio-tinta: var(--color-bege);
+}
+
+.principio__titulo {
+  font-size: var(--text-medio);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Sem transparência: sobre cor cheia, cada ponto percentual descontado aqui
+   sai direto do contraste, e estes pares já trabalham perto do mínimo. */
+.principio__texto {
+  margin-top: 0.85rem;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--principio-tinta);
+}
+
+.principios__fecho {
+  max-width: 42rem;
+  margin-top: 2rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: var(--text-sub);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--color-vinho);
+}
+
+@media (min-width: 52rem) {
+  .principios {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 62rem) {
+  .quem__interior {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+  .quem__figura img {
+    max-width: none;
+  }
+}

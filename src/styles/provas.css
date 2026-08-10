@@ -1,0 +1,143 @@
+/* ============================================================================
+   O QUE JÁ FOI FEITO
+   ----------------------------------------------------------------------------
+   O painel escuro da página. Vinho Araçá de fundo, números no degradê da
+   pétala. É o contraponto ao bege da seção anterior: a biografia conversa, o
+   número afirma.
+   ========================================================================== */
+
+.provas {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+}
+
+.provas__sol {
+  --sol-cor: rgb(250 196 0 / 0.1);
+  top: -25%;
+  right: -30%;
+  width: min(130rem, 190vw);
+  z-index: 0;
+}
+
+.provas__interior {
+  position: relative;
+  z-index: 2;
+}
+
+.provas__tarja {
+  color: var(--color-amarelo);
+  margin-bottom: 1rem;
+}
+
+.provas__titulo {
+  --traco: 0.03em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.035em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: var(--text-mega);
+  color: var(--color-bege);
+}
+
+.provas__lista {
+  display: grid;
+  gap: 1px;
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  padding: 0;
+  list-style: none;
+  background: color-mix(in srgb, var(--color-bege) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-bege) 22%, transparent);
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.prova {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  background: var(--color-vinho);
+}
+
+.prova__valor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.32em;
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.prova__digitos {
+  background: var(--grad-petala);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Os dois grandes: os votos. Ganham o dobro de corpo e, no desktop, metade da
+   grade cada um. */
+.prova[data-largo='sim'] .prova__valor {
+  font-size: clamp(3rem, 9vw, 5.25rem);
+}
+
+.prova__quase,
+.prova__unidade {
+  font-family: var(--font-faixa);
+  font-weight: 400;
+  font-size: 0.3em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-claro-fraco);
+}
+
+/* "quase" qualifica o valor inteiro, então ocupa a linha de cima sozinho. Ao
+   lado do número ele disputaria a leitura com a unidade. */
+.prova__quase {
+  flex-basis: 100%;
+  margin-bottom: 0.1em;
+}
+
+.prova__valor--palavra {
+  font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+  letter-spacing: -0.03em;
+  background: var(--grad-petala);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.prova__rotulo {
+  margin-top: 0.35rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-bege);
+  text-wrap: balance;
+}
+
+.prova__detalhe {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--color-claro-fraco);
+}
+
+@media (min-width: 46rem) {
+  .provas__lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 68rem) {
+  .provas__lista {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .prova[data-largo='sim'] {
+    grid-column: span 2;
+  }
+}

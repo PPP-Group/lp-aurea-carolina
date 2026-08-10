@@ -1,0 +1,83 @@
+/* ============================================================================
+   FAIXA CORRIDA
+   ----------------------------------------------------------------------------
+   A tarja de fonte expandida que costura os painéis. Nos cartazes ela é
+   estática; aqui corre, devagar, porque a página é longa e a faixa é o que
+   marca a passagem de um assunto para o outro.
+   ========================================================================== */
+
+.faixa {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding-block: 0.85rem;
+  border-block: 3px solid var(--faixa-borda, transparent);
+  background: var(--faixa-fundo);
+  color: var(--faixa-tinta);
+  user-select: none;
+}
+
+.faixa--amarela {
+  --faixa-fundo: var(--color-amarelo);
+  --faixa-tinta: var(--color-vinho);
+  --faixa-borda: var(--color-vinho);
+}
+
+.faixa--vinho {
+  --faixa-fundo: var(--color-vinho);
+  --faixa-tinta: var(--color-amarelo);
+  --faixa-borda: var(--color-vinho);
+}
+
+.faixa--roxa {
+  --faixa-fundo: var(--color-roxo-fundo);
+  --faixa-tinta: var(--color-bege);
+  --faixa-borda: var(--color-vinho);
+}
+
+.faixa__pista {
+  display: flex;
+  width: max-content;
+  animation: faixa-correr var(--duracao) linear infinite;
+}
+
+.faixa__trilho {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.faixa__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding-right: 1.15rem;
+  font-family: var(--font-faixa);
+  font-size: clamp(0.85rem, 2vw, 1.15rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.faixa__ponto {
+  width: 0.5em;
+  height: 0.5em;
+  flex: none;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+@keyframes faixa-correr {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Parada, a faixa continua fazendo o seu trabalho: separar dois painéis e
+   repetir o slogan. */
+@media (prefers-reduced-motion: reduce) {
+  .faixa__pista {
+    animation: none;
+  }
+}

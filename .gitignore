@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+
+# Material bruto da identidade visual (PSD, AI, fontes originais) — pesado
+# e não faz parte do site em si. Os assets já processados vivem em public/.
+/Documentos/
+
+# Capturas de revisão geradas pelos scripts/*.mjs, não são parte do site.
+/shots/
+/shots-prod/
+.impeccable/

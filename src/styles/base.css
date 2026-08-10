@@ -1,0 +1,336 @@
+/* ============================================================================
+   BASE · A GRAMÁTICA DO CARTAZ
+   ----------------------------------------------------------------------------
+   O manual da campanha não descreve um site, descreve cartazes. Esta folha
+   traduz aquela gramática para a tela: a tarja de fonte expandida, o título
+   com contorno e sombra dura, o sol de filamentos, o grão.
+
+   Tudo que se repete em mais de uma seção mora aqui. O que é de uma seção só
+   mora na folha da seção.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--font-leitura);
+  font-size: var(--text-corpo);
+  line-height: 1.62;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-roxo);
+  color: var(--color-bege);
+}
+
+/* Foco visível e da cor da marca. Nunca remover. */
+:where(a, button, summary, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-roxo);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.pular {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 999;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  font-family: var(--font-faixa);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-saida);
+}
+.pular:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   Contêiner
+   ------------------------------------------------------------------------- */
+
+.limite {
+  width: min(100% - 2.5rem, var(--largura-max));
+  margin-inline: auto;
+}
+
+@media (max-width: 30rem) {
+  .limite {
+    width: calc(100% - 2rem);
+  }
+}
+
+.secao {
+  position: relative;
+  padding-block: var(--espaco-secao);
+  overflow: clip;
+}
+
+/* ---------------------------------------------------------------------------
+   TARJA · a fonte expandida como elemento de estrutura
+
+   "A fonte expandida funciona muito bonita para preencher espaços, aproveite
+   desse recurso." (manual, p. 22). É o rótulo que abre cada seção e a faixa
+   que corre entre elas.
+   ------------------------------------------------------------------------- */
+
+.tarja {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-faixa);
+  font-size: clamp(0.72rem, 1.4vw, 0.95rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.tarja--caixa {
+  padding: 0.55em 0.9em 0.5em;
+  background: var(--color-vinho);
+  color: var(--color-amarelo);
+}
+
+.tarja__marca {
+  width: 0.62em;
+  height: 0.62em;
+  flex: none;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* ---------------------------------------------------------------------------
+   TÍTULO DE CARTAZ · contorno + sombra dura
+
+   Regra do manual, p. 22: "Usamos linhas em volta do texto e sombras duras -
+   recurso que funciona melhor na fonte de peso bold a black. Se a linha ao
+   redor funcionar da cor do fundo, melhor ainda."
+
+   `paint-order: stroke fill` é o que faz o contorno crescer para fora da letra
+   em vez de comer o desenho dela por dentro.
+   ------------------------------------------------------------------------- */
+
+.cartaz {
+  --traco: 0.055em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.05em;
+  --cor-sombra: var(--color-roxo);
+
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  line-height: 0.88;
+  /* O contorno cresce para fora da letra e come o espaço entre elas. Sem esta
+     folga positiva, palavras como COMPROMISSOS empastelam. */
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
+  -webkit-text-stroke: var(--traco) var(--cor-traco);
+  paint-order: stroke fill;
+  text-shadow: var(--sombra) var(--sombra) 0 var(--cor-sombra);
+}
+
+/* ---------------------------------------------------------------------------
+   O SOL DE PEQUI · o grafismo assinatura
+
+   A flor de pequi tem filamentos radiais que o manual descreve como
+   "lembrança distante do símbolo antigo e energia solar". Nos cartazes eles
+   viram raios saindo de trás da Áurea. Aqui são um `repeating-conic-gradient`
+   mascarado, que gira devagar. É o único movimento contínuo da página.
+   ------------------------------------------------------------------------- */
+
+.sol {
+  position: absolute;
+  aspect-ratio: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--sol-cor, rgb(255 255 255 / 0.4)) 0deg 1.25deg,
+    transparent 1.25deg 5deg
+  );
+  mask-image: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    #000 14%,
+    #000 62%,
+    transparent 78%
+  );
+  animation: sol-girar 240s linear infinite;
+}
+
+.sol--denso {
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--sol-cor, rgb(255 255 255 / 0.4)) 0deg 0.7deg,
+    transparent 0.7deg 3deg
+  );
+}
+
+@keyframes sol-girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   GRÃO
+
+   "Para adicionar textura usamos apenas um grão simples." Uma camada só, no
+   topo da composição, sem tocar em nada clicável.
+   ------------------------------------------------------------------------- */
+
+.grao::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------------
+   BOTÕES
+   ------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.75rem;
+  border: 3px solid var(--color-vinho);
+  border-radius: 999px;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s var(--ease-saida),
+    box-shadow 0.18s var(--ease-saida),
+    background-color 0.18s var(--ease-saida);
+}
+
+.btn--forte {
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  box-shadow: 5px 5px 0 var(--color-roxo);
+}
+
+.btn--vazado {
+  background: transparent;
+  color: var(--color-vinho);
+  box-shadow: 5px 5px 0 transparent;
+}
+
+.btn--claro {
+  border-color: var(--color-bege);
+  background: var(--color-bege);
+  color: var(--color-vinho);
+  box-shadow: 5px 5px 0 var(--color-roxo);
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--color-roxo);
+}
+.btn--vazado:hover {
+  background: var(--color-vinho);
+  color: var(--color-bege);
+}
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--color-roxo);
+}
+
+/* ---------------------------------------------------------------------------
+   REVELAÇÃO NO SCROLL
+
+   Um deslocamento curto e uma opacidade. Nada de escala, nada de blur: a
+   página tem muito peso visual, o movimento aqui só precisa dar ritmo.
+   ------------------------------------------------------------------------- */
+
+.revelar {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.7s var(--ease-saida),
+    transform 0.7s var(--ease-saida);
+  transition-delay: var(--atraso, 0ms);
+}
+
+.revelar[data-visivel='sim'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------------
+   PREFERÊNCIA POR MENOS MOVIMENTO
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .revelar {
+    opacity: 1;
+    transform: none;
+  }
+}

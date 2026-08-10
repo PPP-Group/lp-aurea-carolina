@@ -1,0 +1,166 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   TOKENS · ÁUREA CAROLINA 500
+   ----------------------------------------------------------------------------
+   Tudo aqui vem do manual "Sotaque · Identidade Visual · Áurea Carolina 2026"
+   (estúdio Cambia). Os hexadecimais são os oficiais da página CORES. Não crie
+   tons novos: derive com color-mix a partir destes.
+
+   O manual define a proporção de uso, e ela é a espinha do site:
+   amarelo protagonista, bege como papel de leitura, vinho e roxo em seguida.
+   Laranja, verde e preto são complementares, entram para compor e saturar.
+
+   A leitura que este site faz da paleta:
+     amarelo  = o sol, a rua, o cartaz. É onde a campanha grita.
+     bege     = o papel. É onde a Áurea conversa.
+     vinho    = a tinta e a noite. É onde ficam as provas e os números.
+     roxo     = o toque. Marca o que é dela: o 500, o destaque, o link.
+     verde    = o território. Serra, água, cerrado.
+   ========================================================================== */
+
+@theme {
+  /* ---------- Cores oficiais ---------- */
+  --color-amarelo: #fac400; /* Amarelo Carambola */
+  --color-bege: #ffe8c7; /* Bege Palha */
+  --color-roxo: #cc3aa0; /* Roxo Bougainville */
+  --color-laranja: #ff5a3d; /* Laranja Papaya */
+  --color-vinho: #50002b; /* Vinho Araçá */
+  --color-preto: #1f0d17; /* Preto Pedra Sabão */
+  --color-verde: #365928; /* Verde Louro */
+
+  /* ---------- Derivados de leitura ----------
+     Só existem para garantir contraste de texto. Todos saem das sete acima.
+
+     O Roxo Bougainville puro é um meio-tom: bege sobre ele dá 3,76:1, que
+     serve para título grande mas reprova para texto corrido (o mínimo é
+     4,5:1). Onde o roxo é fundo de leitura, entra a versão aprofundada com
+     20% de Vinho Araçá — 4,80:1, e a olho continua sendo o mesmo roxo. O roxo
+     puro segue valendo para sombra dura, contorno, ponto de tarja e detalhe. */
+  --color-papel: #fff4e2; /* bege clareado: fundo de leitura longa */
+  --color-papel-fundo: #f6dfbe; /* bege recuado: divisórias, campos */
+  --color-roxo-fundo: #b32e89; /* roxo 80% + vinho 20%: superfície com texto */
+  --color-roxo-tinta: #b32e89; /* o mesmo tom, para rótulo sobre bege/papel */
+  --color-tinta: #2e0018; /* vinho aprofundado: texto sobre claro */
+  --color-tinta-fraca: #6d3b55; /* texto secundário sobre claro */
+  --color-claro-fraco: #e4c6a4; /* texto secundário sobre vinho/preto */
+
+  /* ---------- Tipografia ----------
+     Quatro vozes, exatamente como o manual prescreve:
+
+     Origin        títulos. Arredondada, confortável, próxima. Black para o
+                   impacto ("títulos de impacto"), Light para o respiro
+                   ("títulos de paz").
+     Special Gothic Expanded
+                   faixas e rótulos. O manual manda usar a expandida para
+                   preencher espaço, e é o que ela faz aqui: as tarjas que
+                   costuram as seções.
+     Bobby Jones   a letra da mão. Entra duas vezes na página inteira, nos
+                   momentos em que a campanha fala na primeira pessoa.
+     Instrument Sans
+                   texto corrido e uso geral. */
+  --font-titulo: 'Origin', 'Arial Black', system-ui, sans-serif;
+  --font-faixa: 'Special Gothic Expanded', 'Arial Narrow', system-ui, sans-serif;
+  --font-mao: 'Bobby Jones Soft', 'Origin', system-ui, sans-serif;
+  --font-leitura: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+
+  /* ---------- Escala ----------
+     O corpo assenta em 18px. Esta página precisa ser lida sem esforço tanto
+     por quem tem 18 anos e chegou pelo Instagram quanto por quem tem 70 e
+     abriu o link que a filha mandou no WhatsApp. Nada de corpo 14. */
+  --text-cartaz: clamp(3.2rem, 12vw, 9.5rem); /* o grito do herói */
+  --text-mega: clamp(2.4rem, 6.2vw, 5rem);
+  --text-alt: clamp(1.9rem, 4.4vw, 3.2rem);
+  --text-medio: clamp(1.35rem, 2.4vw, 1.9rem);
+  --text-sub: clamp(1.1rem, 1.5vw, 1.3rem);
+  --text-corpo: clamp(1.0625rem, 0.4vw + 1rem, 1.225rem);
+  --text-mini: 0.8125rem;
+
+  /* ---------- Ritmo ---------- */
+  --espaco-secao: clamp(4.5rem, 9vw, 8.5rem);
+  --largura-max: 82rem;
+  --largura-leitura: 38rem;
+
+  /* ---------- Movimento ---------- */
+  --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-entrada: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- O gradiente da pétala ----------
+     O manual diz: "usaremos os degradês presentes na flor de pequi áurea como
+     elemento gráfico de campanha, mesmo que a flor não esteja presente na
+     peça". É este. Ele pinta o 500, os anos da trajetória e os números. */
+  --grad-petala: linear-gradient(105deg, var(--color-amarelo), var(--color-laranja));
+  --grad-noite: linear-gradient(105deg, var(--color-roxo), var(--color-laranja));
+}
+
+:root {
+  /* O Nav mede a própria altura e sobrescreve isto. O valor abaixo só vale no
+     primeiro quadro e quando não há JS. */
+  --nav-altura: 4.5rem;
+}
+
+/* ============================================================================
+   FONTES
+   ----------------------------------------------------------------------------
+   Servidas do próprio domínio, em woff2 já enxugado para latim + acentuação
+   portuguesa. Ficam aqui, e não na folha-mestre, porque `@font-face` é regra e
+   precisaria vir depois de todos os `@import`.
+
+   Origin e Bobby Jones são fontes licenciadas: o pacote da identidade trouxe a
+   pasta Web-PS/Web-TT da Origin (ou seja, licença web contratada). Confirme a
+   licença web da Bobby Jones antes de publicar.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Origin';
+  src: url('/fonts/Origin-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Origin';
+  src: url('/fonts/Origin-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Origin';
+  src: url('/fonts/Origin-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Origin';
+  src: url('/fonts/Origin-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Special Gothic Expanded';
+  src: url('/fonts/SpecialGothicExpanded.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bobby Jones Soft';
+  src: url('/fonts/BobbyJonesSoft.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Variable.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}

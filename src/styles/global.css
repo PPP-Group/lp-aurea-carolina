@@ -1,0 +1,16 @@
+/* Folha-mestre. A ordem importa: tokens primeiro, base depois, e só então as
+   seções — que herdam tudo e podem sobrescrever sem precisar de !important. */
+
+@import './tokens.css';
+@import './base.css';
+
+@import './nav.css';
+@import './faixa.css';
+@import './hero.css';
+@import './quem.css';
+@import './provas.css';
+@import './trajetoria.css';
+@import './bandeiras.css';
+@import './urna.css';
+@import './pecas.css';
+@import './rodape.css';

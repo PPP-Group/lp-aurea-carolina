@@ -1,0 +1,167 @@
+﻿/* ============================================================================
+   TRAJETÓRIA
+   ----------------------------------------------------------------------------
+   Coluna de anos. O fio que liga um marco ao outro é o mesmo degradê da
+   pétala, e os três anos de eleição (2016, 2018, 2026) recebem o degradê no
+   próprio número. O olho desce a coluna e para exatamente neles.
+   ========================================================================== */
+
+.trajetoria {
+  background: var(--color-bege);
+}
+
+.trajetoria__tarja {
+  color: var(--color-roxo-tinta);
+  margin-bottom: 1rem;
+}
+
+.trajetoria__titulo {
+  max-width: 20ch;
+  font-weight: 300;
+  font-size: var(--text-mega);
+  letter-spacing: -0.035em;
+  color: var(--color-vinho);
+}
+
+/* `--fio` é a distância do fio até a borda esquerda da lista. Tudo — o ponto,
+   o recuo do texto, a caixa do último marco — se posiciona a partir dele, para
+   que mudar a coluna dos anos no desktop seja mudar uma linha só. */
+.trajetoria__linha {
+  --fio: 0.55rem;
+  --recuo: 2.4rem;
+
+  position: relative;
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* O fio. Nasce no primeiro marco e morre no último, não nas bordas da lista. */
+.trajetoria__linha::before {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  bottom: 2.5rem;
+  left: var(--fio);
+  width: 3px;
+  translate: -1px 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-vinho) 22%, transparent),
+    var(--color-laranja) 45%,
+    var(--color-amarelo)
+  );
+}
+
+.marco {
+  position: relative;
+  padding-left: var(--recuo);
+}
+
+/* O ponto sobre o fio. */
+.marco::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  left: calc(var(--fio) - 0.55rem);
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 3px solid var(--color-bege);
+  border-radius: 999px;
+  background: var(--color-vinho);
+}
+
+.marco[data-marco='sim']::before {
+  top: 0.3rem;
+  left: calc(var(--fio) - 0.75rem);
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--grad-petala);
+}
+
+.marco__ano {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.marco__digitos {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-vinho);
+}
+
+.marco[data-marco='sim'] .marco__digitos {
+  background: var(--grad-petala);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.marco__ate {
+  font-family: var(--font-faixa);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-tinta-fraca);
+}
+
+.marco__texto {
+  max-width: 46rem;
+  margin-top: 0.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--color-tinta);
+}
+
+/* O último marco é o presente: ganha caixa, e é a única do bloco. */
+.marco[data-agora='sim'] .marco__texto {
+  margin-top: 0.75rem;
+  padding: clamp(1.1rem, 2.5vw, 1.5rem) clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: 1.15rem;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+   Desktop: o ano sai de cima do texto e vai para uma coluna própria, à
+   esquerda do fio. A leitura passa a ser "ano — o que aconteceu", que é como
+   se lê uma linha do tempo no papel, e o vão vazio à esquerda some.
+   ------------------------------------------------------------------------- */
+
+@media (min-width: 56rem) {
+  .trajetoria__linha {
+    --fio: 9.25rem;
+    --recuo: 0rem;
+  }
+
+  .marco {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    column-gap: 3.5rem;
+    align-items: start;
+  }
+
+  .marco__ano {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .marco__texto {
+    margin-top: 0;
+  }
+
+  /* Os anos com intervalo ("2004 até 2006") empilham, senão a coluna teria de
+     crescer para caber os dois na mesma linha. */
+  .marco__ano {
+    display: grid;
+    justify-items: end;
+    gap: 0.1rem;
+  }
+}
