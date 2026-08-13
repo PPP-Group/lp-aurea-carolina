@@ -15,6 +15,7 @@ import { Trajetoria } from './components/trajetoria/Trajetoria.jsx'
 import { Bandeiras } from './components/bandeiras/Bandeiras.jsx'
 import { Urna } from './components/urna/Urna.jsx'
 import { Pecas } from './components/pecas/Pecas.jsx'
+import { Apoiar } from './components/apoiar/Apoiar.jsx'
 
 /* A ordem da página é a ordem de uma conversa de rua:
 
@@ -56,6 +57,8 @@ export default function App() {
         <Urna />
 
         <Pecas />
+
+        <Apoiar />
       </main>
 
       <Rodape />

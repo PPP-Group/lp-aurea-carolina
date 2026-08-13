@@ -6,9 +6,10 @@ import { Icone } from './Icone.jsx'
 /* A barra.
 
    Fica escondida enquanto o herói ocupa a tela inteira — o cartaz não precisa
-   de moldura — e desce quando a pessoa passa dele. Some ao rolar para baixo e
-   volta ao rolar para cima, que é o gesto de quem está procurando alguma
-   coisa.
+   de moldura — e some, uma vez só, no exato momento em que a pessoa passa
+   dele. Depois disso ela fica fixa: não some mais ao rolar para baixo, que é
+   o comportamento que fazia a barra piscar em qualquer rolagem — inclusive as
+   pequenas que o Lenis dispara o tempo todo.
 
    No celular o menu abre em painel cheio, com alvos de toque grandes: é a
    parte da página que mais precisa funcionar para quem tem 70 anos e está
@@ -17,16 +18,10 @@ export function Nav({ secaoAtiva }) {
   const [visivel, setVisivel] = useState(false)
   const [aberto, setAberto] = useState(false)
   const barra = useRef(null)
-  const ultimo = useRef(0)
 
   useEffect(() => {
     const medir = () => {
-      const y = window.scrollY
-      const passouOHeroi = y > window.innerHeight * 0.85
-      const subindo = y < ultimo.current
-
-      setVisivel(passouOHeroi && (subindo || y < ultimo.current + 4))
-      ultimo.current = y
+      setVisivel(window.scrollY > window.innerHeight * 0.85)
 
       if (barra.current) {
         document.documentElement.style.setProperty(

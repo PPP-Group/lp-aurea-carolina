@@ -1,0 +1,153 @@
+/* ============================================================================
+   QUERO APOIAR A CAMPANHA
+   ----------------------------------------------------------------------------
+   O convite final antes do rodapé. Vinho de fundo — o mesmo painel escuro das
+   provas — porque esta seção também afirma: não é mais "veja o que eu fiz",
+   é "venha fazer comigo". Quatro portas em cor cheia, na mesma gramática das
+   bandeiras, pra fechar a página com o vocabulário que ela já ensinou.
+   ========================================================================== */
+
+.apoiar {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+}
+
+.apoiar__sol {
+  --sol-cor: rgb(250 196 0 / 0.1);
+  bottom: -30%;
+  left: -20%;
+  width: min(120rem, 190vw);
+  z-index: 0;
+}
+
+.apoiar__cabeca {
+  position: relative;
+  z-index: 2;
+  max-width: 44rem;
+}
+
+.apoiar__tarja {
+  color: var(--color-amarelo);
+  margin-bottom: 1rem;
+}
+
+.apoiar__titulo {
+  --traco: 0.028em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.035em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: var(--text-mega);
+  color: var(--color-bege);
+}
+
+.apoiar__apoio {
+  margin-top: 1.25rem;
+  color: var(--color-claro-fraco);
+}
+
+.portas {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 1rem;
+  margin: clamp(2.25rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.porta {
+  --tinta: var(--color-bege);
+}
+
+.porta[data-cor='verde'] {
+  --fundo: var(--color-verde);
+}
+.porta[data-cor='laranja'] {
+  --fundo: var(--color-laranja);
+  --tinta: var(--color-vinho);
+}
+.porta[data-cor='roxo'] {
+  --fundo: var(--color-roxo-fundo);
+}
+.porta[data-cor='amarelo'] {
+  --fundo: var(--color-amarelo);
+  --tinta: var(--color-vinho);
+}
+
+.porta__caixa {
+  display: grid;
+  gap: 0.75rem;
+  height: 100%;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 1.25rem;
+  background: var(--fundo);
+  color: var(--tinta);
+  text-decoration: none;
+  transition:
+    transform 0.22s var(--ease-saida),
+    box-shadow 0.22s var(--ease-saida);
+}
+
+.porta__caixa:hover,
+.porta__caixa:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0 var(--color-preto);
+}
+
+.porta__icone {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid color-mix(in srgb, currentColor 40%, transparent);
+  border-radius: 999px;
+}
+
+.porta__titulo {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(1.2rem, 2.6vw, 1.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.porta__texto {
+  font-size: 0.9875rem;
+  line-height: 1.5;
+}
+
+.porta__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--font-faixa);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.porta__cta svg {
+  transition: transform 0.18s var(--ease-saida);
+}
+
+.porta__caixa:hover .porta__cta svg {
+  transform: translateX(3px);
+}
+
+@media (min-width: 40rem) {
+  .portas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 68rem) {
+  .portas {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

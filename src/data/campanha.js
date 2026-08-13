@@ -350,6 +350,61 @@ export const pecas = {
 }
 
 /* ---------------------------------------------------------------------------
+   QUERO APOIAR A CAMPANHA
+   Quatro portas de entrada, na ordem do menor para o maior compromisso: ler no
+   zap, aparecer numa atividade, doar, e — pra quem mora longe de BH — pedir
+   material. Cada uma cai numa cor cheia diferente, como as bandeiras.
+   ------------------------------------------------------------------------- */
+
+export const apoiar = {
+  tarja: 'Quero apoiar a campanha',
+  titulo: 'Toda ajuda entra no jogo',
+  apoio: 'Não dá pra vencer sozinha. Escolhe como você quer estar dentro dessa campanha.',
+  itens: [
+    {
+      id: 'zap',
+      titulo: 'Entra no grupo do zap',
+      texto:
+        'Recebe as novidades da campanha, as convocações e o material pra compartilhar direto no seu WhatsApp.',
+      cta: 'Entrar no grupo',
+      href: 'https://chat.whatsapp.com/Bfb3e2bsvrt1SWnUV7f8kB',
+      icone: 'whatsapp',
+      cor: 'verde',
+    },
+    {
+      id: 'bonde',
+      titulo: 'Entra no Bonde da Áurea',
+      texto:
+        'Seja voluntária ou voluntário: ajuda na rua, na militância, nas redes. Todo mundo tem lugar no bonde.',
+      cta: 'Quero ser voluntária(o)',
+      href: 'https://docs.google.com/forms/d/e/1FAIpQLSftATtjysqWaWVUUiztqOoTIfzu3P_u-J9HG7DmdjxCuHAYgA/viewform',
+      icone: 'mao',
+      cor: 'laranja',
+    },
+    {
+      id: 'doacao',
+      titulo: 'Faz uma doação',
+      texto:
+        'Campanha popular se sustenta com quem acredita nela. Qualquer valor ajuda a levar a Áurea pra mais gente.',
+      cta: 'Doar agora',
+      href: 'https://doarpara.com.br/aurea',
+      icone: 'coracao',
+      cor: 'roxo',
+    },
+    {
+      id: 'material',
+      titulo: 'Recebe material no interior',
+      texto:
+        'Mora fora de Belo Horizonte? Pede santinho e adesivo da campanha pra levar pro seu município pelo grupo do zap.',
+      cta: 'Pedir pelo zap',
+      href: 'https://chat.whatsapp.com/Bfb3e2bsvrt1SWnUV7f8kB',
+      icone: 'caixa',
+      cor: 'amarelo',
+    },
+  ],
+}
+
+/* ---------------------------------------------------------------------------
    NAVEGAÇÃO
    ------------------------------------------------------------------------- */
 
@@ -360,6 +415,7 @@ export const secoes = [
   { id: 'bandeiras', rotulo: 'Bandeiras' },
   { id: 'urna', rotulo: 'Seu voto' },
   { id: 'pecas', rotulo: 'Peças' },
+  { id: 'apoiar', rotulo: 'Apoiar' },
 ]
 
 export const redes = [
