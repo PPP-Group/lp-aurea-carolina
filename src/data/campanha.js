@@ -1,13 +1,13 @@
 /* ============================================================================
    CONTEÚDO DA CAMPANHA
    ----------------------------------------------------------------------------
-   Todo texto abaixo veio do documento "TEXTOS SITE ÁUREA.docx", enviado para
-   aprovação. Não reescreva aqui: se a redação mudar, ela muda no documento e
-   depois neste arquivo.
+   Todo texto abaixo veio do documento "TEXTOS SITE ÁUREA" (versão atualizada),
+   enviado para aprovação. Não reescreva aqui: se a redação mudar, ela muda no
+   documento e depois neste arquivo.
 
-   O documento entregou as bandeiras em duas versões, uma enxuta e uma
-   completa. As duas são usadas: a enxuta é a chamada do cartão, a completa é
-   o que abre quando a pessoa quer saber mais.
+   O documento atualizado entrega cada bandeira em dois parágrafos corridos,
+   sem versão curta separada. `chamada` é o primeiro parágrafo, literal;
+   `completa` guarda o segundo, que só aparece quando a pessoa abre o cartão.
    ========================================================================== */
 
 export const identidade = {
@@ -48,11 +48,10 @@ export const quem = {
   titulo: 'Sou Áurea Carolina',
   paragrafos: [
     'Nasci em Tucuruí, no Pará, e vim pra Belo Horizonte ainda criança. Cresci no bairro João Pinheiro, estudei em escola pública a vida inteira e sou mãe solo. Antes de qualquer cargo que eu tenha ocupado, sou de uma família de mulheres batalhadoras.',
-    'Formei em Ciências Sociais na UFMG, com bolsa de assistência estudantil. Fiz especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona e mestrado em Ciência Política, também na UFMG.',
-    'Entrei pra política pelos movimentos sociais: juventude periférica, movimento negro, movimento de mulheres. Não vim de família com nome na política, nem tinha dinheiro pra campanha.',
+    'Me formei em Ciências Sociais na UFMG, com bolsa de assistência estudantil. Fiz especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona e mestrado em Ciência Política, também na UFMG.',
   ],
   destaque:
-    'Em 2016, fiz história ao me tornar a vereadora mais votada de Belo Horizonte. Em 2018, a mulher mais votada de Minas Gerais para deputada federal. Nas duas vezes, quase ninguém apostava. Nas duas vezes, o povo decidiu diferente.',
+    'Entrei na política pelos movimentos sociais: juventude periférica, movimento negro, movimento de mulheres. Não vim de família com nome na política, nem tinha dinheiro pra fazer uma grande campanha. Em 2016, fiz história ao me tornar a vereadora mais votada de Belo Horizonte. Em 2018, fui a mulher mais votada de Minas Gerais para deputada federal. Nas duas vezes, quase ninguém apostava que seria possível. Nas duas vezes, o povo decidiu pela vitória.',
   fecho:
     'Sou cientista política e educadora popular. Criei, com outras mulheres, a Gabinetona, o primeiro mandato coletivo e popular de Belo Horizonte. Fui vice-presidenta da CPI de Brumadinho. Sou uma das 100 jovens negras mais influentes do mundo, segundo o MIPAD/ONU.',
 }
@@ -63,7 +62,7 @@ export const principios = {
     {
       titulo: 'Coragem pra enfrentar',
       texto:
-        'As pautas duras eu enfrento de frente, sem medir palavra pra não incomodar quem sempre teve poder.',
+        'As pautas duras eu enfrento no papo reto, sem medir palavras pra não incomodar quem sempre teve poder.',
       cor: 'laranja',
     },
     {
@@ -73,14 +72,14 @@ export const principios = {
       cor: 'roxo',
     },
     {
-      titulo: 'Compromisso com quem historicamente não teve vez',
+      titulo: 'Compromisso com quem foi historicamente deixado de lado',
       texto:
-        'Mulheres, população negra, periferia, juventude. É pra essa gente que eu trabalho.',
+        'Mulheres, população negra, periferias, juventudes. É ao lado dessas pessoas que eu quero estar.',
       cor: 'verde',
     },
   ],
   fecho:
-    'Ninguém chega no Senado por acaso. Eu cheguei até aqui com trabalho, formação e povo do meu lado. É assim que eu sigo.',
+    'Ninguém chega no Senado por acaso. Eu cheguei até aqui com trabalho, formação e o povo do meu lado. É assim que eu sigo.',
 }
 
 /* ---------------------------------------------------------------------------
@@ -127,7 +126,7 @@ export const provas = {
     {
       palavra: 'Brumadinho',
       rotulo: 'Vice-presidenta da CPI que apurou o desastre',
-      detalhe: 'Câmara dos Deputados',
+      detalhe: 'Indiciou 14 pessoas por homicídio, entre elas o ex-presidente da Vale',
     },
   ],
 }
@@ -171,7 +170,7 @@ export const trajetoria = {
     {
       ano: '2016',
       texto:
-        'Sou eleita vereadora de Belo Horizonte com 17.420 votos, a mais votada da cidade, pelo PSOL. Nasce a Gabinetona, mandato coletivo e popular que construo com Cida Falabella e Bella Gonçalves.',
+        'Sou eleita vereadora de Belo Horizonte com 17.420 votos, a mais votada da cidade, pelo PSOL. Construímos a Gabinetona, mandato aberto, coletivo e popular, ao lado de Cida Falabella e Bella Gonçalves.',
       marco: true,
     },
     {
@@ -184,7 +183,7 @@ export const trajetoria = {
       ano: '2019',
       ate: '2022',
       texto:
-        'No mandato federal, sou vice-presidenta da CPI de Brumadinho, tenho 9 projetos de lei aprovados, entre eles o Aldir Blanc e o Morada Segura, e destino quase R$ 70 milhões em emendas parlamentares definidas por consulta popular, através do programa Emenda Geral.',
+        'No mandato federal, sou vice-presidenta da CPI de Brumadinho, tenho 9 projetos de lei aprovados e destino quase R$ 70 milhões em emendas parlamentares por consulta popular, através do Emenda Geral.',
     },
     {
       ano: '2019',
@@ -195,16 +194,30 @@ export const trajetoria = {
       texto: 'Recebo o Prêmio Congresso em Foco na categoria Clima e Sustentabilidade.',
     },
     {
+      ano: '2022',
+      texto:
+        'Integro a equipe de transição do governo Lula, no grupo de trabalho da Cultura, que ajudou a reconstruir o Ministério da Cultura e garantir orçamento para as políticas culturais.',
+    },
+    {
       ano: '2023',
       texto:
-        'Assumo a Diretoria Executiva do NOSSAS. Sou selecionada para o Democracy Fellowship, da Keseb.',
+        'Assumo a Diretoria Executiva do NOSSAS (que hoje se chama BONDE), organização de mobilização social e formação ativista, comprometida com democracia e justiça social.',
+    },
+    {
+      ano: '2023',
+      texto:
+        'Sou selecionada para integrar o Keseb Democracy Fellowship, programa internacional dedicado ao fortalecimento da democracia.',
     },
     {
       ano: '2024',
       texto:
         'Recebo homenagem da UFMG como a parlamentar que mais destinou recursos de emendas individuais em toda a história da instituição.',
     },
-    { ano: '2025', texto: 'Sou selecionada para o Tällberg Leaders Mentoring Leaders.' },
+    {
+      ano: '2025',
+      texto:
+        'Sou selecionada para o Tällberg Leaders Mentoring Leaders, programa internacional de mentoria para lideranças emergentes.',
+    },
     {
       ano: '2026',
       texto: 'Sou candidata ao Senado Federal por Minas Gerais, pelo PSOL.',
@@ -216,7 +229,8 @@ export const trajetoria = {
 
 /* ---------------------------------------------------------------------------
    BANDEIRAS
-   `chamada` é a versão 2 do documento (enxuta). `completa` é a versão 1.
+   `chamada` é o primeiro parágrafo do documento; `completa` guarda o segundo,
+   que só entra na tela quando a pessoa abre o cartão.
    ------------------------------------------------------------------------- */
 
 export const bandeiras = {
@@ -231,10 +245,9 @@ export const bandeiras = {
       cor: 'roxo',
       icone: 'flor',
       chamada:
-        'Chega de violência e de feminicídio. Precisamos de mais políticas de prevenção, educação para o respeito e orçamento garantido pra proteger mulheres e suas famílias.',
+        'Chega de violência e de feminicídio. A gente quer fortalecer as políticas de prevenção, garantir educação para o respeito e lutar por um percentual fixo de emendas parlamentares para o enfrentamento da violência contra mulheres e meninas, para que a rede de proteção funcione de verdade, com delegacia especializada, casa abrigo e atendimento psicossocial em todos os municípios.',
       completa: [
-        'Chega de violência e de feminicídio. Queremos fortalecer as políticas de prevenção, a educação para o respeito e garantir orçamento para que a rede de proteção funcione de verdade.',
-        'Essa luta atravessa minha trajetória. Em Belo Horizonte, apresentei o Morada Segura, que virou lei e garante prioridade em programas habitacionais para mulheres em situação de violência atendidas pelos serviços públicos. No Congresso, integrei comissões dedicadas ao enfrentamento da violência doméstica e da violência contra as mulheres.',
+        'Essa luta atravessa minha trajetória. Em Belo Horizonte, apresentei o Morada Segura, que virou lei e garante prioridade em programas habitacionais para mulheres em situação de violência atendidas pelos serviços públicos. No Congresso, integrei comissões dedicadas ao enfrentamento da violência doméstica e da violência contra as mulheres. No Senado, quero levar a Lei Maria da Penha pra dentro das escolas, cobrar responsabilização das plataformas pela violência digital contra mulher e avançar num pacto nacional pelo fim do feminicídio, com financiamento garantido.',
       ],
     },
     {
@@ -243,10 +256,9 @@ export const bandeiras = {
       cor: 'laranja',
       icone: 'coracao',
       chamada:
-        'Saúde pública de qualidade, perto de casa, com profissional valorizado. O cuidado tem que chegar onde o povo vive.',
+        'Acreditamos no SUS e vamos lutar para fortalecê-lo. Saúde perto de casa, atenção básica funcionando, saúde mental levada a sério e profissional valorizado são prioridades. O cuidado precisa chegar onde as pessoas vivem e reduzir as desigualdades entre as regiões de Minas.',
       completa: [
-        'Acreditamos no SUS e vamos lutar para fortalecê-lo.',
-        'Saúde perto de casa, atenção básica funcionando, atendimento de qualidade e profissionais valorizados são prioridade. O cuidado precisa chegar onde as pessoas vivem e reduzir as desigualdades entre as diferentes regiões de Minas.',
+        'No Senado, quero defender financiamento federal permanente para atenção básica e saúde mental, com prioridade para os municípios do interior. Defendo recompor o recurso que hoje falta na rede de saúde mental e rever a destinação de dinheiro público que vai pra comunidade terapêutica em vez de ir pro cuidado de verdade.',
       ],
     },
     {
@@ -255,11 +267,9 @@ export const bandeiras = {
       cor: 'amarelo',
       icone: 'relogio',
       chamada:
-        'Trabalho decente e renda digna. Enfrentamento à precarização e valorização de quem tá no corre, em Minas inteira.',
+        'As pessoas precisam trabalhar para viver, e não viver para trabalhar. Defendo o fim da escala 6x1, trabalho decente, renda que acompanhe o custo de vida e políticas de cuidado pra quem cuida de criança, de idoso e de pessoa doente.',
       completa: [
-        'As pessoas precisam trabalhar para viver, e não viver para trabalhar.',
-        'Defendemos trabalho decente, renda digna, enfrentamento à precarização e valorização de quem está no corre todos os dias.',
-        'A vida precisa caber para além do trabalho. Precisamos de tempo para descansar, cuidar, conviver, amar e aproveitar tudo aquilo que também dá sentido à nossa existência.',
+        'Quem entrega comida de app, quem é diarista, quem faz bico atrás de bico merece proteção que hoje não existe. No Senado, vou brigar pelo fim da escala 6x1, pela atualização da legislação trabalhista pra alcançar autônomo, intermitente, diarista e entregador, e por políticas de cuidado como direito, não como favor.',
       ],
     },
     {
@@ -268,12 +278,9 @@ export const bandeiras = {
       cor: 'verde',
       icone: 'serra',
       chamada:
-        'A riqueza de Minas está na gente, nas águas e nos territórios. Enfrentamos a mineração predatória e defendemos justiça climática de verdade.',
+        'Minas Gerais conhece bem o preço de um modelo de mineração que coloca o lucro acima das pessoas e dos territórios. Defendo nossas serras, nossas águas, nossas comunidades e a soberania sobre as riquezas do nosso estado.',
       completa: [
-        'Minas Gerais conhece bem o preço de um modelo de mineração que coloca o lucro acima das pessoas e dos territórios.',
-        'Eu defendo nossas serras, nossas águas, nossas comunidades e a soberania sobre as riquezas do nosso estado.',
-        'No Congresso, atuei diretamente na resposta ao desastre de Brumadinho e na construção de propostas para tornar a mineração mais segura e ampliar a proteção das populações atingidas. Também fui vice-presidenta da CPI de Brumadinho.',
-        'Para mim, justiça climática também é justiça social. Não existe desenvolvimento em terra arrasada.',
+        'No Senado, quero soberania sobre mineral estratégico como lítio e terras raras, pra que Jequitinhonha e Sul de Minas não sejam só fonte de riqueza pra quem já tem poder. Defendo a responsabilização criminal de verdade pelos crimes de mineração, não só acordo que monetiza o crime. Justiça climática também é justiça social. Não existe desenvolvimento em terra arrasada.',
       ],
     },
     {
@@ -282,11 +289,9 @@ export const bandeiras = {
       cor: 'vinho',
       icone: 'chave',
       chamada:
-        'Cultura também é trabalho. Investir em cultura é gerar renda, preservar tradição e fortalecer quem faz cultura em Minas Gerais.',
-      completa: [
         'Cultura é identidade, memória, trabalho e renda. É parte de quem somos e também uma força importante da nossa economia.',
-        'Na Câmara dos Deputados, fui vice-presidenta da Comissão de Cultura e participei da construção da Lei de Emergência Cultural Aldir Blanc, que levou recursos para o setor durante a pandemia. Também fui proponente do Marco Regulatório do Fomento à Cultura, posteriormente transformado na Lei 14.903/2024.',
-        'Precisamos de mais investimento, reconhecimento e oportunidades para quem faz a cultura acontecer em Minas Gerais.',
+      completa: [
+        'No Senado, quero taxar as plataformas de streaming que hoje lucram com a produção cultural brasileira sem devolver nada pro país, e usar esse recurso pra manter o fomento à cultura de pé em Minas Gerais.',
       ],
     },
     {
@@ -295,10 +300,9 @@ export const bandeiras = {
       cor: 'laranja',
       icone: 'escudo',
       chamada:
-        'Internet segura para todas as idades. Precisamos de responsabilização das plataformas e atendimento rápido a quem foi vítima de golpe digital.',
+        'Lutamos por uma internet segura para pessoas de todas as idades. A conta do golpe não pode ficar com quem foi enganado.',
       completa: [
-        'Lutamos por uma internet segura para pessoas de todas as idades.',
-        'A conta do golpe não pode ficar com quem foi enganado. Defendemos prevenção, proteção de dados, responsabilização das plataformas e atendimento rápido para quem for vítima de golpes digitais.',
+        'A plataforma lucra com anúncios fraudulentos, independentemente de quem cai. No Senado, quero levar esse debate além do discurso de "dever de cuidado": defendo responsabilização financeira direta das plataformas, com devolução da receita de anúncios fraudulentos pra quem foi vítima.',
       ],
     },
     {
@@ -307,10 +311,8 @@ export const bandeiras = {
       cor: 'roxo',
       icone: 'balanca',
       chamada:
-        'Ninguém está acima da lei. Lutamos por um Supremo transparente, comprometido com a Constituição e mais representativo do Brasil real.',
+        'Ninguém está acima da lei. Precisamos de um Supremo Tribunal Federal forte, transparente, representativo e comprometido com a Constituição e com a defesa da democracia.',
       completa: [
-        'Ninguém está acima da lei.',
-        'Precisamos de um Supremo Tribunal Federal forte, transparente, representativo e comprometido com a Constituição e com a defesa da democracia.',
         'As instituições brasileiras precisam refletir a diversidade do nosso povo. O Brasil nunca teve uma ministra negra no STF. Está mais do que na hora de mudar essa história.',
       ],
     },
