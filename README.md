@@ -66,36 +66,30 @@ latim e acentuação portuguesa (153 KB no total):
 
 ## Deploy no EasyPanel (VPS Hostinger)
 
-O projeto builda com `Dockerfile` na raiz: uma etapa Node compila o site,
-a segunda serve o resultado com nginx. A imagem final não carrega Node nem
-`node_modules` — só `dist/` e um servidor estático.
+O serviço no EasyPanel usa **Build Method: Nixpacks**, igual aos outros sites
+da conta — sem preencher Install/Build/Start Command, e é assim mesmo que
+deve ficar.
 
-No EasyPanel:
+**A regra que importa:** o `package.json` não pode ter um script `"start"`.
 
-1. **App → Create Service → App**, aponte pro repositório Git.
-2. **Build Method: Dockerfile** (não "Nixpacks", não "Buildpack"). O
-   `Dockerfile` já está na raiz e o EasyPanel detecta sozinho.
-3. **Port: 80** — é a porta que o `nginx.conf` expõe (`EXPOSE 80`).
-4. Configure o domínio e peça o certificado (o EasyPanel cuida do Let's
-   Encrypt). Sem domínio configurado o serviço ainda responde pelo endereço
-   interno, útil pra conferir antes de apontar o DNS.
-5. Deploy. Build leva ~1min; a imagem final fica em torno de 30 MB (nginx
-   alpine + `dist/`, sem toolchain).
+O Nixpacks tem detecção automática pra apps Vite + React sem servidor
+próprio: builda o projeto e serve `dist/` com Caddy, sozinho, sem precisar de
+nenhum campo preenchido no EasyPanel. Essa detecção só entra em ação quando
+não existe script `start` — se existir, o Nixpacks usa ele sem questionar. O
+`package.json` deste projeto teve um `"start": "vite"` — servidor de
+*desenvolvimento*, nunca destinado a produção — e é isso que o Nixpacks
+rodava a cada deploy: build nunca acontecia, o navegador recebia o
+`index.html` de dev apontando pra `/src/main.jsx` cru, e a tela ficava
+branca (erro de MIME type no console é a marca registrada disso).
 
-**Por que a tela ficava em branco antes.** Não havia `Dockerfile`: o
-`package.json` tinha `"start": "vite"`, que sobe o servidor de
-*desenvolvimento* do Vite — não serve o build de produção, não abre porta
-pra fora do container sem `--host`, e não segue a porta que a plataforma
-espera. Uma plataforma que detecta isto como "app Node" tende a rodar
-`npm start` e reportar o deploy como bem-sucedido (o processo sobe), mas
-o proxy nunca alcança nada — daí a tela branca mesmo com "deploy ok".
-Duas correções resolvem: o `Dockerfile` (caminho recomendado, serve com
-nginx) e, como cinto de segurança, o `start` agora builda e serve com
-`vite preview --host 0.0.0.0` — funciona mesmo se alguma plataforma
-ignorar o Dockerfile e cair no fallback de buildpack Node.
+Correção: **nenhum script `start` no `package.json`**. Se algum dia for
+adicionar um (rodar um linter antes do build, por exemplo), dê outro nome —
+`start` é a palavra reservada que o Nixpacks intercepta.
 
-Pra testar a imagem localmente antes de subir (precisa de Docker
-instalado):
+Existe também um `Dockerfile` na raiz (build Node → serve com nginx),
+funcional e testado, mas não é o caminho usado por este serviço — fica como
+alternativa caso o Build Method mude no futuro. Pra testar essa imagem
+localmente (precisa de Docker):
 
 ```bash
 docker build -t aurea-carolina .
