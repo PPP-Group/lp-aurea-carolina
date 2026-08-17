@@ -66,36 +66,56 @@ latim e acentuação portuguesa (153 KB no total):
 
 ## Deploy no EasyPanel (VPS Hostinger)
 
-O serviço no EasyPanel usa **Build Method: Nixpacks**, igual aos outros sites
-da conta — sem preencher Install/Build/Start Command, e é assim mesmo que
-deve ficar.
+O serviço usa **Build Method: Nixpacks**, sem preencher Install/Build/Start
+Command — igual aos outros sites da conta, e é assim que deve ficar. O
+Nixpacks detecta Vite + React, roda `npm run build` e serve o resultado com
+Caddy, sozinho.
 
-**A regra que importa:** o `package.json` não pode ter um script `"start"`.
+**O arquivo que não pode sumir: `nixpacks.toml`.**
 
-O Nixpacks tem detecção automática pra apps Vite + React sem servidor
-próprio: builda o projeto e serve `dist/` com Caddy, sozinho, sem precisar de
-nenhum campo preenchido no EasyPanel. Essa detecção só entra em ação quando
-não existe script `start` — se existir, o Nixpacks usa ele sem questionar. O
-`package.json` deste projeto teve um `"start": "vite"` — servidor de
-*desenvolvimento*, nunca destinado a produção — e é isso que o Nixpacks
-rodava a cada deploy: build nunca acontecia, o navegador recebia o
-`index.html` de dev apontando pra `/src/main.jsx` cru, e a tela ficava
-branca (erro de MIME type no console é a marca registrada disso).
+O Caddy que o Nixpacks configura monta a raiz assim:
 
-Correção: **nenhum script `start` no `package.json`**. Se algum dia for
-adicionar um (rodar um linter antes do build, por exemplo), dê outro nome —
-`start` é a palavra reservada que o Nixpacks intercepta.
+```
+root * ../app/{$NIXPACKS_SPA_OUTPUT_DIR}
+```
 
-Existe também um `Dockerfile` na raiz (build Node → serve com nginx),
-funcional e testado, mas não é o caminho usado por este serviço — fica como
-alternativa caso o Build Method mude no futuro. Pra testar essa imagem
-localmente (precisa de Docker):
+Se essa variável chegar vazia no runtime, o caminho vira `../app/` — a raiz
+do código-fonte, não o `dist/`. O Caddy passa a servir o `index.html` de
+desenvolvimento, que aponta para `/src/main.jsx`, e o navegador recusa o
+módulo:
+
+```
+Failed to load module script: Expected a JavaScript-or-Wasm module script
+but the server responded with a MIME type of "".
+```
+
+Tela branca — com o log do deploy dizendo "Success", porque o build de fato
+funcionou. O `nixpacks.toml` na raiz fixa `NIXPACKS_SPA_OUTPUT_DIR = 'dist'`
+e resolve na origem.
+
+**Como confirmar que está certo depois de um deploy:**
 
 ```bash
-docker build -t aurea-carolina .
-docker run -p 8080:80 aurea-carolina
-# abra http://localhost:8080
+curl -s https://aureacarolina.com.br/ | grep -o '<script[^>]*>'
 ```
+
+Deve sair `src="/assets/index-<hash>.js"`. Se sair `src="/src/main.jsx"`, o
+Caddy voltou a servir a raiz errada. Outro teste rápido: `curl -I
+https://aureacarolina.com.br/package.json` deve dar **404**. Se der 200 com
+JSON de verdade, é a mesma falha — o `package.json` não existe dentro de
+`dist/`, então respondê-lo prova que a raiz está no lugar errado.
+
+**Sobre o `Dockerfile` e o `nginx.conf` na raiz:** não são usados por este
+serviço (o Nixpacks gera o próprio Dockerfile). Ficam como alternativa caso o
+Build Method mude. O `.dockerignore`, esse sim, é usado — mantém o contexto
+de build enxuto e impede que um `dist/` local sobrescreva o que foi buildado
+no servidor.
+
+**Peso do build:** o `puppeteer-core` em devDependencies faz o Nixpacks
+instalar Chromium e as bibliotecas GTK na imagem, o que engorda o deploy sem
+necessidade — ele só é usado pelos scripts de revisão em `scripts/`. Dá para
+enxugar movendo esses scripts para fora do projeto, se o tempo de deploy
+incomodar.
 
 ---
 
