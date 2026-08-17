@@ -2,30 +2,19 @@
 # NIXPACKS · variáveis da imagem final
 # ------------------------------------------------------------------------------
 # O EasyPanel builda este projeto com Nixpacks (Build Method: Nixpacks). O
-# Nixpacks detecta Vite + React e serve o site com Caddy, usando este template:
+# Nixpacks detecta Vite + React e serve o site com Caddy como SPA.
 #
-#     root * ../app/{$NIXPACKS_SPA_OUTPUT_DIR}
+# A variável oficial do Nixpacks para definir o diretório estático é:
+#     NIXPACKS_SPA_OUT_DIR = 'dist'
 #
-# Ou seja: o diretório servido é montado a partir dessa variável. Se ela chegar
-# vazia no runtime, o caminho vira `../app/` — a RAIZ DO CÓDIGO-FONTE, não o
-# `dist/`. O Caddy então serve o `index.html` de desenvolvimento, aquele que
-# aponta para `/src/main.jsx`, e o navegador recusa o módulo com
-# "Expected a JavaScript-or-Wasm module script but the server responded with a
-# MIME type of ''". Tela branca, com o build tendo passado sem erro nenhum.
-#
-# Foi exatamente o que aconteceu aqui: o build gerava `dist/` corretamente
-# (dava para baixar o bundle real em /dist/assets/index-*.js), mas o Caddy
-# estava com a raiz em /app. Fixar a variável aqui resolve na origem.
-#
-# As três primeiras são as que o próprio Nixpacks injeta para projetos Node.
-# Estão repetidas de propósito: assim, se a leitura deste arquivo substituir o
-# conjunto de variáveis em vez de somar a ele, nada essencial se perde. Em
-# especial NPM_CONFIG_PRODUCTION=false, sem a qual o `npm ci` pularia as
-# devDependencies e o build morreria em "vite: not found".
+# Se essa variável faltar ou estiver com nome incorreto, o Caddy monta a raiz
+# em /app (código-fonte), servindo o index.html de dev com <script src="/src/main.jsx">
+# e causando erro de MIME type no navegador.
 # ==============================================================================
 
 [variables]
 NODE_ENV = 'production'
 NPM_CONFIG_PRODUCTION = 'false'
 CI = 'true'
+NIXPACKS_SPA_OUT_DIR = 'dist'
 NIXPACKS_SPA_OUTPUT_DIR = 'dist'
