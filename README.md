@@ -66,53 +66,22 @@ latim e acentuação portuguesa (153 KB no total):
 
 ## Deploy no EasyPanel (VPS Hostinger)
 
-O serviço usa **Build Method: Nixpacks**, sem preencher Install/Build/Start
-Command — igual aos outros sites da conta, e é assim que deve ficar. O
-Nixpacks detecta Vite + React, roda `npm run build` e serve o resultado com
-Caddy, sozinho.
+O serviço usa **Build Method: Nixpacks**, sem configurações manuais complexas.
 
-**O arquivo que não pode sumir: `nixpacks.toml`.**
+O projeto utiliza um servidor de produção nativo em Node.js ([server.js](file:///C:/Users/pedro/Documents/antigravity-projects/lp-aurea-carolina/server.js)) acionado via script `"start": "node server.js"` no `package.json`.
 
-O Caddy que o Nixpacks configura monta a raiz assim:
+O fluxo do Nixpacks funciona automaticamente:
+1. `npm ci` — instala as dependências sem pacotes desnecessários.
+2. `npm run build` — compila os arquivos do Vite para `dist/`.
+3. `npm run start` — executa `server.js`, servindo `dist/` com fallback SPA, compressão Gzip, headers de cache e MIME types estritos.
 
-```
-root * ../app/{$NIXPACKS_SPA_OUTPUT_DIR}
-```
-
-Se essa variável chegar vazia no runtime, o caminho vira `../app/` — a raiz
-do código-fonte, não o `dist/`. O Caddy passa a servir o `index.html` de
-desenvolvimento, que aponta para `/src/main.jsx`, e o navegador recusa o
-módulo:
-
-```
-Failed to load module script: Expected a JavaScript-or-Wasm module script
-but the server responded with a MIME type of "".
-```
-
-Tela branca — com o log do deploy dizendo "Success", porque o build de fato
-funcionou. O `nixpacks.toml` na raiz fixa `NIXPACKS_SPA_OUTPUT_DIR = 'dist'`
-e resolve na origem.
-
-**Como confirmar que está certo depois de um deploy:**
+**Como confirmar que está certo após o deploy:**
 
 ```bash
-curl -s https://aureacarolina.com.br/ | grep -o '<script[^>]*>'
+curl.exe -s https://aureacarolina.com.br/ | Select-String '<script'
 ```
 
-Deve sair `src="/assets/index-<hash>.js"`. Se sair `src="/src/main.jsx"`, o
-Caddy voltou a servir a raiz errada. Outro teste rápido: `curl -I
-https://aureacarolina.com.br/package.json` deve dar **404**. Se der 200 com
-JSON de verdade, é a mesma falha — o `package.json` não existe dentro de
-`dist/`, então respondê-lo prova que a raiz está no lugar errado.
-
-**Sobre o `Dockerfile` e o `nginx.conf` na raiz:** não são usados por este
-serviço (o Nixpacks gera o próprio Dockerfile). Ficam como alternativa caso o
-Build Method mude. O `.dockerignore`, esse sim, é usado — mantém o contexto
-de build enxuto e impede que um `dist/` local sobrescreva o que foi buildado
-no servidor.
-
-**Peso do build:** o `puppeteer-core` em devDependencies faz o Nixpacks
-instalar Chromium e as bibliotecas GTK na imagem, o que engorda o deploy sem
+Deve retornar `src="/assets/index-<hash>.js"`. Se retornar `src="/src/main.jsx"`, o servidor não estaria servindo `dist/`.
 necessidade — ele só é usado pelos scripts de revisão em `scripts/`. Dá para
 enxugar movendo esses scripts para fora do projeto, se o tempo de deploy
 incomodar.
