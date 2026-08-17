@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import zlib from 'node:zlib'
 
-const PORT = Number(process.env.PORT) || 80
+const PRIMARY_PORT = Number(process.env.PORT) || 80
 const DIST_DIR = path.resolve('dist')
 
 const MIME_TYPES = {
@@ -24,7 +24,7 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=utf-8',
 }
 
-const server = http.createServer((req, res) => {
+function handler(req, res) {
   const urlPath = decodeURIComponent(req.url.split('?')[0])
   let filePath = path.join(DIST_DIR, urlPath === '/' ? 'index.html' : urlPath)
 
@@ -68,8 +68,17 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, headers)
     raw.pipe(res)
   }
+}
+
+const server1 = http.createServer(handler)
+server1.listen(PRIMARY_PORT, '0.0.0.0', () => {
+  console.log(`Servidor de producao rodando na porta ${PRIMARY_PORT}`)
 })
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Producao rodando na porta ${PORT}`)
-})
+// Suporte adicional a porta 3000 caso o Easypanel esteja mapeado para ela
+if (PRIMARY_PORT !== 3000) {
+  const server2 = http.createServer(handler)
+  server2.listen(3000, '0.0.0.0', () => {
+    console.log('Servidor escutando tambem na porta 3000 (Easypanel)')
+  }).on('error', () => {})
+}

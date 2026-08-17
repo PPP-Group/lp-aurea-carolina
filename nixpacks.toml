@@ -1,0 +1,18 @@
+# ==============================================================================
+# NIXPACKS · Desativa Caddy e ativa Node.js Server nativo
+# ------------------------------------------------------------------------------
+# NIXPACKS_SPA_CADDY = 'false' impede que o Nixpacks suba o Caddy interno que
+# estava servindo a raiz de desenvolvimento (/app) em vez do dist/.
+# ==============================================================================
+
+[variables]
+NODE_ENV = 'production'
+NPM_CONFIG_PRODUCTION = 'false'
+CI = 'true'
+NIXPACKS_SPA_CADDY = 'false'
+
+[phases.build]
+cmds = ['npm run build']
+
+[start]
+cmd = 'node server.js'
