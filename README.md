@@ -64,6 +64,47 @@ latim e acentuação portuguesa (153 KB no total):
 
 ---
 
+## Deploy no EasyPanel (VPS Hostinger)
+
+O projeto builda com `Dockerfile` na raiz: uma etapa Node compila o site,
+a segunda serve o resultado com nginx. A imagem final não carrega Node nem
+`node_modules` — só `dist/` e um servidor estático.
+
+No EasyPanel:
+
+1. **App → Create Service → App**, aponte pro repositório Git.
+2. **Build Method: Dockerfile** (não "Nixpacks", não "Buildpack"). O
+   `Dockerfile` já está na raiz e o EasyPanel detecta sozinho.
+3. **Port: 80** — é a porta que o `nginx.conf` expõe (`EXPOSE 80`).
+4. Configure o domínio e peça o certificado (o EasyPanel cuida do Let's
+   Encrypt). Sem domínio configurado o serviço ainda responde pelo endereço
+   interno, útil pra conferir antes de apontar o DNS.
+5. Deploy. Build leva ~1min; a imagem final fica em torno de 30 MB (nginx
+   alpine + `dist/`, sem toolchain).
+
+**Por que a tela ficava em branco antes.** Não havia `Dockerfile`: o
+`package.json` tinha `"start": "vite"`, que sobe o servidor de
+*desenvolvimento* do Vite — não serve o build de produção, não abre porta
+pra fora do container sem `--host`, e não segue a porta que a plataforma
+espera. Uma plataforma que detecta isto como "app Node" tende a rodar
+`npm start` e reportar o deploy como bem-sucedido (o processo sobe), mas
+o proxy nunca alcança nada — daí a tela branca mesmo com "deploy ok".
+Duas correções resolvem: o `Dockerfile` (caminho recomendado, serve com
+nginx) e, como cinto de segurança, o `start` agora builda e serve com
+`vite preview --host 0.0.0.0` — funciona mesmo se alguma plataforma
+ignorar o Dockerfile e cair no fallback de buildpack Node.
+
+Pra testar a imagem localmente antes de subir (precisa de Docker
+instalado):
+
+```bash
+docker build -t aurea-carolina .
+docker run -p 8080:80 aurea-carolina
+# abra http://localhost:8080
+```
+
+---
+
 ## A ideia
 
 O manual não descreve um site, descreve cartazes. A página traduz aquela

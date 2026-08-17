@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.claude
+.impeccable
+Documentos
+shots
+shots-prod
+*.log
+.DS_Store
+.vite

@@ -6,9 +6,12 @@
   "description": "Landing page de campanha - Áurea Carolina 500 - Senado Federal por Minas Gerais",
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "start": "vite build && vite preview --host 0.0.0.0 --port 4173",
     "build": "vite build",
     "preview": "vite preview --port 4173"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "lenis": "^1.1.20",
