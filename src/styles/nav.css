@@ -58,7 +58,7 @@
 
 .nav__links {
   display: none;
-  gap: clamp(0.6rem, 1.6vw, 1.6rem);
+  gap: clamp(0.5rem, 1.3vw, 1.35rem);
   margin-inline: auto;
 }
 
@@ -70,6 +70,10 @@
   font-size: 0.95rem;
   color: color-mix(in srgb, var(--color-bege) 78%, transparent);
   text-decoration: none;
+  /* Cinto de segurança: se algum dia a barra apertar de novo, que ela estoure
+     de lado — visível e mensurável — em vez de quebrar o rótulo em duas linhas
+     e triplicar a altura da barra sem ninguém notar. */
+  white-space: nowrap;
   transition: color 0.18s var(--ease-saida);
 }
 
@@ -143,7 +147,11 @@
   cursor: pointer;
 }
 
-@media (min-width: 62rem) {
+/* 72rem, e não 62rem: com oito seções na barra os links não cabiam em 992px —
+   estouravam o interior em 20px e quebravam em duas linhas. Medido: só a
+   partir daqui os oito rótulos entram numa linha com folga. Abaixo disso o
+   menu em painel dá conta, e dá melhor. */
+@media (min-width: 72rem) {
   .nav__links,
   .nav__voto {
     display: flex;

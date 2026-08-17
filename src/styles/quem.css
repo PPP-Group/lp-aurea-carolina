@@ -64,29 +64,85 @@
 
 /* ---------------------------------------------------------------------------
    Figura
+
+   O recorte da Áurea termina numa linha reta: o arquivo corta a saia rente à
+   borda. Solto sobre o papel, esse corte aparece como o que é, um retângulo
+   interrompido.
+
+   Por isso ela ganha uma pílula: um bloco de bege recuado com as duas pontas
+   em meia-lua. O `999px` não vira 999px — o navegador reduz os raios até
+   caberem, e o que sobra é exatamente meia largura em cima e embaixo, que é a
+   definição da forma.
+
+   A curva de baixo é quem corta a saia agora, e corta redondo. O fade ajuda:
+   dissolve o centro da barra pouco antes da borda, então o que se vê nas
+   laterais é silhueta recortada em curva, e no meio é pano sumindo. O corte
+   reto do arquivo não aparece em lugar nenhum.
+
+   Ela é estreita em cima (só cabeça) e larga embaixo (saia), enquanto a
+   pílula é o contrário — some nos cantos de cima, cheia na altura dos ombros.
+   Por isso a meia-lua de cima passa longe do cabelo.
    ------------------------------------------------------------------------- */
 
+/* O `width: 100%` é o que dá base ao retrato: sem ele o bloco se auto-dimensiona
+   pela imagem, a imagem se dimensiona pelo bloco, e os dois zeram. */
 .quem__figura {
   position: relative;
-  margin: 0;
   isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  justify-self: center;
+  width: 100%;
+  /* No celular a coluna é larga e o recorte é estreito: sem este teto a pílula
+     viraria uma faixa de bege com uma pessoa pequena no meio. */
+  max-width: 26rem;
+  margin: 0;
+  padding-top: clamp(2rem, 5vw, 3.25rem);
+  border-radius: 999px;
+  /* Mais claro em cima, cheio embaixo: a meia-lua de baixo precisa de contraste
+     contra o papel pra que a curva se leia como forma, e não como sombra. */
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-papel-fundo) 55%, var(--color-papel)),
+    var(--color-papel-fundo)
+  );
 }
 
 .quem__figura img {
   position: relative;
   z-index: 2;
+  grid-area: 1 / 1;
   width: 100%;
   height: auto;
-  margin-inline: auto;
-  max-width: 24rem;
+
+  /* A dissolução. Só começa abaixo das mãos — daí pra baixo é saia lisa, que
+     some sem levar informação junto — e desce até o fim, porque quem termina a
+     imagem é a meia-lua da pílula: o fade só tira o peso do pano antes dela. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
 }
 
+/* O sol e a meia-lua da pílula são círculos concêntricos.
+
+   `.sol` é quadrado com `border-radius: 50%`, então o disco de raios tem
+   exatamente a largura do elemento. Tirando `--folga-sol` de cada lado e
+   descendo o disco na mesma medida, o centro continua caindo em `W/2` — o
+   centro da curva de cima — e sobra um anel de bege de espessura constante
+   entre os raios e a borda do bloco. É essa folga que deixa ver o círculo se
+   fechar em cima, em vez de ele morrer encostado na curva.
+
+   A folga é um comprimento, não uma porcentagem, de propósito: `%` em `top`
+   mede a altura e em `width` mede a largura, e as duas leituras diferentes
+   desalinhariam os centros. */
 .quem__sol {
   --sol-cor: rgb(204 58 160 / 0.22);
-  top: 42%;
+  --folga-sol: clamp(1.5rem, 4vw, 3rem);
+
+  top: var(--folga-sol);
   left: 50%;
-  width: min(120%, 34rem);
-  translate: -50% -50%;
+  width: calc(100% - var(--folga-sol) * 2);
+  translate: -50% 0;
   z-index: 1;
 }
 
@@ -173,6 +229,7 @@
   .quem__interior {
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   }
+  .quem__figura,
   .quem__figura img {
     max-width: none;
   }

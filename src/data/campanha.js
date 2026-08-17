@@ -228,6 +228,67 @@ export const trajetoria = {
 }
 
 /* ---------------------------------------------------------------------------
+   NAS RUAS E NAS COMISSÕES
+
+   A trajetória conta a história em datas; esta seção mostra a mesma história
+   acontecendo. Vem logo depois dela de propósito: quem acabou de ler a linha do
+   tempo vê, em seguida, como é o trabalho por dentro.
+
+   As fotos são do acervo da campanha (pasta FOTOS). `destaque` marca a que
+   abre a grade ocupando a largura inteira.
+   ------------------------------------------------------------------------- */
+
+export const atos = {
+  tarja: 'Nas ruas e nas comissões',
+  titulo: 'Política se faz junto',
+  apoio:
+    'Rua, plenário, aldeia, comissão. O lugar muda, o jeito não: é sempre com gente do lado.',
+  fotos: [
+    {
+      id: 'rua',
+      arquivo: 'ato-rua',
+      largura: 2400,
+      altura: 1600,
+      destaque: true,
+      alt: 'Áurea Carolina fala ao microfone num ato de rua à noite, de frente para uma multidão com bandeiras e cartazes.',
+      legenda: 'No microfone, com a rua cheia',
+    },
+    {
+      id: 'povos',
+      arquivo: 'ato-povos',
+      largura: 960,
+      altura: 640,
+      alt: 'Áurea Carolina sentada numa roda de conversa ao ar livre com lideranças indígenas, em volta de uma mesa comprida.',
+      legenda: 'Roda de conversa com lideranças indígenas',
+    },
+    {
+      id: 'comissao',
+      arquivo: 'ato-comissao',
+      largura: 1100,
+      altura: 733,
+      alt: 'Áurea Carolina aplaude em pé, sorrindo, cercada de pessoas que também aplaudem numa sala de comissão.',
+      legenda: 'Atividade parlamentar na Câmara dos Deputados',
+    },
+    {
+      id: 'plenario',
+      arquivo: 'ato-plenario',
+      largura: 1100,
+      altura: 733,
+      alt: 'Áurea Carolina no plenário da Câmara, entre parlamentares que erguem cartazes de "Vidas negras importam" e "Brumadinho não foi acidente".',
+      legenda: 'Cartazes levantados no plenário',
+    },
+    {
+      id: 'marielle',
+      arquivo: 'ato-marielle',
+      largura: 1100,
+      altura: 733,
+      alt: 'Áurea Carolina e outras três mulheres seguram placas de rua com o nome de Marielle Franco e girassóis, no plenário da Câmara.',
+      legenda: 'A placa da Rua Marielle Franco',
+    },
+  ],
+}
+
+/* ---------------------------------------------------------------------------
    BANDEIRAS
    `chamada` é o primeiro parágrafo do documento; `completa` guarda o segundo,
    que só entra na tela quando a pessoa abre o cartão.
@@ -414,6 +475,7 @@ export const secoes = [
   { id: 'quem', rotulo: 'Quem sou' },
   { id: 'provas', rotulo: 'O que fiz' },
   { id: 'trajetoria', rotulo: 'Trajetória' },
+  { id: 'atos', rotulo: 'Nas ruas' },
   { id: 'bandeiras', rotulo: 'Bandeiras' },
   { id: 'urna', rotulo: 'Seu voto' },
   { id: 'pecas', rotulo: 'Peças' },

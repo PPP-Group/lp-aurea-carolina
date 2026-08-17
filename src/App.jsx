@@ -12,6 +12,7 @@ import { Hero } from './components/hero/Hero.jsx'
 import { Quem } from './components/quem/Quem.jsx'
 import { Provas } from './components/provas/Provas.jsx'
 import { Trajetoria } from './components/trajetoria/Trajetoria.jsx'
+import { Atos } from './components/atos/Atos.jsx'
 import { Bandeiras } from './components/bandeiras/Bandeiras.jsx'
 import { Urna } from './components/urna/Urna.jsx'
 import { Pecas } from './components/pecas/Pecas.jsx'
@@ -51,6 +52,11 @@ export default function App() {
         <Provas />
 
         <Trajetoria />
+
+        {/* Do bege da linha do tempo para o vinho: a mesma história, agora
+            acontecendo. */}
+        <Atos />
+
         <Bandeiras />
 
         <Faixa frases={['Vote 500', 'Áurea Carolina, senadora', 'Bora vencer']} variante="roxa" velocidade={26} />

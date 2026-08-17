@@ -1,0 +1,120 @@
+/* ============================================================================
+   NAS RUAS E NAS COMISSÕES
+   ----------------------------------------------------------------------------
+   Painel de vinho entre a trajetória (bege) e as bandeiras (preto): é o degrau
+   que leva o claro ao escuro sem salto. E fotografia pede fundo escuro — sobre
+   o bege as fotos ficariam pálidas, sobre o preto perderiam a borda.
+   ========================================================================== */
+
+.atos {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+}
+
+.atos__sol {
+  --sol-cor: rgb(255 90 61 / 0.12);
+  top: -18%;
+  right: -22%;
+  width: min(90rem, 150vw);
+  z-index: 0;
+}
+
+.atos__cabeca {
+  position: relative;
+  z-index: 2;
+  max-width: 44rem;
+}
+
+.atos__tarja {
+  color: var(--color-amarelo);
+  margin-bottom: 1rem;
+}
+
+.atos__titulo {
+  --traco: 0.028em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.035em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: var(--text-mega);
+  color: var(--color-bege);
+}
+
+.atos__apoio {
+  margin-top: 1.25rem;
+  color: var(--color-claro-fraco);
+}
+
+/* ---------------------------------------------------------------------------
+   A grade
+   ------------------------------------------------------------------------- */
+
+.atos__grade {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.ato {
+  margin: 0;
+}
+
+/* A moldura é quem corta: a imagem preenche por `cover` e o recorte vive aqui,
+   não no arquivo. Assim trocar uma foto do acervo não obriga a recortar nada
+   fora do navegador. */
+.ato__moldura {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--color-preto) 60%, var(--color-vinho));
+}
+
+.ato__moldura img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+  transition: transform 0.5s var(--ease-saida);
+}
+
+.ato:hover .ato__moldura img {
+  transform: scale(1.04);
+}
+
+.ato__legenda {
+  margin-top: 0.85rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--color-claro-fraco);
+  text-wrap: pretty;
+}
+
+@media (min-width: 48rem) {
+  .atos__grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* O ato de rua abre a grade sozinho, em recorte de cinema. É a foto que
+     responde à pergunta da seção; as outras quatro comentam. */
+  .ato[data-destaque='sim'] {
+    grid-column: 1 / -1;
+  }
+  .ato[data-destaque='sim'] .ato__moldura img {
+    aspect-ratio: 16 / 9;
+  }
+  .ato[data-destaque='nao'] .ato__moldura img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ato__moldura img,
+  .ato:hover .ato__moldura img {
+    transition: none;
+    transform: none;
+  }
+}
