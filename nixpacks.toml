@@ -1,15 +1,8 @@
 # ==============================================================================
-# NIXPACKS · variáveis da imagem final
+# NIXPACKS · configuração de build e runtime
 # ------------------------------------------------------------------------------
-# O EasyPanel builda este projeto com Nixpacks (Build Method: Nixpacks). O
-# Nixpacks detecta Vite + React e serve o site com Caddy como SPA.
-#
-# A variável oficial do Nixpacks para definir o diretório estático é:
-#     NIXPACKS_SPA_OUT_DIR = 'dist'
-#
-# Se essa variável faltar ou estiver com nome incorreto, o Caddy monta a raiz
-# em /app (código-fonte), servindo o index.html de dev com <script src="/src/main.jsx">
-# e causando erro de MIME type no navegador.
+# O EasyPanel builda este projeto com Nixpacks (Build Method: Nixpacks).
+# Builda o projeto Vite + React e serve a pasta dist/ usando o Caddyfile da raiz.
 # ==============================================================================
 
 [variables]
@@ -18,3 +11,13 @@ NPM_CONFIG_PRODUCTION = 'false'
 CI = 'true'
 NIXPACKS_SPA_OUT_DIR = 'dist'
 NIXPACKS_SPA_OUTPUT_DIR = 'dist'
+
+[phases.setup]
+nixPkgs = ['caddy']
+
+[phases.build]
+cmds = ['npm run build']
+
+[start]
+cmd = 'caddy run --config Caddyfile --adapter caddyfile'
+
