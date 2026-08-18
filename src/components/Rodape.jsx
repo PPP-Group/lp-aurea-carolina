@@ -7,7 +7,8 @@ import { Icone } from './Icone.jsx'
 
    O bloco legal fica de propósito no fim e em corpo menor, mas legível: é
    informação obrigatória de propaganda eleitoral, não letra miúda para
-   esconder. Preencha CNPJ e responsável antes de publicar. */
+   esconder. CNPJ e responsável vêm de `identidade`, com os dados do registro
+   da candidatura no TSE. */
 export function Rodape() {
   const ano = new Date().getFullYear()
 
@@ -57,8 +58,8 @@ export function Rodape() {
           {identidade.coligacao}
         </p>
         <p>
-          Propaganda eleitoral gratuita. CNPJ da campanha: 00.000.000/0001-00. Responsável: a
-          preencher. {ano}.
+          Propaganda eleitoral gratuita. CNPJ da campanha: {identidade.cnpj}. Responsável:{' '}
+          {identidade.responsavel}. {ano}.
         </p>
       </div>
     </footer>

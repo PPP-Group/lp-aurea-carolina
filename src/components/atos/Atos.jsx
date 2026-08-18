@@ -35,8 +35,6 @@ function Foto({ item, indice }) {
           decoding="async"
         />
       </div>
-
-      <figcaption className="ato__legenda">{item.legenda}</figcaption>
     </figure>
   )
 }

@@ -202,7 +202,7 @@
 /* Sem transparência: sobre cor cheia, cada ponto percentual descontado aqui
    sai direto do contraste, e estes pares já trabalham perto do mínimo. */
 .principio__texto {
-  margin-top: 0.85rem;
+  margin-top: 1.15rem;
   font-size: 1.0625rem;
   line-height: 1.5;
   color: var(--principio-tinta);

@@ -85,14 +85,6 @@
   transform: scale(1.04);
 }
 
-.ato__legenda {
-  margin-top: 0.85rem;
-  font-size: 0.9375rem;
-  line-height: 1.4;
-  color: var(--color-claro-fraco);
-  text-wrap: pretty;
-}
-
 @media (min-width: 48rem) {
   .atos__grade {
     grid-template-columns: repeat(2, 1fr);

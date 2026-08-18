@@ -116,6 +116,7 @@
 }
 
 .porta__texto {
+  margin-top: 0.35rem;
   font-size: 0.9875rem;
   line-height: 1.5;
 }

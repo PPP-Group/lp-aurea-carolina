@@ -376,3 +376,45 @@ html {
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Texto com degradê: folga de pintura
+   ---------------------------------------------------------------------------
+   `background-clip: text` recorta o degradê na silhueta do glifo, mas o
+   degradê só existe dentro da caixa do elemento. Tinta que passe da caixa não
+   tem o que recortar e simplesmente não aparece — texto sólido transborda e
+   continua visível, degradê some.
+
+   E aqui a tinta passa, na direita. Dois motivos somados: o `letter-spacing`
+   negativo destes números (-0.03em a -0.045em) encurta o avanço de todo
+   caractere, inclusive o último, então a caixa fecha antes do fim do glifo; e
+   os algarismos redondos da Origin Black têm tinta um pouco além do próprio
+   avanço. Medido no Chrome: 2,83px sobrando no "2016", 3,24px no "17.420",
+   3,44px no "500" do rodapé. Dava um corte reto no último caractere de cada
+   número com degradê — o "0" do 500, o "6" do 2016.
+
+   A folga entra como padding e sai como margem negativa de igual valor: a
+   caixa de pintura cresce, a caixa de layout fica onde estava. A margem
+   negativa não é enfeite — sem ela o "VOTOS" ao lado do número andaria para a
+   direita, e na coluna de anos do desktop, alinhada à direita, os anos com
+   degradê sairiam do prumo dos anos sem.
+
+   O eixo vertical vai junto por seguro. No Chrome ele não corta (conferido
+   pixel a pixel: glifo com degradê sai idêntico ao sólido), mas Safari e
+   Firefox arredondam a borda da caixa para pixel inteiro e comem a barriga do
+   0, do 6 e do 8 quando o line-height é apertado — e aqui ele é: 0.8 no
+   rodapé, 0.95 nas provas.
+
+   Regra agrupada de propósito: é um contorno único para um recurso de CSS
+   usado em cinco lugares. Repetir o remendo em cada folha de seção espalharia
+   o mesmo motivo por cinco arquivos.
+   ------------------------------------------------------------------------- */
+.marca__numero,
+.marca__numero--pequeno,
+.prova__digitos,
+.prova__valor--palavra,
+.marco[data-marco='sim'] .marco__digitos {
+  padding: 0.1em 0.12em 0.16em;
+  margin: -0.1em -0.12em -0.16em;
+  -webkit-text-fill-color: transparent;
+}

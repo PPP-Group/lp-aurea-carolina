@@ -1,12 +1,18 @@
 /* ============================================================================
    A URNA
    ----------------------------------------------------------------------------
-   Duas peças lado a lado: a tela, que imita o enquadramento da urna de
-   verdade, e o teclado, com alvos grandes o bastante para dedo de qualquer
-   idade (mínimo 3.5rem, bem acima dos 44px recomendados).
+   Réplica do terminal do eleitor: chassi cinza-claro, visor à esquerda dentro
+   de um bezel escuro, teclado à direita com o 3x3 e o zero embaixo, e as três
+   teclas de comando na ordem BRANCO / CORRIGE / CONFIRMA. As cores aqui não
+   são as da campanha de propósito — são as do equipamento, porque a
+   familiaridade é justamente o ponto do ensaio.
 
-   As cores são as da campanha, e não as do TSE. É um ensaio, e precisa ficar
-   claro que é.
+   A campanha só reaparece depois do FIM, no painel que abre embaixo da
+   máquina. Dentro do visor, nada é da campanha além do retrato e do nome.
+
+   O que não é copiado: a marca da Justiça Eleitoral e o brasão do TSE.
+   Insígnia oficial em propaganda eleitoral é vedada; a serigrafia do chassi
+   diz URNA DE ENSAIO no lugar.
    ========================================================================== */
 
 .urna {
@@ -40,180 +46,387 @@
   color: var(--color-claro-fraco);
 }
 
-.urna__maquina {
-  display: grid;
-  gap: 1rem;
-  align-items: stretch;
-}
-
 /* ---------------------------------------------------------------------------
-   A tela
+   O equipamento
    ------------------------------------------------------------------------- */
 
-.urna__tela {
+.maquina {
+  /* Paleta do plástico e das teclas, medida das fotos do equipamento. */
+  --corpo: #cfd0ca;
+  --corpo-alto: #e6e7e1;
+  --corpo-baixo: #a4a59f;
+  --vinco: #8c8e88;
+  --tecla-face: #eeefe9;
+  --tecla-borda: #b4b5af;
+  --tecla-tinta: #17181a;
+  --bezel: #26272a;
+  --visor-fundo: #fdfdf8;
+  --visor-tinta: #101114;
+  --visor-fraca: #4c4e52;
+  --branco-face: #fbfbf8;
+  --corrige-face: #f0a01e;
+  --confirma-face: #2f9e44;
+
   display: grid;
-  min-height: 21rem;
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border: 3px solid var(--color-bege);
-  border-radius: 1.25rem;
-  background: var(--color-papel);
-  color: var(--color-tinta);
+  justify-items: center;
+  gap: 1rem;
 }
 
-/* Flex, e não grade: a ficha da candidata só existe depois do terceiro dígito,
-   então o número de filhos muda. Com `margin-top: auto` no aviso, ele vai para
-   a borda de baixo nos dois casos — como na urna de verdade, onde as
-   instruções ficam no rodapé da tela. */
-.urna__ficha {
+.maquina__corpo {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  width: 100%;
+  max-width: 58rem;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border-radius: 1.1rem;
+  background: linear-gradient(178deg, var(--corpo-alto), var(--corpo) 42%, var(--corpo-baixo));
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.22),
+    0 18px 34px -18px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Visor ---------- */
+
+.maquina__bezel {
+  padding: clamp(0.6rem, 1.6vw, 0.9rem);
+  border-radius: 0.7rem;
+  background: var(--bezel);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.visor {
+  display: grid;
+  min-height: 19rem;
+  padding: clamp(0.9rem, 2.2vw, 1.25rem);
+  border-radius: 0.25rem;
+  background: var(--visor-fundo);
+  /* O visor não usa a tipografia da campanha: é um LCD, e LCD tem grotesca de
+     sistema. Trocar por Instrument Sans aqui quebraria o reconhecimento. */
+  font-family: Arial, Helvetica, 'Liberation Sans', sans-serif;
+  color: var(--visor-tinta);
+  line-height: 1.25;
+}
+
+.visor__folha {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: clamp(0.75rem, 2vw, 1.1rem);
+  width: 100%;
 }
 
-.urna__cargo {
+.visor__cargo {
   display: grid;
-  gap: 0.2rem;
-  font-family: var(--font-faixa);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-tinta-fraca);
+  gap: 0.15rem;
 }
 
-.urna__cargo strong {
-  font-family: var(--font-titulo);
-  font-weight: 900;
-  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
-  letter-spacing: -0.03em;
-  color: var(--color-vinho);
+.visor__cargo span {
+  font-size: 0.8125rem;
+  color: var(--visor-fraca);
 }
 
-.urna__linha {
+.visor__cargo strong {
+  font-weight: 700;
+  font-size: clamp(1.25rem, 3.4vw, 1.6rem);
+  letter-spacing: 0.01em;
+}
+
+.visor__numero {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1rem;
-  padding-bottom: 1.15rem;
-  border-bottom: 2px solid var(--color-papel-fundo);
+  gap: 0.5rem 0.75rem;
 }
 
-.urna__campo {
-  font-family: var(--font-faixa);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-tinta-fraca);
+.visor__rotulo {
+  font-size: 0.9375rem;
+  font-weight: 700;
 }
 
-.urna__casas {
+.visor__casas {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
-.urna__casa {
+/* Na urna as casas do número são quadradinhos de contorno fino que só ganham
+   o dígito quando a tecla é apertada. Sem preenchimento colorido. */
+.visor__casa {
   display: grid;
   place-items: center;
-  width: 3rem;
-  height: 3.6rem;
-  border: 3px solid var(--color-papel-fundo);
-  border-radius: 0.6rem;
-  font-family: var(--font-titulo);
-  font-weight: 900;
-  font-size: 2rem;
+  width: 2.1rem;
+  height: 2.6rem;
+  border: 1px solid var(--visor-fraca);
+  font-weight: 700;
+  font-size: 1.6rem;
   line-height: 1;
-  color: var(--color-vinho);
-  transition:
-    border-color 0.18s var(--ease-saida),
-    background-color 0.18s var(--ease-saida);
 }
 
-.urna__casa[data-cheia='sim'] {
-  border-color: var(--color-vinho);
-  background: var(--color-amarelo);
+.visor__casa[data-cheia='sim'] {
+  border-color: var(--visor-tinta);
 }
 
-/* ---------- Ficha da candidata ---------- */
-
-.urna__candidata {
+.visor__ficha {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1.25rem;
-  align-items: center;
-  animation: urna-entrar 0.32s var(--ease-saida);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  animation: urna-entrar 0.2s var(--ease-saida);
 }
 
-.urna__candidata[data-correto='nao'] {
+.visor__ficha--nulo {
   grid-template-columns: 1fr;
 }
 
-.urna__foto {
-  width: 6.5rem;
-  height: 8.5rem;
+.visor__dados {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: clamp(0.9375rem, 2.2vw, 1.0625rem);
+}
+
+.visor__dados > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.visor__dados dt {
+  color: var(--visor-fraca);
+}
+
+.visor__dados dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* O retrato na urna é uma miniatura de contorno fino, sem arredondar. */
+.visor__foto {
+  width: 5.5rem;
+  height: 7.15rem;
   object-fit: cover;
   object-position: top center;
-  border: 3px solid var(--color-vinho);
-  border-radius: 0.6rem;
-  background: var(--color-amarelo);
+  border: 1px solid var(--visor-tinta);
+  background: #fff;
 }
 
-.urna__dados {
-  display: grid;
-  gap: 0.75rem;
-  margin: 0;
-}
-
-.urna__dados dt {
-  font-family: var(--font-faixa);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-tinta-fraca);
-}
-
-.urna__dados dd {
-  margin: 0;
-  font-family: var(--font-titulo);
+.visor__estado {
   font-weight: 700;
-  font-size: clamp(1.15rem, 3vw, 1.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--color-vinho);
+  font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+  letter-spacing: 0.02em;
 }
 
-.urna__erro {
-  padding: 1rem 1.15rem;
-  border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--color-laranja) 22%, transparent);
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--color-vinho);
-}
-
-.urna__aviso {
-  margin-top: auto;
-  padding-top: 0.5rem;
+.visor__nota {
+  margin-top: 0.5rem;
   font-size: 0.9375rem;
   line-height: 1.45;
-  color: var(--color-tinta-fraca);
+  color: var(--visor-fraca);
 }
 
-.urna__aviso strong {
-  color: var(--color-vinho);
+.visor__nota strong {
+  color: var(--visor-tinta);
 }
 
-/* ---------- Fim: a flor abre ---------- */
-
-.urna__tela[data-confirmado='sim'] {
-  background: var(--color-amarelo);
-  border-color: var(--color-vinho);
+/* O rodapé de instruções fica colado na borda de baixo do visor, como no
+   equipamento, separado por um fio. */
+.visor__rodape {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--visor-fraca);
+  font-size: clamp(0.8125rem, 1.9vw, 0.9375rem);
+  color: var(--visor-fraca);
 }
 
-.urna__fim {
+.visor__rodape-chamada {
+  font-weight: 700;
+  color: var(--visor-tinta);
+}
+
+.visor__rodape strong {
+  color: var(--visor-tinta);
+}
+
+.visor__fim {
+  place-self: center;
+  font-weight: 700;
+  font-size: clamp(4rem, 16vw, 7rem);
+  letter-spacing: 0.06em;
+  animation: urna-entrar 0.2s var(--ease-saida);
+}
+
+/* ---------- Teclado ---------- */
+
+.maquina__teclado {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+  padding-top: 0.25rem;
+}
+
+/* Texto serigrafado no plástico: baixo contraste de propósito, é relevo. */
+.maquina__serigrafia {
+  font-family: var(--font-faixa);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--vinco) 85%, black);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.maquina__teclas {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(0.6rem, 1.6vw, 0.9rem);
+  align-items: start;
+}
+
+.maquina__numeros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+/* O zero é solitário na coluna do meio, como no teclado real. */
+.maquina__numeros .tecla:last-child {
+  grid-column: 2;
+}
+
+.maquina__comandos {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tecla {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 3.5rem;
+  padding: 0.4rem 0.35rem 0.5rem;
+  border: 1px solid var(--tecla-borda);
+  border-radius: 0.35rem;
+  background: var(--tecla-face);
+  color: var(--tecla-tinta);
+  font-family: Arial, Helvetica, 'Liberation Sans', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 0 rgba(0, 0, 0, 0.28);
+  transition:
+    transform 0.08s var(--ease-saida),
+    box-shadow 0.08s var(--ease-saida),
+    filter 0.16s var(--ease-saida),
+    opacity 0.16s var(--ease-saida);
+}
+
+.tecla:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.tecla:not(:disabled):hover {
+  filter: brightness(1.06);
+}
+
+.tecla:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tecla--numero .tecla__digito {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.tecla--branco {
+  background: var(--branco-face);
+}
+
+.tecla--corrige {
+  background: var(--corrige-face);
+}
+
+.tecla--confirma {
+  background: var(--confirma-face);
+  color: #fff;
+}
+
+.tecla--branco .tecla__digito,
+.tecla--corrige .tecla__digito,
+.tecla--confirma .tecla__digito {
+  font-size: 0.9375rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Braille em relevo na face da tecla, célula 2x3 na numeração clássica:
+   pontos 1-2-3 na coluna esquerda, 4-5-6 na direita. */
+.tecla__braille {
+  display: grid;
+  grid-template-columns: repeat(2, 3px);
+  grid-auto-rows: 3px;
+  grid-auto-flow: column;
+  gap: 2px;
+}
+
+.tecla__braille i {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+}
+
+.tecla__braille i[data-ativo='sim'] {
+  background: currentColor;
+  box-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.7);
+}
+
+.maquina__led {
+  position: absolute;
+  right: 0.15rem;
+  top: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #4a4c47;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.maquina__led[data-aceso='sim'] {
+  background: #35d64a;
+  box-shadow: 0 0 6px 1px rgba(53, 214, 74, 0.75);
+}
+
+/* Grelha do alto-falante, gravada no plástico ao pé do teclado. */
+.maquina__alto-falante {
+  height: 0.6rem;
+  border-radius: 999px;
+  background-image: radial-gradient(circle, var(--vinco) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+  opacity: 0.7;
+}
+
+.maquina__dica {
+  font-size: 0.875rem;
+  color: var(--color-claro-fraco);
+}
+
+/* ---------------------------------------------------------------------------
+   A campanha, depois do FIM
+   ------------------------------------------------------------------------- */
+
+.urna__festa {
   display: grid;
   justify-items: center;
   align-content: center;
   gap: 0.35rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
   text-align: center;
+  animation: urna-entrar 0.32s var(--ease-saida);
 }
 
 .urna__flor {
@@ -233,7 +446,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-vinho);
+  color: var(--color-amarelo);
 }
 
 .urna__fim-grito {
@@ -251,7 +464,11 @@
   margin-top: 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--color-vinho);
+  color: var(--color-claro-fraco);
+}
+
+.urna__fim-nota strong {
+  color: var(--color-amarelo);
 }
 
 .urna__refazer {
@@ -282,101 +499,6 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   O teclado
-   ------------------------------------------------------------------------- */
-
-.urna__teclado {
-  display: grid;
-  align-content: start;
-  gap: 1rem;
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border-radius: 1.25rem;
-  background: var(--color-preto);
-}
-
-.urna__instrucao {
-  font-family: var(--font-faixa);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-amarelo);
-}
-
-.urna__numeros {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-}
-
-.tecla {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  min-height: 3.5rem;
-  border: 2px solid transparent;
-  border-radius: 0.7rem;
-  font-family: var(--font-titulo);
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.12s var(--ease-saida),
-    background-color 0.16s var(--ease-saida),
-    opacity 0.16s var(--ease-saida);
-}
-
-.tecla:active {
-  transform: scale(0.94);
-}
-
-.tecla:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.tecla--numero {
-  background: var(--color-bege);
-  color: var(--color-preto);
-  font-size: 1.4rem;
-}
-.tecla--numero:not(:disabled):hover {
-  background: var(--color-amarelo);
-}
-
-.urna__comandos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-}
-
-.tecla--corrige {
-  background: var(--color-laranja);
-  color: var(--color-vinho);
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.tecla--confirma {
-  background: var(--color-verde);
-  color: var(--color-bege);
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-.tecla--confirma:not(:disabled):hover {
-  background: color-mix(in srgb, var(--color-verde) 82%, white);
-}
-
-.urna__dica {
-  display: none;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.875rem;
-  color: var(--color-claro-fraco);
-}
-
 .urna__leitura {
   position: absolute;
   width: 1px;
@@ -388,14 +510,25 @@
   white-space: nowrap;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .urna__dica {
-    display: flex;
+/* No equipamento o visor e o teclado ficam lado a lado; só na tela estreita
+   eles empilham. */
+@media (min-width: 52rem) {
+  .maquina__corpo {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .maquina__teclado {
+    grid-template-rows: auto 1fr auto;
   }
 }
 
-@media (min-width: 58rem) {
-  .urna__maquina {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+@media (prefers-reduced-motion: reduce) {
+  .flor--girando .flor__fios,
+  .urna__flor,
+  .urna__festa,
+  .visor__ficha,
+  .visor__fim {
+    animation: none;
   }
 }

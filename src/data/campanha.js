@@ -18,6 +18,8 @@ export const identidade = {
   numero: '500',
   partido: 'PSOL',
   coligacao: 'Time do Lula',
+  cnpj: '68.571.277/0001-08',
+  responsavel: 'Áurea Carolina',
   site: 'www.aureacarolina.com',
   arroba: '@aureacarolina',
   slogan: 'A senadora do povo mineiro',
@@ -251,7 +253,6 @@ export const atos = {
       altura: 1600,
       destaque: true,
       alt: 'Áurea Carolina fala ao microfone num ato de rua à noite, de frente para uma multidão com bandeiras e cartazes.',
-      legenda: 'No microfone, com a rua cheia',
     },
     {
       id: 'povos',
@@ -259,7 +260,6 @@ export const atos = {
       largura: 960,
       altura: 640,
       alt: 'Áurea Carolina sentada numa roda de conversa ao ar livre com lideranças indígenas, em volta de uma mesa comprida.',
-      legenda: 'Roda de conversa com lideranças indígenas',
     },
     {
       id: 'comissao',
@@ -267,7 +267,6 @@ export const atos = {
       largura: 1100,
       altura: 733,
       alt: 'Áurea Carolina aplaude em pé, sorrindo, cercada de pessoas que também aplaudem numa sala de comissão.',
-      legenda: 'Atividade parlamentar na Câmara dos Deputados',
     },
     {
       id: 'plenario',
@@ -275,7 +274,6 @@ export const atos = {
       largura: 1100,
       altura: 733,
       alt: 'Áurea Carolina no plenário da Câmara, entre parlamentares que erguem cartazes de "Vidas negras importam" e "Brumadinho não foi acidente".',
-      legenda: 'Cartazes levantados no plenário',
     },
     {
       id: 'marielle',
@@ -283,7 +281,6 @@ export const atos = {
       largura: 1100,
       altura: 733,
       alt: 'Áurea Carolina e outras três mulheres seguram placas de rua com o nome de Marielle Franco e girassóis, no plenário da Câmara.',
-      legenda: 'A placa da Rua Marielle Franco',
     },
   ],
 }
@@ -426,7 +423,7 @@ export const apoiar = {
   itens: [
     {
       id: 'zap',
-      titulo: 'Entra no grupo do zap',
+      titulo: 'Entrar no grupo do zap',
       texto:
         'Recebe as novidades da campanha, as convocações e o material pra compartilhar direto no seu WhatsApp.',
       cta: 'Entrar no grupo',
@@ -436,7 +433,7 @@ export const apoiar = {
     },
     {
       id: 'bonde',
-      titulo: 'Entra no Bonde da Áurea',
+      titulo: 'Entrar no Bonde da Áurea',
       texto:
         'Seja voluntária ou voluntário: ajuda na rua, na militância, nas redes. Todo mundo tem lugar no bonde.',
       cta: 'Quero ser voluntária(o)',
@@ -446,7 +443,7 @@ export const apoiar = {
     },
     {
       id: 'doacao',
-      titulo: 'Faz uma doação',
+      titulo: 'Fazer uma doação',
       texto:
         'Campanha popular se sustenta com quem acredita nela. Qualquer valor ajuda a levar a Áurea pra mais gente.',
       cta: 'Doar agora',
@@ -456,7 +453,7 @@ export const apoiar = {
     },
     {
       id: 'material',
-      titulo: 'Recebe material no interior',
+      titulo: 'Receber material no interior',
       texto:
         'Mora fora de Belo Horizonte? Pede santinho e adesivo da campanha pra levar pro seu município pelo grupo do zap.',
       cta: 'Pedir pelo zap',

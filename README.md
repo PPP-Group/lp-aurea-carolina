@@ -142,8 +142,8 @@ node scripts/shots.mjs shots
    (licença web contratada). A Bobby Jones veio só em desktop. Confirme a
    licença web antes de subir, ou troque a única ocorrência dela
    (`.rodape__grito`).
-3. **Dados legais.** CNPJ da campanha e responsável estão como
-   `00.000.000/0001-00` e "a preencher" em `src/components/Rodape.jsx`.
+3. **Dados legais.** CNPJ da campanha (`68.571.277/0001-08`) e responsável
+   ficam em `identidade`, em `src/data/campanha.js`, e o rodapé lê de lá.
 4. **Redes sociais.** As URLs em `src/data/campanha.js` foram montadas a partir
    do `@aureacarolina` que aparece nas peças. Confira cada uma.
 5. **Imagem de compartilhamento.** O `og:image` aponta para
