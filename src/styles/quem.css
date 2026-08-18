@@ -195,7 +195,7 @@
 .principio__titulo {
   font-size: var(--text-medio);
   font-weight: 900;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.03em;
   text-wrap: balance;
 }
 
