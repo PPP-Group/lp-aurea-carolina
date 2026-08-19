@@ -149,7 +149,7 @@ export const provas = {
     },
     {
       texto:
-        'Proponente do Marco Regulatório do Fomento à Cultura, que se tornou em 2024, simplificando o acesso a recursos por gestores públicos e agentes culturais',
+        'Proponente do Marco Regulatório do Fomento à Cultura, que se tornou lei em 2024, simplificando o acesso a recursos por gestores públicos e agentes culturais',
       realce: 'Marco Regulatório do Fomento à Cultura',
     },
     {
