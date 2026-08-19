@@ -99,62 +99,78 @@ export const principios = {
 
 /* ---------------------------------------------------------------------------
    ATUAÇÃO INSTITUCIONAL
-   Os números que a campanha pode provar. `valor` é o que anima, `unidade` é o
-   que fica parado do lado.
+   A lista do documento, inteira e sem corte. O número não é reescrito num
+   rótulo à parte: ele fica onde sempre esteve, dentro da frase aprovada, e só
+   muda de tamanho.
    ------------------------------------------------------------------------- */
 
 export const provas = {
   tarja: 'Atuação institucional',
   titulo: 'Política que transforma',
+  /* Cada item é uma linha do documento, copiada inteira e na ordem em que
+     aparece lá. `realce` nunca é texto novo: é sempre um pedaço da própria
+     frase, o pedaço que muda de tipografia. `contar` faz o número dentro
+     desse pedaço subir do zero quando ele entra na tela. */
   itens: [
     {
-      valor: 17420,
-      unidade: 'votos',
-      rotulo: 'Vereadora mais votada de Belo Horizonte',
-      detalhe: '2016, pelo PSOL',
+      texto: 'Vereadora mais votada de Belo Horizonte em 2016, com 17.420 votos',
+      realce: '17.420',
+      contar: true,
     },
     {
-      valor: 162740,
-      unidade: 'votos',
-      rotulo: 'Mulher mais votada de Minas Gerais para deputada federal',
-      detalhe: '2018',
+      texto:
+        'Criadora da Gabinetona, primeiro mandato coletivo e popular de Belo Horizonte, em covereança com Cida Falabella e Bella Gonçalves',
+      realce: 'Gabinetona',
     },
     {
-      valor: 9,
-      unidade: 'projetos',
-      rotulo: 'Projetos de lei aprovados no mandato federal',
-      detalhe: 'Entre 2019 e 2022',
+      texto:
+        'Criação dos Laboratórios Populares de Leis, espaço de elaboração coletiva de projetos de lei com movimentos populares e coletivos locais',
+      realce: 'Laboratórios Populares de Leis',
     },
     {
-      valor: 70,
-      unidade: 'milhões',
-      prefixo: 'R$ ',
-      aproximado: true,
-      rotulo: 'Em emendas parlamentares destinadas por consulta pública',
-      detalhe:
-        'Emenda com a Gente, para projetos de agroecologia, cultura, direitos humanos, saúde e enfrentamento à mineração',
+      texto:
+        'Autoria do PL Morada Segura, que virou lei em BH, garantindo prioridade em programas habitacionais a mulheres em situação de violência atendidas pela rede pública',
+      realce: 'Morada Segura',
     },
     {
-      palavra: 'Gabinetona',
-      rotulo: 'Primeiro mandato coletivo e popular de Belo Horizonte',
-      detalhe: 'Em covereança com Cida Falabella e Bella Gonçalves',
+      texto:
+        'Relatório inédito sobre homicídios de jovens negros e pobres em Belo Horizonte, produzido na Comissão Especial de Estudo sobre o Genocídio da Juventude Negra e Pobre da Câmara Municipal',
+      realce: 'Relatório inédito',
     },
     {
-      palavra: 'Brumadinho',
-      rotulo: 'Vice-presidenta da CPI de Brumadinho',
-      detalhe: 'Indiciou 14 pessoas por homicídio, entre elas o ex-presidente da Vale',
+      texto: 'Mulher mais votada de Minas Gerais para deputada federal em 2018, com 162.740 votos',
+      realce: '162.740',
+      contar: true,
     },
-  ],
-  /* Os itens da Atuação institucional que não viram número: entram como lista,
-     na ordem e na redação do documento. */
-  lista: [
-    'Criação dos Laboratórios Populares de Leis, espaço de elaboração coletiva de projetos de lei com movimentos populares e coletivos locais',
-    'Autoria do PL Morada Segura, que virou lei em BH, garantindo prioridade em programas habitacionais a mulheres em situação de violência atendidas pela rede pública',
-    'Relatório inédito sobre homicídios de jovens negros e pobres em Belo Horizonte, produzido na Comissão Especial de Estudo sobre o Genocídio da Juventude Negra e Pobre da Câmara Municipal',
-    'Proponente do Marco Regulatório do Fomento à Cultura, que se tornou lei em 2024, simplificando o acesso a recursos por gestores públicos e agentes culturais',
-    'Coautora do novo marco regulatório da mineração, construído na Comissão Externa do Desastre de Brumadinho, com destaque para a Lei 14.755/2023, que criou a Política Nacional de Direitos das Populações Atingidas por Barragens',
-    'Vice-presidenta da Comissão de Cultura',
-    'Integrante da Comissão Externa sobre Violência Doméstica contra a Mulher e da Comissão Permanente Mista de Combate à Violência contra a Mulher',
+    {
+      texto:
+        'Vice-presidenta da CPI de Brumadinho, que indiciou 14 pessoas por homicídio, entre elas o ex-presidente da Vale',
+      realce: 'CPI de Brumadinho',
+    },
+    {
+      texto:
+        'Proponente do Marco Regulatório do Fomento à Cultura, que se tornou em 2024, simplificando o acesso a recursos por gestores públicos e agentes culturais',
+      realce: 'Marco Regulatório do Fomento à Cultura',
+    },
+    {
+      texto:
+        'Coautora do novo marco regulatório da mineração, construído na Comissão Externa do Desastre de Brumadinho, com destaque para a Lei 14.755/2023, que criou a Política Nacional de Direitos das Populações Atingidas por Barragens',
+      realce: 'Lei 14.755/2023',
+    },
+    {
+      texto:
+        'Criadora do Emenda com a Gente, consulta pública para destinação de emendas parlamentares que destinou quase R$ 70 milhões a projetos de agroecologia, cultura, direitos humanos, saúde e enfrentamento à mineração',
+      realce: 'R$ 70 milhões',
+    },
+    {
+      texto: 'Vice-presidenta da Comissão de Cultura',
+      realce: 'Comissão de Cultura',
+    },
+    {
+      texto:
+        'Integrante da Comissão Externa sobre Violência Doméstica contra a Mulher e da Comissão Permanente Mista de Combate à Violência contra a Mulher',
+      realce: 'Comissão Externa sobre Violência Doméstica contra a Mulher',
+    },
   ],
 }
 

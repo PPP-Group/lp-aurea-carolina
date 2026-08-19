@@ -1,9 +1,13 @@
 /* ============================================================================
-   O QUE JÁ FOI FEITO
+   ATUAÇÃO INSTITUCIONAL
    ----------------------------------------------------------------------------
    O painel escuro da página. Vinho Araçá de fundo, números no degradê da
    pétala. É o contraponto ao bege da seção anterior: a biografia conversa, o
    número afirma.
+
+   Como o texto é aprovado e não pode ser recortado, cada item é uma frase
+   comprida. Duas colunas no desktop, uma no celular: a frase precisa de linha
+   larga o bastante pra não virar uma coluna de três palavras.
    ========================================================================== */
 
 .provas {
@@ -41,6 +45,8 @@
   color: var(--color-bege);
 }
 
+/* O 1px de gap com o fundo claro por baixo desenha os fios da grade sem que
+   nenhuma célula precise de borda própria. */
 .provas__lista {
   display: grid;
   gap: 1px;
@@ -55,129 +61,62 @@
 
 .prova {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  padding: clamp(1.4rem, 3.2vw, 2.25rem);
   background: var(--color-vinho);
 }
 
-.prova__valor {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 0.32em;
-  font-family: var(--font-titulo);
-  font-weight: 900;
-  font-size: clamp(2.4rem, 6vw, 3.4rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-}
-
-.prova__digitos {
-  background: var(--grad-petala);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Os dois grandes: os votos. Ganham o dobro de corpo e, no desktop, metade da
-   grade cada um. */
-.prova[data-largo='sim'] .prova__valor {
-  font-size: clamp(3rem, 9vw, 5.25rem);
-}
-
-.prova__quase,
-.prova__unidade {
-  font-family: var(--font-faixa);
-  font-weight: 400;
-  font-size: 0.3em;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-claro-fraco);
-}
-
-/* "quase" qualifica o valor inteiro, então ocupa a linha de cima sozinho. Ao
-   lado do número ele disputaria a leitura com a unidade. */
-.prova__quase {
-  flex-basis: 100%;
-  margin-bottom: 0.1em;
-}
-
-.prova__valor--palavra {
-  font-size: clamp(1.9rem, 4.5vw, 2.5rem);
-  letter-spacing: -0.03em;
-  background: var(--grad-petala);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.prova__rotulo {
-  margin-top: 0.35rem;
+.prova__texto {
   font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--color-bege);
-  text-wrap: balance;
-}
-
-.prova__detalhe {
-  font-size: 0.9375rem;
-  line-height: 1.45;
-  color: var(--color-claro-fraco);
-}
-
-/* ---------------------------------------------------------------------------
-   O resto da atuação institucional
-
-   Não são números, são feitos: leis, relatórios, comissões. Duas colunas no
-   desktop pra não virar uma coluna comprida logo depois da grade de números.
-   ------------------------------------------------------------------------- */
-
-.provas__extras {
-  display: grid;
-  gap: 0.9rem 3rem;
-  margin: clamp(2rem, 4vw, 3rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.provas__extra {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: 1rem;
   line-height: 1.5;
   color: var(--color-claro-fraco);
+  text-wrap: pretty;
 }
 
-.provas__extra::before {
-  content: '';
-  position: absolute;
-  top: 0.6em;
-  left: 0;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 999px;
+.prova__realce {
+  font-weight: 700;
+}
+
+/* Nome próprio: mesma escala do corpo, só o amarelo. Se crescesse como o
+   número, metade da frase viraria título. */
+.prova__realce--nome {
+  color: var(--color-amarelo);
+}
+
+.prova__realce--numero {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(1.7rem, 4.2vw, 2.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+/* Molde e valor na mesma célula: a caixa mede o número final, a contagem
+   corre por dentro. Medir em `ch` sobrava espaço — `ch` é a largura do zero,
+   e o ponto de milhar é bem mais estreito que isso. */
+.prova__contagem {
+  display: inline-grid;
+  font-variant-numeric: tabular-nums;
+}
+
+.prova__contagem > * {
+  grid-area: 1 / 1;
+}
+
+.prova__molde {
+  visibility: hidden;
+}
+
+/* O degradê fica na folha que carrega os dígitos, não no ancestral: assim a
+   caixa de pintura é exatamente a caixa do texto que aparece. */
+.prova__contado {
   background: var(--grad-petala);
-}
-
-@media (min-width: 46rem) {
-  .provas__lista {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 68rem) {
-  .provas__lista {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .prova[data-largo='sim'] {
-    grid-column: span 2;
-  }
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (min-width: 60rem) {
-  .provas__extras {
+  .provas__lista {
     grid-template-columns: repeat(2, 1fr);
   }
 }

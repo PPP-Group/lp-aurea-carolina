@@ -411,8 +411,7 @@ html {
    ------------------------------------------------------------------------- */
 .marca__numero,
 .marca__numero--pequeno,
-.prova__digitos,
-.prova__valor--palavra,
+.prova__contado,
 .marco[data-marco='sim'] .marco__digitos {
   padding: 0.1em 0.12em 0.16em;
   margin: -0.1em -0.12em -0.16em;

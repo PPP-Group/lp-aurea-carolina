@@ -1,47 +1,66 @@
 import { provas } from '../../data/campanha.js'
 import { useContador } from '../../lib/useContador.js'
+import { useRevelar } from '../../lib/useRevelar.js'
 
 /* ============================================================================
-   O QUE JÁ FOI FEITO
+   ATUAÇÃO INSTITUCIONAL
    ----------------------------------------------------------------------------
-   Painel escuro. Depois da biografia, a página precisa provar o que afirmou, e
-   prova com número.
+   Painel escuro. Depois da biografia, a página precisa provar o que afirmou.
 
-   Os dois primeiros itens carregam o argumento inteiro da campanha: 17.420 e
-   162.740 são votos que ela tirou quando ninguém apostava. Por isso ocupam o
-   dobro de espaço dos outros quatro e contam do zero quando entram na tela.
-
-   Dois itens não são contáveis — a Gabinetona e a CPI de Brumadinho. Em vez de
-   forçar um "1" que não diz nada, o lugar do número fica com o nome próprio,
-   que é justamente o que se reconhece.
+   O texto aqui é político e já foi aprovado palavra por palavra: cada item é
+   uma linha do documento, inteira. Por isso o número não sai da frase pra
+   virar cartaz com um rótulo resumido embaixo — ele fica exatamente onde foi
+   escrito e só cresce, no degradê da pétala. A frase continua legível de
+   ponta a ponta; o olho é que para no 17.420 antes de ler o resto.
    ========================================================================== */
 
-function Numero({ item, duracao }) {
-  const [alvo, valor] = useContador(item.valor, { duracao })
+/* A contagem corre dentro de uma caixa que já nasce do tamanho do número
+   final: o molde é o próprio número, escondido, e o valor corrente fica
+   empilhado em cima dele na mesma célula da grade. Assim a palavra seguinte
+   não anda enquanto os dígitos sobem — e a caixa não sobra um dedo de espaço,
+   como sobrava quando a largura era estimada em `ch`. */
+function Contagem({ token }) {
+  const [no, valor] = useContador(Number(token.replace(/\./g, '')))
 
   return (
-    <strong className="prova__valor" ref={alvo}>
-      {item.aproximado && <span className="prova__quase">quase</span>}
-      <span className="prova__digitos">
-        {item.prefixo}
-        {valor}
+    <span className="prova__contagem" ref={no}>
+      <span className="prova__molde" aria-hidden="true">
+        {token}
       </span>
-      <span className="prova__unidade">{item.unidade}</span>
-    </strong>
+      <span className="prova__contado">{valor}</span>
+    </span>
   )
 }
 
-function Prova({ item, largo }) {
-  return (
-    <li className="prova" data-largo={largo ? 'sim' : 'nao'}>
-      {item.palavra ? (
-        <strong className="prova__valor prova__valor--palavra">{item.palavra}</strong>
-      ) : (
-        <Numero item={item} duracao={largo ? 1900 : 1200} />
-      )}
+/* `realce` é sempre um pedaço da própria frase. Quem conta vira número grande
+   no degradê; o resto é nome próprio e fica no amarelo, no corpo do texto. */
+function Realce({ trecho, contar }) {
+  if (!contar) return <b className="prova__realce prova__realce--nome">{trecho}</b>
 
-      <p className="prova__rotulo">{item.rotulo}</p>
-      <p className="prova__detalhe">{item.detalhe}</p>
+  return (
+    <b className="prova__realce prova__realce--numero">
+      <Contagem token={trecho} />
+    </b>
+  )
+}
+
+function Prova({ item }) {
+  const alvo = useRevelar()
+  const corte = item.realce ? item.texto.indexOf(item.realce) : -1
+
+  return (
+    <li className="prova revelar" ref={alvo}>
+      <p className="prova__texto">
+        {corte < 0 ? (
+          item.texto
+        ) : (
+          <>
+            {item.texto.slice(0, corte)}
+            <Realce trecho={item.realce} contar={item.contar} />
+            {item.texto.slice(corte + item.realce.length)}
+          </>
+        )}
+      </p>
     </li>
   )
 }
@@ -61,18 +80,8 @@ export function Provas() {
         </header>
 
         <ul className="provas__lista">
-          {provas.itens.map((item, i) => (
-            <Prova key={item.rotulo} item={item} largo={i < 2} />
-          ))}
-        </ul>
-
-        {/* O resto da atuação institucional não cabe em número: são leis,
-            relatórios e comissões. Ficam em lista, logo abaixo do painel. */}
-        <ul className="provas__extras">
-          {provas.lista.map((texto) => (
-            <li key={texto} className="provas__extra">
-              {texto}
-            </li>
+          {provas.itens.map((item) => (
+            <Prova key={item.texto} item={item} />
           ))}
         </ul>
       </div>

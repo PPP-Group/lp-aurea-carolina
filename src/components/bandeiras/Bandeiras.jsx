@@ -39,6 +39,7 @@ function Bandeira({ item, indice }) {
         </summary>
 
         <div className="bandeira__corpo">
+          <p>{item.chamada}</p>
           {item.completa.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
