@@ -5,9 +5,10 @@
    enviado para aprovação. Não reescreva aqui: se a redação mudar, ela muda no
    documento e depois neste arquivo.
 
-   O documento atualizado entrega cada bandeira em dois parágrafos corridos,
-   sem versão curta separada. `chamada` é o primeiro parágrafo, literal;
-   `completa` guarda o segundo, que só aparece quando a pessoa abre o cartão.
+   Os textos aqui são cópia literal do documento, sem resumo e sem troca de
+   pessoa: onde o documento diz "nós", o site diz "nós". Nas bandeiras,
+   `chamada` é o primeiro parágrafo do documento e `completa` guarda o segundo,
+   que só aparece quando a pessoa abre o cartão.
    ========================================================================== */
 
 export const identidade = {
@@ -67,9 +68,7 @@ export const quem = {
     'Me formei em Ciências Sociais na UFMG, com bolsa de assistência estudantil. Fiz especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona e mestrado em Ciência Política, também na UFMG.',
   ],
   destaque:
-    'Entrei na política pelos movimentos sociais: juventude periférica, movimento negro, movimento de mulheres. Não vim de família com nome na política, nem tinha dinheiro pra fazer uma grande campanha. Em 2016, fiz história ao me tornar a vereadora mais votada de Belo Horizonte. Em 2018, fui a mulher mais votada de Minas Gerais para deputada federal. Nas duas vezes, quase ninguém apostava que seria possível. Nas duas vezes, o povo decidiu pela vitória.',
-  fecho:
-    'Sou cientista política e educadora popular. Criei, com outras mulheres, a Gabinetona, o primeiro mandato coletivo e popular de Belo Horizonte. Fui vice-presidenta da CPI de Brumadinho. Sou uma das 100 jovens negras mais influentes do mundo, segundo o MIPAD/ONU.',
+    'Entrei na política pelos movimentos sociais: juventude periférica, movimento negro, movimento de mulheres. Não sou herdeira, nem vim de família com nome na política. Em 2016, fiz história ao me tornar a vereadora mais votada de Belo Horizonte. Em 2018, fui a mulher mais votada de Minas Gerais para deputada federal. Nas duas vezes, disseram que seria impossível. Nas duas vezes, o povo decidiu pela vitória.',
 }
 
 export const principios = {
@@ -84,7 +83,7 @@ export const principios = {
     {
       titulo: 'Construção coletiva',
       texto:
-        'Não creio em protagonismo solitário. A Gabinetona provou que dividir poder multiplica resultado.',
+        'Não acredito em protagonismo solitário. A Gabinetona provou que dividir poder multiplica resultado.',
       cor: 'roxo',
     },
     {
@@ -106,7 +105,7 @@ export const principios = {
 
 export const provas = {
   tarja: 'Atuação institucional',
-  titulo: 'O que já foi feito',
+  titulo: 'Política que transforma',
   itens: [
     {
       valor: 17420,
@@ -124,26 +123,38 @@ export const provas = {
       valor: 9,
       unidade: 'projetos',
       rotulo: 'Projetos de lei aprovados no mandato federal',
-      detalhe: 'Entre eles o Aldir Blanc e o Morada Segura',
+      detalhe: 'Entre 2019 e 2022',
     },
     {
       valor: 70,
       unidade: 'milhões',
       prefixo: 'R$ ',
       aproximado: true,
-      rotulo: 'Em emendas definidas por consulta popular',
-      detalhe: 'Programa Emenda Geral, 179 propostas entre 2019 e 2022',
+      rotulo: 'Em emendas parlamentares destinadas por consulta pública',
+      detalhe:
+        'Emenda com a Gente, para projetos de agroecologia, cultura, direitos humanos, saúde e enfrentamento à mineração',
     },
     {
       palavra: 'Gabinetona',
-      rotulo: 'O primeiro mandato coletivo e popular de Belo Horizonte',
-      detalhe: 'Criado com Cida Falabella e Bella Gonçalves',
+      rotulo: 'Primeiro mandato coletivo e popular de Belo Horizonte',
+      detalhe: 'Em covereança com Cida Falabella e Bella Gonçalves',
     },
     {
       palavra: 'Brumadinho',
-      rotulo: 'Vice-presidenta da CPI que apurou o desastre',
+      rotulo: 'Vice-presidenta da CPI de Brumadinho',
       detalhe: 'Indiciou 14 pessoas por homicídio, entre elas o ex-presidente da Vale',
     },
+  ],
+  /* Os itens da Atuação institucional que não viram número: entram como lista,
+     na ordem e na redação do documento. */
+  lista: [
+    'Criação dos Laboratórios Populares de Leis, espaço de elaboração coletiva de projetos de lei com movimentos populares e coletivos locais',
+    'Autoria do PL Morada Segura, que virou lei em BH, garantindo prioridade em programas habitacionais a mulheres em situação de violência atendidas pela rede pública',
+    'Relatório inédito sobre homicídios de jovens negros e pobres em Belo Horizonte, produzido na Comissão Especial de Estudo sobre o Genocídio da Juventude Negra e Pobre da Câmara Municipal',
+    'Proponente do Marco Regulatório do Fomento à Cultura, que se tornou lei em 2024, simplificando o acesso a recursos por gestores públicos e agentes culturais',
+    'Coautora do novo marco regulatório da mineração, construído na Comissão Externa do Desastre de Brumadinho, com destaque para a Lei 14.755/2023, que criou a Política Nacional de Direitos das Populações Atingidas por Barragens',
+    'Vice-presidenta da Comissão de Cultura',
+    'Integrante da Comissão Externa sobre Violência Doméstica contra a Mulher e da Comissão Permanente Mista de Combate à Violência contra a Mulher',
   ],
 }
 
@@ -159,7 +170,7 @@ export const trajetoria = {
     {
       ano: '1983',
       texto:
-        'Nasço em Tucuruí, no Pará. Ainda criança, minha família se muda pra Belo Horizonte, onde cresço e estudo em escola pública.',
+        'Nasço em Tucuruí, no Pará. Ainda criança, minha família se muda pra Belo Horizonte, no bairro João Pinheiro.',
     },
     {
       ano: '1999',
@@ -171,12 +182,12 @@ export const trajetoria = {
       ano: '2004',
       ate: '2006',
       texto:
-        'Participo da criação do Fórum das Juventudes da Grande BH e me torno conselheira municipal de juventude.',
+        'Participo da criação do Fórum das Juventudes da Grande BH e me torno conselheira municipal de Juventude.',
     },
     {
       ano: '2010',
       texto:
-        'Recebo bolsa da Fundación Carolina e vou pra Espanha fazer especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona.',
+        'Recebo uma bolsa da Fundación Carolina e vou pra Espanha fazer especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona.',
     },
     {
       ano: '2015',
@@ -306,10 +317,10 @@ export const atos = {
    ------------------------------------------------------------------------- */
 
 export const bandeiras = {
-  tarja: 'Minhas bandeiras',
-  titulo: 'Sete compromissos',
+  tarja: 'Nossas bandeiras',
+  titulo: 'Para um Senado do lado do povo',
   apoio:
-    'Toque em cada bandeira para ler o compromisso inteiro, com o que já foi feito e o que vem pela frente.',
+    'Toque em cada bandeira para ler o compromisso inteiro e o que eu vou levar pro Senado.',
   itens: [
     {
       id: 'mulheres',
@@ -317,9 +328,9 @@ export const bandeiras = {
       cor: 'roxo',
       icone: 'flor',
       chamada:
-        'Chega de violência e de feminicídio. A gente quer fortalecer as políticas de prevenção, garantir educação para o respeito e lutar por um percentual fixo de emendas parlamentares para o enfrentamento da violência contra mulheres e meninas, para que a rede de proteção funcione de verdade, com delegacia especializada, casa abrigo e atendimento psicossocial em todos os municípios.',
+        'Chega de violência e de feminicídio. Precisamos fortalecer as políticas de prevenção, garantir educação para o respeito e lutar por um percentual fixo de emendas parlamentares para o enfrentamento da violência contra mulheres e meninas. A rede de proteção tem que funcionar de verdade, com delegacias especializadas, casas-abrigo e atendimento psicossocial em todos os municípios.',
       completa: [
-        'Essa luta atravessa minha trajetória. Em Belo Horizonte, apresentei o Morada Segura, que virou lei e garante prioridade em programas habitacionais para mulheres em situação de violência atendidas pelos serviços públicos. No Congresso, integrei comissões dedicadas ao enfrentamento da violência doméstica e da violência contra as mulheres. No Senado, quero levar a Lei Maria da Penha pra dentro das escolas, cobrar responsabilização das plataformas pela violência digital contra mulher e avançar num pacto nacional pelo fim do feminicídio, com financiamento garantido.',
+        'No Senado, quero levar a Lei Maria da Penha pra dentro das escolas, cobrar responsabilização das plataformas pela violência digital contra as mulheres e avançar num pacto nacional pelo fim do feminicídio, com financiamento garantido para políticas de prevenção.',
       ],
     },
     {
@@ -328,9 +339,9 @@ export const bandeiras = {
       cor: 'laranja',
       icone: 'coracao',
       chamada:
-        'Acreditamos no SUS e vamos lutar para fortalecê-lo. Saúde perto de casa, atenção básica funcionando, saúde mental levada a sério e profissional valorizado são prioridades. O cuidado precisa chegar onde as pessoas vivem e reduzir as desigualdades entre as regiões de Minas.',
+        'Acreditamos no SUS e vamos lutar para fortalecê-lo. Saúde perto de casa, atenção básica funcionando, saúde mental levada a sério e valorização dos profissionais que precisam ser prioridade. O cuidado tem que chegar onde as pessoas vivem, para reduzir as desigualdades entre as regiões de Minas.',
       completa: [
-        'No Senado, quero defender financiamento federal permanente para atenção básica e saúde mental, com prioridade para os municípios do interior. Defendo recompor o recurso que hoje falta na rede de saúde mental e rever a destinação de dinheiro público que vai pra comunidade terapêutica em vez de ir pro cuidado de verdade.',
+        'No Senado, vou defender financiamento federal permanente para atenção básica e saúde mental, com prioridade para os municípios do interior. Quero lutar pela recomposição do recurso que hoje falta na rede de saúde mental e pela regulação do uso de emendas parlamentares na saúde, para assegurar políticas públicas baseadas em garantia de direitos e embasamento científico.',
       ],
     },
     {
@@ -339,9 +350,9 @@ export const bandeiras = {
       cor: 'amarelo',
       icone: 'relogio',
       chamada:
-        'As pessoas precisam trabalhar para viver, e não viver para trabalhar. Defendo o fim da escala 6x1, trabalho decente, renda que acompanhe o custo de vida e políticas de cuidado pra quem cuida de criança, de idoso e de pessoa doente.',
+        'As pessoas precisam trabalhar para viver, e não viver para trabalhar. Nós defendemos trabalho decente, renda que acompanha o custo de vida e políticas de cuidado pra quem cuida de crianças, idosos e pessoas doentes.',
       completa: [
-        'Quem entrega comida de app, quem é diarista, quem faz bico atrás de bico merece proteção que hoje não existe. No Senado, vou brigar pelo fim da escala 6x1, pela atualização da legislação trabalhista pra alcançar autônomo, intermitente, diarista e entregador, e por políticas de cuidado como direito, não como favor.',
+        'Quem entrega comida de app, quem é diarista, quem faz bico atrás de bico merece proteção que hoje não existe. No Senado, vou brigar pelo fim da escala 6x1, pela atualização da legislação trabalhista para alcançar autônomo, intermitente, diarista e entregador, e por políticas de cuidado como direito, não como favor.',
       ],
     },
     {
@@ -350,9 +361,9 @@ export const bandeiras = {
       cor: 'verde',
       icone: 'serra',
       chamada:
-        'Minas Gerais conhece bem o preço de um modelo de mineração que coloca o lucro acima das pessoas e dos territórios. Defendo nossas serras, nossas águas, nossas comunidades e a soberania sobre as riquezas do nosso estado.',
+        'Minas Gerais conhece bem o preço de um modelo de mineração que coloca o lucro acima das pessoas e dos territórios. Defendo nossas serras, nossas águas, nossas comunidades e a soberania sobre as riquezas do nosso estado. Não existe desenvolvimento em terra arrasada.',
       completa: [
-        'No Senado, quero soberania sobre mineral estratégico como lítio e terras raras, pra que Jequitinhonha e Sul de Minas não sejam só fonte de riqueza pra quem já tem poder. Defendo a responsabilização criminal de verdade pelos crimes de mineração, não só acordo que monetiza o crime. Justiça climática também é justiça social. Não existe desenvolvimento em terra arrasada.',
+        'No Senado, vou defender a soberania dos territórios sobre minerais estratégicos como lítio e terras raras, pra que regiões como o Vale do Jequitinhonha e o Sul de Minas não sejam só fonte de riqueza pra quem já tem poder. E lutar por responsabilização de verdade pelos crimes de mineração.',
       ],
     },
     {
@@ -361,9 +372,9 @@ export const bandeiras = {
       cor: 'vinho',
       icone: 'chave',
       chamada:
-        'Cultura é identidade, memória, trabalho e renda. É parte de quem somos e também uma força importante da nossa economia.',
+        'Cultura também é trabalho. Investir em cultura é gerar renda, fortalecer a economia, preservar nossas tradições e apoiar os agentes culturais de Minas Gerais. É uma área que precisa ser tratada com prioridade.',
       completa: [
-        'No Senado, quero taxar as plataformas de streaming que hoje lucram com a produção cultural brasileira sem devolver nada pro país, e usar esse recurso pra manter o fomento à cultura de pé em Minas Gerais.',
+        'No Senado, quero consolidar políticas que levam o recurso até a ponta, avançar em marcos de proteção social para trabalhadores da cultura e regulamentar a taxação das plataformas de streaming, que hoje lucram com a produção cultural brasileira sem devolver nada pro país.',
       ],
     },
     {
@@ -372,9 +383,9 @@ export const bandeiras = {
       cor: 'laranja',
       icone: 'escudo',
       chamada:
-        'Lutamos por uma internet segura para pessoas de todas as idades. A conta do golpe não pode ficar com quem foi enganado.',
+        'A internet precisa ser um espaço seguro para pessoas de todas as idades. Hoje, as plataformas digitais lucram com anúncios fraudulentos e a conta fica com quem foi enganado. Isso precisa mudar.',
       completa: [
-        'A plataforma lucra com anúncios fraudulentos, independentemente de quem cai. No Senado, quero levar esse debate além do discurso de "dever de cuidado": defendo responsabilização financeira direta das plataformas, com devolução da receita de anúncios fraudulentos pra quem foi vítima.',
+        'No Senado, quero trabalhar para enfrentar os golpes digitais com prevenção, proteção de dados, responsabilização das plataformas e atendimento rápido a quem foi vítima.',
       ],
     },
     {
@@ -383,9 +394,9 @@ export const bandeiras = {
       cor: 'roxo',
       icone: 'balanca',
       chamada:
-        'Ninguém está acima da lei. Precisamos de um Supremo Tribunal Federal forte, transparente, representativo e comprometido com a Constituição e com a defesa da democracia.',
+        'Ninguém está acima da lei. O STF precisa ser um espaço forte, representativo e transparente, comprometido com a Constituição e com a defesa da democracia.',
       completa: [
-        'As instituições brasileiras precisam refletir a diversidade do nosso povo. O Brasil nunca teve uma ministra negra no STF. Está mais do que na hora de mudar essa história.',
+        'E mais: as instituições brasileiras precisam refletir a diversidade do nosso povo. O Brasil nunca teve uma ministra negra no STF e está mais do que na hora de mudar essa história.',
       ],
     },
   ],

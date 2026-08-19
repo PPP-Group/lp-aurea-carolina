@@ -5,13 +5,13 @@ import { useRevelar } from '../../lib/useRevelar.js'
 /* ============================================================================
    BANDEIRAS
    ----------------------------------------------------------------------------
-   Sete compromissos, sete campos de cor. É o momento mais alto da paleta na
+   Sete bandeiras, sete campos de cor. É o momento mais alto da paleta na
    página inteira: cada bandeira pega uma das cores oficiais e ocupa o bloco
    todo, como uma parede de lambe-lambe.
 
-   O documento de texto entregou cada bandeira em duas versões, uma enxuta e
-   uma completa. As duas entram: a enxuta é o que se lê de relance, a completa
-   abre quando a pessoa quer o argumento inteiro, com o que já foi feito.
+   O documento entrega cada bandeira em dois parágrafos. O primeiro é o
+   diagnóstico e entra fechado, à vista de todo mundo; o segundo é o "no
+   Senado, eu vou…" e abre quando a pessoa quer o compromisso inteiro.
 
    Usa `<details>` de propósito. Abre sem JavaScript, o navegador já dá o papel
    de acessibilidade certo, e o Ctrl+F do navegador encontra o texto fechado.

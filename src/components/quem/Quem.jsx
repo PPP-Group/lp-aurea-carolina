@@ -8,8 +8,8 @@ import { useRevelar } from '../../lib/useRevelar.js'
    o manual chama a Origin Light de "título de paz", e é ela que abre aqui.
 
    O parágrafo em destaque é o coração do texto que a campanha escreveu — "nas
-   duas vezes, quase ninguém apostava" — e por isso sai do corpo do texto e
-   ganha a escala de um cartaz pequeno.
+   duas vezes, disseram que seria impossível" — e por isso sai do corpo do
+   texto e ganha a escala de um cartaz pequeno.
    ========================================================================== */
 /* Cada princípio observa a própria entrada em tela: por isso é componente, e
    não um `<li>` solto dentro do map. */
@@ -52,8 +52,6 @@ export function Quem() {
           <blockquote className="quem__destaque">
             <p>{quem.destaque}</p>
           </blockquote>
-
-          <p className="quem__fecho">{quem.fecho}</p>
         </div>
 
         <figure className="quem__figura">

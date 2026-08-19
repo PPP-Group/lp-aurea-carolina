@@ -65,6 +65,16 @@ export function Provas() {
             <Prova key={item.rotulo} item={item} largo={i < 2} />
           ))}
         </ul>
+
+        {/* O resto da atuação institucional não cabe em número: são leis,
+            relatórios e comissões. Ficam em lista, logo abaixo do painel. */}
+        <ul className="provas__extras">
+          {provas.lista.map((texto) => (
+            <li key={texto} className="provas__extra">
+              {texto}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

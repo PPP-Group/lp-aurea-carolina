@@ -56,12 +56,6 @@
   color: var(--color-vinho);
 }
 
-.quem__fecho {
-  max-width: var(--largura-leitura);
-  margin-top: 2rem;
-  color: var(--color-tinta);
-}
-
 /* ---------------------------------------------------------------------------
    Figura
 

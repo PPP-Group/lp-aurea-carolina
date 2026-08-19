@@ -127,6 +127,40 @@
   color: var(--color-claro-fraco);
 }
 
+/* ---------------------------------------------------------------------------
+   O resto da atuação institucional
+
+   Não são números, são feitos: leis, relatórios, comissões. Duas colunas no
+   desktop pra não virar uma coluna comprida logo depois da grade de números.
+   ------------------------------------------------------------------------- */
+
+.provas__extras {
+  display: grid;
+  gap: 0.9rem 3rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.provas__extra {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-claro-fraco);
+}
+
+.provas__extra::before {
+  content: '';
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--grad-petala);
+}
+
 @media (min-width: 46rem) {
   .provas__lista {
     grid-template-columns: repeat(2, 1fr);
@@ -139,5 +173,11 @@
   }
   .prova[data-largo='sim'] {
     grid-column: span 2;
+  }
+}
+
+@media (min-width: 60rem) {
+  .provas__extras {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
