@@ -1,12 +1,14 @@
 import { useEffect, useMemo } from 'react'
-import { faixa, secoes } from './data/campanha.js'
+import { faixa, filme, secoes } from './data/campanha.js'
 import { iniciarRolagem } from './lib/rolagem.js'
 import { useSecaoAtiva } from './lib/useSecaoAtiva.js'
+import { useTelaLarga } from './lib/useTelaLarga.js'
 
 import { Nav } from './components/Nav.jsx'
 import { Faixa } from './components/Faixa.jsx'
 import { Compartilhar } from './components/Compartilhar.jsx'
 import { Rodape } from './components/Rodape.jsx'
+import { Filme } from './components/Filme.jsx'
 
 import { Hero } from './components/hero/Hero.jsx'
 import { Quem } from './components/quem/Quem.jsx'
@@ -29,6 +31,9 @@ import { Apoiar } from './components/apoiar/Apoiar.jsx'
 export default function App() {
   const ids = useMemo(() => secoes.map((s) => s.id), [])
   const secaoAtiva = useSecaoAtiva(ids)
+  /* No celular o filme já está dentro do herói. Aqui ele só existe no desktop,
+     onde o herói mantém o retrato recortado. */
+  const telaLarga = useTelaLarga()
 
   useEffect(() => iniciarRolagem(), [])
 
@@ -42,6 +47,22 @@ export default function App() {
 
       <main>
         <Hero />
+
+        {telaLarga && (
+          <section id="filme" className="secao filme filme--secao grao">
+            <div className="limite filme__interior">
+              <header className="filme__cabeca">
+                <p className="tarja filme__tarja">
+                  <span className="tarja__marca" aria-hidden="true" />
+                  {filme.tarja}
+                </p>
+                <h2 className="filme__titulo cartaz">{filme.titulo}</h2>
+              </header>
+
+              <Filme largo />
+            </div>
+          </section>
+        )}
 
         {/* Do cartaz para o papel. */}
         <Faixa frases={faixa} variante="vinho" />

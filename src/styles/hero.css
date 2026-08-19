@@ -15,14 +15,41 @@
   min-height: 100svh;
   padding-block: clamp(1.25rem, 3.5vh, 2.5rem) 0;
   overflow: clip;
+  /* As cores vêm do cartaz oficial. São três camadas, de baixo para cima:
+
+     1. o corpo laranja-papaia, que segura a esquerda e o pé inteiro;
+     2. o clarão quente nascendo atrás dela;
+     3. a cunha rosa-bougainville descendo do canto de cima à direita.
+
+     A cunha é diagonal, e não mancha redonda de canto, porque é essa a forma
+     no cartaz. O limite de quanto ela avança é de contraste: vinho sobre roxo
+     cheio dá 3,4:1, abaixo do mínimo para texto miúdo.
+
+     Por isso os valores mudam entre celular e desktop. No desktop todo o texto
+     mora na coluna da esquerda e a cunha desce livre pela direita: cobre 38%
+     da tela com o pior par de texto em 4,66:1. No celular a composição é
+     centralizada e a legenda atravessa o topo de ponta a ponta, então a cunha
+     recua para o canto: 9% da tela, pior par em 4,63:1. Medido camada a
+     camada, não estimado. */
+  --rosa-ang: 20deg;
+  --rosa-ini: 78%;
+  --rosa-meio: 92%;
+  --sol-r: 50% 38%;
+
   background:
+    linear-gradient(
+      var(--rosa-ang),
+      rgb(229 53 127 / 0) var(--rosa-ini),
+      #e5357f var(--rosa-meio),
+      #c22fa8 100%
+    ),
     radial-gradient(
-      95% 70% at var(--sol-x) var(--sol-y),
-      #ffdf5e 0%,
-      var(--color-amarelo) 38%,
-      #ff9a1c 74%,
-      var(--color-laranja) 100%
-    );
+      var(--sol-r) at var(--sol-x) var(--sol-y),
+      #ffa93f 0%,
+      #ff7434 45%,
+      rgb(255 116 52 / 0) 100%
+    ),
+    linear-gradient(196deg, #ff6d3a 0%, var(--color-laranja) 62%, #f8542f 100%);
   color: var(--color-vinho);
 }
 
@@ -34,7 +61,7 @@
 }
 
 .heroi__sol {
-  --sol-cor: rgb(255 255 255 / 0.3);
+  --sol-cor: rgb(255 178 96 / 0.42);
   top: var(--sol-y);
   left: var(--sol-x);
   width: 170vmax;
@@ -65,7 +92,9 @@
 .heroi__assinatura {
   grid-area: assinatura;
   display: grid;
-  justify-items: start;
+  /* No celular a composição é simétrica em volta do filme; no desktop volta a
+     ser encostada na esquerda (ver a consulta de 62rem lá embaixo). */
+  justify-items: center;
   gap: 0.9rem;
 }
 
@@ -101,7 +130,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.55rem 0.9rem;
+  text-align: center;
 }
 
 .heroi__legenda {
@@ -118,6 +149,20 @@
 /* ---------------------------------------------------------------------------
    Retrato
    ------------------------------------------------------------------------- */
+
+/* O filme entra no lugar do recorte, mas ele é 16:9 deitado e o recorte era
+   uma silhueta em pé: por isso ganha moldura própria em vez de herdar as
+   medidas do retrato. A largura sangra até a borda do limite, como o cartaz. */
+.heroi__filme {
+  grid-area: retrato;
+  align-self: center;
+  justify-self: stretch;
+  width: 100%;
+  /* Folga curta de propósito: com 3vh de cada lado o herói passava de 100svh
+     num aparelho de 812px e os dois botões saíam da primeira tela, que é
+     justamente o que a medida do retrato existia para garantir. */
+  margin-block: clamp(0.5rem, 1.4vh, 1.25rem);
+}
 
 /* No celular a altura do retrato é o que decide se o segundo botão cabe na
    primeira tela. 40svh é o limite em que os dois ainda entram num aparelho de
@@ -147,9 +192,12 @@
   position: relative;
   z-index: 3;
   display: grid;
-  justify-items: start;
+  /* Centralizado sob o filme no celular. O recuo negativo que fazia o grito
+     subir por cima do recorte sai daqui e volta só no desktop, onde o recorte
+     volta a existir — sobre o filme ele taparia a imagem. */
+  justify-items: center;
   gap: 0.4rem;
-  margin-top: -8svh; /* o grito sobe por cima do retrato, como no cartaz */
+  text-align: center;
 }
 
 .heroi__titulo {
@@ -226,8 +274,17 @@
 
 @media (min-width: 62rem) {
   .heroi {
-    --sol-x: 74%;
-    --sol-y: 34%;
+    /* O centro do sol cai na cabeça dela, e não num ponto solto do fundo: o
+       recorte entra com a cabeça em 62,7% da própria largura, e com a margem
+       abaixo isso dá estes valores. É o que faz os raios parecerem sair dela,
+       como nas peças impressas. */
+    --sol-x: 81%;
+    --sol-y: 17%;
+
+    /* Texto todo à esquerda: a cunha rosa pode descer pela direita inteira. */
+    --rosa-ang: 48deg;
+    --rosa-ini: 42%;
+    --rosa-meio: 70%;
   }
 
   .heroi__interior {
@@ -240,17 +297,32 @@
     column-gap: 1rem;
   }
 
+  /* O padrão centralizado é do celular. Aqui a composição volta a ser a do
+     cartaz: tudo encostado na esquerda, retrato ocupando a coluna da direita. */
+  .heroi__assinatura {
+    justify-items: start;
+  }
+
+  .heroi__credencial {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
   .heroi__retrato {
     justify-self: end;
     align-self: end;
     height: min(90svh, 50rem);
     max-width: none;
-    margin-right: clamp(-6rem, -4vw, -2rem);
+    /* Margem positiva: antes o recorte sangrava pela borda e ela ficava
+       cortada no canto. Trazendo para dentro, a silhueta fecha inteira e o
+       centro do sol tem onde pousar atrás dela. */
+    margin-right: clamp(1rem, 5vw, 7rem);
   }
 
   .heroi__grito {
+    justify-items: start;
+    text-align: left;
     align-self: center;
-    margin-top: 0;
     padding-block: 1.5vh;
     grid-template-columns: auto auto;
     align-items: end;

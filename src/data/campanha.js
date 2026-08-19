@@ -25,6 +25,20 @@ export const identidade = {
   slogan: 'A senadora do povo mineiro',
 }
 
+/* ---------------------------------------------------------------------------
+   O FILME
+   Convertido do master que a campanha entregou. Ver `scripts/video.mjs`.
+   ------------------------------------------------------------------------- */
+
+export const filme = {
+  largo: '/assets/video/aurea-1080.mp4',
+  estreito: '/assets/video/aurea-720.mp4',
+  poster: '/assets/video/aurea-poster.webp',
+  alt: 'Vídeo de campanha de Áurea Carolina, candidata ao Senado por Minas Gerais.',
+  tarja: 'O filme da campanha',
+  titulo: 'Bora vencer',
+}
+
 export const hero = {
   tarja: 'A senadora do povo mineiro',
   grito: ['Bora', 'vencer'],

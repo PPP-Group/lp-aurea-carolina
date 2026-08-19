@@ -1,0 +1,69 @@
+/* ============================================================================
+   O FILME
+   ----------------------------------------------------------------------------
+   Duas montagens do mesmo componente. No celular, `.heroi__filme` já posiciona
+   o bloco dentro da grade do herói e aqui só entra a moldura. No desktop,
+   `.filme--secao` é uma faixa vinho logo abaixo do herói, e o vídeo ganha a
+   largura de leitura da página.
+
+   A moldura é a mesma dos cartões da campanha: canto arredondado e um traço
+   grosso que segura o vídeo contra o fundo quente do herói.
+   ========================================================================== */
+
+.filme__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+  background: var(--color-preto);
+  object-fit: cover;
+}
+
+/* ---------- Dentro do herói (celular) ---------- */
+
+.heroi__filme .filme__video {
+  border: 3px solid var(--color-vinho);
+  box-shadow: 0 18px 40px -18px rgb(80 0 43 / 0.55);
+}
+
+/* ---------- Seção própria (desktop) ---------- */
+
+.filme--secao {
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.filme__interior {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.filme__cabeca {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.filme__tarja {
+  color: var(--color-amarelo);
+}
+
+.filme__titulo {
+  --traco: 0.03em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.038em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  color: var(--color-bege);
+}
+
+.filme--secao .filme__video {
+  max-width: 68rem;
+  margin-inline: auto;
+  border: 3px solid var(--color-bege);
+  box-shadow: 0 26px 60px -26px rgb(0 0 0 / 0.6);
+}
