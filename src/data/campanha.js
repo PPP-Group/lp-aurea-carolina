@@ -45,7 +45,7 @@ export const hero = {
   grito: ['Bora', 'vencer'],
   apoio:
     'Áurea Carolina é candidata ao Senado Federal por Minas Gerais. Cientista política, educadora popular, a mulher mais votada do estado em 2018.',
-  chamadaPrimaria: { texto: 'Ensaiar meu voto', href: '#urna' },
+  chamadaPrimaria: { texto: 'Quero apoiar', href: '#apoiar' },
   chamadaSecundaria: { texto: 'Ver as bandeiras', href: '#bandeiras' },
 }
 
@@ -419,17 +419,6 @@ export const bandeiras = {
 }
 
 /* ---------------------------------------------------------------------------
-   URNA
-   ------------------------------------------------------------------------- */
-
-export const urna = {
-  tarja: 'Ensaia comigo',
-  titulo: 'Seu voto para senadora',
-  apoio:
-    'São dois votos para senador nesta eleição. Um deles pode ser 500. Digite aqui e veja como vai aparecer na urna no dia.',
-}
-
-/* ---------------------------------------------------------------------------
    PEÇAS
    ------------------------------------------------------------------------- */
 
@@ -515,7 +504,6 @@ export const secoes = [
   { id: 'trajetoria', rotulo: 'Trajetória' },
   { id: 'atos', rotulo: 'Nas ruas' },
   { id: 'bandeiras', rotulo: 'Bandeiras' },
-  { id: 'urna', rotulo: 'Seu voto' },
   { id: 'pecas', rotulo: 'Peças' },
   { id: 'apoiar', rotulo: 'Apoiar' },
 ]

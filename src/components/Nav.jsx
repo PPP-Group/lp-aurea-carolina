@@ -76,7 +76,7 @@ export function Nav({ secaoAtiva }) {
             ))}
           </nav>
 
-          <a className="nav__voto" href="#urna">
+          <a className="nav__voto" href="#apoiar">
             <span className="nav__voto-rotulo">Vote</span>
             <span className="nav__voto-numero">500</span>
           </a>
@@ -115,9 +115,9 @@ export function Nav({ secaoAtiva }) {
           ))}
         </nav>
 
-        <a className="btn btn--claro painel__voto" href="#urna" onClick={() => setAberto(false)}>
+        <a className="btn btn--claro painel__voto" href="#apoiar" onClick={() => setAberto(false)}>
           <Icone nome="tocar" tamanho={20} />
-          Ensaiar meu voto
+          Quero apoiar
         </a>
       </div>
     </>

@@ -16,7 +16,6 @@ import { Provas } from './components/provas/Provas.jsx'
 import { Trajetoria } from './components/trajetoria/Trajetoria.jsx'
 import { Atos } from './components/atos/Atos.jsx'
 import { Bandeiras } from './components/bandeiras/Bandeiras.jsx'
-import { Urna } from './components/urna/Urna.jsx'
 import { Pecas } from './components/pecas/Pecas.jsx'
 import { Apoiar } from './components/apoiar/Apoiar.jsx'
 
@@ -79,9 +78,6 @@ export default function App() {
         <Atos />
 
         <Bandeiras />
-
-        <Faixa frases={['Vote 500', 'Áurea Carolina, senadora', 'Bora vencer']} variante="roxa" velocidade={26} />
-        <Urna />
 
         <Pecas />
 

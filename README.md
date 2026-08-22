@@ -99,11 +99,6 @@ O grafismo assinatura é **o sol de pequi**: os filamentos radiais da flor,
 que no cartaz impresso estão parados, giram atrás da Áurea. É o que a tela
 acrescenta ao papel.
 
-O momento interativo é **a urna** (`src/components/urna/Urna.jsx`). Dá pra
-ensaiar o voto — digitar 500, ver a ficha da candidata, confirmar. Funciona
-por toque e por teclado físico, e confirmar abre a flor. Serve a quem tem 70
-anos e vai ter poucos segundos na cabine, e a quem tem 18 e nunca votou.
-
 ---
 
 ## Estrutura
@@ -120,7 +115,6 @@ src/
   styles/            tokens, base e uma folha por seção
 scripts/
   shots.mjs          capturas para revisão (desktop, mobile, medir, verificar)
-  urna.mjs           percorre a urna e fotografa os quatro estados
   estados.mjs        bandeira aberta, lupa da peça, menu do celular
 ```
 
