@@ -78,6 +78,44 @@
    Por isso a meia-lua de cima passa longe do cabelo.
    ------------------------------------------------------------------------- */
 
+/* A moldura existe só para a flor: a pílula recorta o que encosta nela, e a
+   flor precisa passar por cima da borda. Ela leva as medidas que eram da
+   figura, e a figura passa a preencher o que sobra. */
+.quem__retrato {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  /* No celular a coluna é larga e o recorte é estreito: sem este teto a pílula
+     viraria uma faixa de bege com uma pessoa pequena no meio. */
+  max-width: 26rem;
+}
+
+/* O canto do manual, na versão de fundo claro: flor rosa (uso secundário — a
+   laranja empataria com o bege) e, embaixo dela, o sol do PSOL em preto pedra
+   sabão. Fica meio dentro e meio fora da pílula, que é como ele entra nas
+   peças. */
+.quem__canto {
+  position: absolute;
+  z-index: 3;
+  top: -0.5rem;
+  left: -1rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  width: clamp(3.5rem, 15%, 6rem);
+}
+
+.quem__flor {
+  width: 100%;
+  filter: drop-shadow(0 8px 20px rgb(80 0 43 / 0.16));
+}
+
+.quem__psol {
+  display: block;
+  width: 62%;
+  height: auto;
+}
+
 /* O `width: 100%` é o que dá base ao retrato: sem ele o bloco se auto-dimensiona
    pela imagem, a imagem se dimensiona pelo bloco, e os dois zeram. */
 .quem__figura {
@@ -86,13 +124,12 @@
   overflow: hidden;
   display: grid;
   align-items: end;
-  justify-self: center;
   width: 100%;
-  /* No celular a coluna é larga e o recorte é estreito: sem este teto a pílula
-     viraria uma faixa de bege com uma pessoa pequena no meio. */
-  max-width: 26rem;
   margin: 0;
-  padding-top: clamp(2rem, 5vw, 3.25rem);
+  /* O recorte novo é justo: a silhueta encosta nas duas bordas do arquivo.
+     Sem esta folga lateral, a meia-lua de baixo passaria por cima da mão
+     dela. O respiro é o que devolve a curva ao bege, onde ela pertence. */
+  padding: clamp(2rem, 5vw, 3.25rem) clamp(0.9rem, 4%, 2.25rem) 0;
   border-radius: 999px;
   /* Mais claro em cima, cheio embaixo: a meia-lua de baixo precisa de contraste
      contra o papel pra que a curva se leia como forma, e não como sombra. */
@@ -117,25 +154,39 @@
   mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
 }
 
-/* O sol e a meia-lua da pílula são círculos concêntricos.
+/* A luz e a meia-lua da pílula são círculos concêntricos.
 
-   `.sol` é quadrado com `border-radius: 50%`, então o disco de raios tem
-   exatamente a largura do elemento. Tirando `--folga-sol` de cada lado e
-   descendo o disco na mesma medida, o centro continua caindo em `W/2` — o
-   centro da curva de cima — e sobra um anel de bege de espessura constante
-   entre os raios e a borda do bloco. É essa folga que deixa ver o círculo se
-   fechar em cima, em vez de ele morrer encostado na curva.
+   `.luz` é quadrada com `border-radius: 50%`, então o clarão tem exatamente a
+   largura do elemento. Tirando `--folga-luz` de cada lado e descendo o disco
+   na mesma medida, o centro continua caindo em `W/2` — o centro da curva de
+   cima — e sobra um anel de bege de espessura constante entre o clarão e a
+   borda do bloco. É essa folga que deixa ver o círculo se fechar em cima, em
+   vez de ele morrer encostado na curva.
 
    A folga é um comprimento, não uma porcentagem, de propósito: `%` em `top`
    mede a altura e em `width` mede a largura, e as duas leituras diferentes
    desalinhariam os centros. */
-.quem__sol {
-  --sol-cor: rgb(204 58 160 / 0.22);
-  --folga-sol: clamp(1.5rem, 4vw, 3rem);
+/* Os mesmos filamentos do herói, agora por dentro da pílula. Em roxo diluído,
+   porque é a cor que esta seção já usa nas tarjas e na barra do destaque — os
+   raios entram como trama do papel, não como segunda figura. Ficam entre o
+   fundo e o clarão, e a foto passa por cima dos dois. */
+.quem__raios {
+  --raios-cor: color-mix(in srgb, var(--color-roxo) 20%, transparent);
 
-  top: var(--folga-sol);
+  top: 6%;
   left: 50%;
-  width: calc(100% - var(--folga-sol) * 2);
+  width: 116%;
+  translate: -50% 0;
+  z-index: 1;
+}
+
+.quem__luz {
+  --luz-cor: rgb(204 58 160 / 0.26);
+  --folga-luz: clamp(1.5rem, 4vw, 3rem);
+
+  top: var(--folga-luz);
+  left: 50%;
+  width: calc(100% - var(--folga-luz) * 2);
   translate: -50% 0;
   z-index: 1;
 }
@@ -223,7 +274,7 @@
   .quem__interior {
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   }
-  .quem__figura,
+  .quem__retrato,
   .quem__figura img {
     max-width: none;
   }

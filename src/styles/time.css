@@ -1,0 +1,94 @@
+/* ============================================================================
+   TIME DO LULA EM MINAS GERAIS
+   ----------------------------------------------------------------------------
+   Entra logo depois da trajetória (fundo bege) e antes dos atos (fundo
+   vinho), e por isso já pega o vinho: é a mesma passagem do papel para a
+   noite que a linha do tempo faz sozinha, sem faixa — aqui só se estica um
+   pouco mais.
+
+   As fotos entram inteiras, sem recorte: cada uma é um flagra de evento na
+   proporção em que a câmera gravou (aqui, sempre 3:2), não um retrato de
+   estúdio forçado em moldura quadrada. Por isso a moldura não tem
+   `aspect-ratio` fixo — quem decide a forma é a foto.
+   ========================================================================== */
+
+.timao {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-vinho);
+  color: var(--color-bege);
+  overflow: clip;
+}
+
+.timao__luz {
+  --luz-cor: rgb(204 58 160 / 0.2);
+  top: -30%;
+  left: 50%;
+  width: min(90rem, 170vw);
+  translate: -50% 0;
+  z-index: 0;
+}
+
+.timao > .limite {
+  position: relative;
+  z-index: 2;
+}
+
+.timao__cabeca {
+  max-width: 44rem;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.timao__tarja {
+  color: var(--color-amarelo);
+  margin-bottom: 1rem;
+}
+
+.timao__titulo {
+  --traco: 0.028em;
+  --cor-traco: var(--color-vinho);
+  --sombra: 0.035em;
+  --cor-sombra: var(--color-roxo);
+
+  font-size: var(--text-mega);
+  color: var(--color-bege);
+}
+
+.timao__apoio {
+  margin-top: 1.25rem;
+  color: var(--color-claro-fraco);
+}
+
+/* ---------------------------------------------------------------------------
+   As fotos
+   ------------------------------------------------------------------------- */
+
+.timao__grade {
+  display: grid;
+  /* Uma coluna no celular (18rem não cabe ao lado de outra em telas
+     estreitas, então `auto-fit` desiste e empilha); a partir de ~600px de
+     contêiner já cabem duas, e as três lado a lado quando sobra espaço para
+     isso — sem consulta de largura escrita à mão. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Moldura com o canto arredondado do manual ("dando preferência sempre a
+   cantos arredondados") e a borda bege que separa a foto do vinho do fundo —
+   mas sem forma própria: a altura é a que a imagem, em `width:100%`, define
+   sozinha. */
+.timao__foto {
+  overflow: hidden;
+  border: 3px solid var(--color-bege);
+  border-radius: clamp(1rem, 2.5vw, 1.5rem);
+  background: var(--grad-petala);
+}
+
+.timao__foto img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

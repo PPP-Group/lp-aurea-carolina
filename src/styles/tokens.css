@@ -85,12 +85,29 @@
   --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-entrada: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* ---------- O gradiente da pétala ----------
+  /* ---------- Os degradês ----------
      O manual diz: "usaremos os degradês presentes na flor de pequi áurea como
      elemento gráfico de campanha, mesmo que a flor não esteja presente na
-     peça". É este. Ele pinta o 500, os anos da trajetória e os números. */
+     peça". A página ELEMENTOS DE APOIO mostra quais são: cinco pares, e só
+     cinco. Cada um liga duas das sete cores oficiais, sem tom inventado no
+     meio do caminho — é essa a regra que mantém todos os degradês da página
+     falando a mesma língua.
+
+       pétala   amarelo → laranja   o par da flor. Pinta o 500, os anos da
+                                    trajetória e os números.
+       noite    roxo    → laranja
+       mata     verde   → vinho
+       tinta    roxo    → vinho
+       sol      bege    → amarelo
+
+     Nenhuma regra desta pasta pode escrever um hexadecimal solto: ou usa uma
+     das sete cores, ou usa `color-mix` entre duas delas. */
   --grad-petala: linear-gradient(105deg, var(--color-amarelo), var(--color-laranja));
   --grad-noite: linear-gradient(105deg, var(--color-roxo), var(--color-laranja));
+  --grad-mata: linear-gradient(105deg, var(--color-verde), var(--color-vinho));
+  --grad-tinta: linear-gradient(105deg, var(--color-roxo), var(--color-vinho));
+  --grad-sol: linear-gradient(105deg, var(--color-bege), var(--color-amarelo));
+
 }
 
 :root {

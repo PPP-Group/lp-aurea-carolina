@@ -68,7 +68,7 @@ function Prova({ item }) {
 export function Provas() {
   return (
     <section id="provas" className="secao provas grao">
-      <div className="sol sol--denso provas__sol" aria-hidden="true" />
+      <div className="luz provas__luz" aria-hidden="true" />
 
       <div className="limite provas__interior">
         <header className="provas__cabeca">

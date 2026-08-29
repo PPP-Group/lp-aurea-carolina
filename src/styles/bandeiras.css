@@ -247,3 +247,44 @@
     font-size: clamp(1.6rem, 3.4vw, 2.15rem);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   O fecho da seção
+
+   Sete bandeiras dão o resumo; quem quer o inteiro sai daqui para o caderno de
+   propostas. Enquanto o arquivo não existe o botão fica desligado, com o aviso
+   ao lado — o lugar dele na página já está reservado, e trocar o estado é
+   preencher um endereço em `bandeiras.propostas.href`.
+   ------------------------------------------------------------------------- */
+
+.bandeiras__fecho {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.bandeiras__propostas {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* Desligado: sem cursor de mão, sem o pulo do hover, e com o contraste
+   rebaixado só o bastante para ler como "ainda não" — continua acima de
+   4,5:1 sobre o bege do botão. */
+.bandeiras__propostas[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.bandeiras__propostas[aria-disabled='true']:hover {
+  transform: none;
+  box-shadow: 5px 5px 0 var(--color-roxo);
+}
+
+.bandeiras__aviso {
+  font-family: var(--font-faixa);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--color-vinho);
+}

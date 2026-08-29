@@ -23,14 +23,18 @@ import ffmpeg from 'ffmpeg-static'
 const RAIZ = resolve(import.meta.dirname, '..')
 const SAIDA = join(RAIZ, 'public', 'assets', 'video')
 
-/* O master pode estar em qualquer subpasta de Documentos, com acento no nome. */
+/* O master pode estar em qualquer subpasta de Documentos, com acento no nome.
+
+   O nome muda a cada entrega: o primeiro corte veio como "...HORIZONTAL...", o
+   jingle veio como "AUREA_SENADO-16x9". O que os dois têm em comum é dizer que
+   são a versão deitada, então é isso que o filtro procura. */
 function acharMaster(dir) {
   for (const item of readdirSync(dir, { withFileTypes: true })) {
     const caminho = join(dir, item.name)
     if (item.isDirectory()) {
       const achado = acharMaster(caminho)
       if (achado) return achado
-    } else if (/\.(mov|mp4|m4v)$/i.test(item.name) && /HORIZONTAL/i.test(item.name)) {
+    } else if (/\.(mov|mp4|m4v)$/i.test(item.name) && /HORIZONTAL|16x9/i.test(item.name)) {
       return caminho
     }
   }
@@ -78,9 +82,19 @@ const perfil = (largura, crf, audio) => [
   '2',
 ]
 
+/* Os CRF saíram de medição, não de gosto. O primeiro filme era um plano fixo de
+   43s e cabia em 14 MB com CRF 23; o jingle é 77s de corte rápido vindo de um
+   master 4K, e no mesmo CRF dava 50 MB — três vezes o que uma página de campanha
+   pode carregar. Medido em amostras de 12s, o custo por ponto de CRF neste
+   material é de uns 8% de tamanho, e denoise antes da escala não ajuda (os bits
+   estão indo para movimento, não para grão).
+
+   28 e 31 põem os dois arquivos de volta na faixa de bitrate do filme anterior
+   (~2,7 e ~1,1 Mbit/s), que é a conta que o projeto já fazia. Se um corte novo
+   for mais parado, dá para baixar os números de novo. */
 const tarefas = [
-  ['aurea-1080.mp4', perfil(1920, 23, '128k')],
-  ['aurea-720.mp4', perfil(1280, 26, '96k')],
+  ['aurea-1080.mp4', perfil(1920, 28, '128k')],
+  ['aurea-720.mp4', perfil(1280, 31, '96k')],
 ]
 
 for (const [nome, args] of tarefas) {

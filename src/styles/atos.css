@@ -13,8 +13,8 @@
   color: var(--color-bege);
 }
 
-.atos__sol {
-  --sol-cor: rgb(255 90 61 / 0.12);
+.atos__luz {
+  --luz-cor: rgb(255 90 61 / 0.16);
   top: -18%;
   right: -22%;
   width: min(90rem, 150vw);

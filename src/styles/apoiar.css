@@ -14,8 +14,8 @@
   color: var(--color-bege);
 }
 
-.apoiar__sol {
-  --sol-cor: rgb(250 196 0 / 0.1);
+.apoiar__luz {
+  --luz-cor: rgb(250 196 0 / 0.13);
   bottom: -30%;
   left: -20%;
   width: min(120rem, 190vw);

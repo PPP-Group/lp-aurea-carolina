@@ -21,39 +21,97 @@ export const identidade = {
   coligacao: 'Time do Lula',
   cnpj: '68.571.277/0001-08',
   responsavel: 'Áurea Carolina',
-  site: 'www.aureacarolina.com',
+  /* O domínio principal da campanha. Os dois de apoio existem e redirecionam
+     para cá; ficam listados no rodapé porque são os que circulam impressos. */
+  site: 'aurea500.com.br',
+  sitesApoio: ['aureacarolina.com.br', 'aureasenadora.com.br'],
   arroba: '@aureacarolina',
   slogan: 'A senadora do povo mineiro',
 }
 
 /* ---------------------------------------------------------------------------
-   O FILME
-   Convertido do master que a campanha entregou. Ver `scripts/video.mjs`.
+   O ZAP DA CAMPANHA
+   O número principal, o mesmo que está no material impresso. O link é o
+   permanente do WhatsApp Business (wa.me/message), que abre a conversa já com
+   a mensagem inicial da campanha.
+   ------------------------------------------------------------------------- */
+
+export const zap = {
+  chamada: 'Vem de zap',
+  href: 'https://wa.me/message/K6RH2KSJCQJZJ1',
+  numero: '31 9724-7787',
+}
+
+/* ---------------------------------------------------------------------------
+   OS VÍDEOS
+   Dois arquivos, dois cortes — convertidos do master que cada um veio. Ver
+   `scripts/video.mjs`.
+
+   `filme`   o vídeo original da campanha, que já estava no ar antes do
+             jingle chegar. É o que toca dentro do herói no celular (ver
+             `Hero.jsx`) e o que abre a seção logo abaixo dele.
+   `jingle`  o corte novo, "AUREA_SENADO". Ganhou seção própria, mais adiante
+             — não substitui o filme original, os dois convivem.
    ------------------------------------------------------------------------- */
 
 export const filme = {
-  largo: '/assets/video/aurea-1080.mp4',
-  estreito: '/assets/video/aurea-720.mp4',
-  poster: '/assets/video/aurea-poster.webp',
+  largo: '/assets/video/aurea-filme-1080.mp4',
+  estreito: '/assets/video/aurea-filme-720.mp4',
+  poster: '/assets/video/aurea-filme-poster.webp',
   alt: 'Vídeo de campanha de Áurea Carolina, candidata ao Senado por Minas Gerais.',
   tarja: 'O filme da campanha',
   titulo: 'Bora vencer',
 }
 
+export const jingle = {
+  largo: '/assets/video/aurea-1080.mp4',
+  estreito: '/assets/video/aurea-720.mp4',
+  poster: '/assets/video/aurea-poster.webp',
+  alt: 'Jingle da campanha de Áurea Carolina, candidata ao Senado por Minas Gerais.',
+  tarja: 'O jingle da campanha',
+  titulo: 'Nosso jingle',
+}
+
 export const hero = {
   tarja: 'A senadora do povo mineiro',
   grito: ['Bora', 'vencer'],
-  apoio:
-    'Áurea Carolina é candidata ao Senado Federal por Minas Gerais. Cientista política, educadora popular, a mulher mais votada do estado em 2018.',
+  /* Primeira pessoa, como o resto da página. O texto em terceira pessoa que
+     estava aqui não constava do documento aprovado. */
+  apoio: [
+    'Mulher negra, mãe, cria da escola pública e dos movimentos sociais. Sou cientista política e educadora popular. Fui a vereadora mais votada de BH em 2016 e a mulher mais votada de Minas Gerais para deputada federal em 2018.',
+    'Agora nós vamos fazer história mais uma vez: sou candidata ao Senado Federal por Minas Gerais. Bora que é possível!',
+  ],
   chamadaPrimaria: { texto: 'Quero apoiar', href: '#apoiar' },
   chamadaSecundaria: { texto: 'Ver as bandeiras', href: '#bandeiras' },
 }
 
+/* ---------------------------------------------------------------------------
+   AS FRASES DA CAMPANHA
+
+   As seis oficiais, e só elas. Vêm dos arquivos de arte do pacote de
+   identidade (`10. Pngs de Cobertura / 06. Frases`), que é onde a campanha
+   fecha a redação delas — não invente frase nova aqui.
+
+   "Com Áurea são outros 500" e "Minas Gerais mais forte no Senado" estavam
+   nesta lista e saíram: são de uma rodada anterior e não constam do pacote.
+   ------------------------------------------------------------------------- */
+
+export const frases = [
+  'Bora que é possível',
+  'Bora vencer',
+  'Com ousadia e coragem',
+  'Outro Senado é possível',
+  'A senadora do povo mineiro',
+  'Mulheres no Senado',
+]
+
+/* A faixa que corre entre as seções puxa quatro delas. As duas de fora entram
+   na segunda faixa, no meio da página, para a barra não se repetir inteira. */
 export const faixa = [
-  'Com Áurea são outros 500',
+  'Bora que é possível',
   'Bora vencer',
   'A senadora do povo mineiro',
-  'Minas Gerais mais forte no Senado',
+  'Outro Senado é possível',
 ]
 
 /* ---------------------------------------------------------------------------
@@ -180,8 +238,8 @@ export const provas = {
    ------------------------------------------------------------------------- */
 
 export const trajetoria = {
-  tarja: 'Minha trajetória',
-  titulo: 'De Tucuruí ao Senado',
+  tarja: 'De Tucuruí ao Senado',
+  titulo: 'Somos começo, meio e começo',
   marcos: [
     {
       ano: '1983',
@@ -282,10 +340,10 @@ export const trajetoria = {
    ------------------------------------------------------------------------- */
 
 export const atos = {
-  tarja: 'Nas ruas e nas comissões',
-  titulo: 'Política se faz junto',
+  tarja: 'Nas ruas e nos parlamentos',
+  titulo: 'Política do bem viver',
   apoio:
-    'Rua, plenário, aldeia, comissão. O lugar muda, o jeito não: é sempre com gente do lado.',
+    'Nossa construção vem do chão das lutas, sempre ao lado de movimentos, coletivos e ativistas',
   fotos: [
     {
       id: 'rua',
@@ -335,8 +393,16 @@ export const atos = {
 export const bandeiras = {
   tarja: 'Nossas bandeiras',
   titulo: 'Para um Senado do lado do povo',
-  apoio:
-    'Toque em cada bandeira para ler o compromisso inteiro e o que eu vou levar pro Senado.',
+  apoio: 'Clique para expandir o texto e conhecer nossos compromissos',
+  /* O caderno completo de propostas fecha a seção. Enquanto o arquivo está em
+     construção, `href` fica nulo e o botão entra desligado, avisando que vem
+     depois — assim ninguém clica num link que ainda não existe. Quando o PDF
+     chegar, basta preencher o endereço aqui. */
+  propostas: {
+    texto: 'Leia mais sobre as propostas',
+    href: null,
+    aviso: 'Em breve',
+  },
   itens: [
     {
       id: 'mulheres',
@@ -423,10 +489,10 @@ export const bandeiras = {
    ------------------------------------------------------------------------- */
 
 export const pecas = {
-  tarja: 'A campanha nas ruas',
-  titulo: 'Leva junto',
+  tarja: 'Pra botar a boca no mundo',
+  titulo: 'Espalhe a palavra',
   apoio:
-    'As peças oficiais da campanha. Baixe, compartilhe, cole no seu perfil, imprima e leve pro seu bairro.',
+    'Peças da campanha para compartilhar com geral e fazer nossa mensagem chegar mais longe',
   itens: [
     { arquivo: 'peca-02', alvo: 'Bora vencer', proporcao: '3 / 4' },
     { arquivo: 'peca-01', alvo: 'Bora que é possível', proporcao: '3 / 4' },
@@ -447,26 +513,25 @@ export const pecas = {
    ------------------------------------------------------------------------- */
 
 export const apoiar = {
-  tarja: 'Quero apoiar a campanha',
-  titulo: 'Toda ajuda entra no jogo',
-  apoio: 'Não dá pra vencer sozinha. Escolhe como você quer estar dentro dessa campanha.',
+  tarja: 'Pra apoiar a campanha',
+  titulo: 'Precisamos de você',
+  apoio: 'Todo apoio conta muito. Vamos juntas e juntos ocupar o Senado!',
   itens: [
     {
       id: 'zap',
-      titulo: 'Entrar no grupo do zap',
-      texto:
-        'Recebe as novidades da campanha, as convocações e o material pra compartilhar direto no seu WhatsApp.',
-      cta: 'Entrar no grupo',
+      titulo: 'Entrar nos grupos de zap',
+      texto: 'Receba novidades, bastidores e materiais da campanha no seu WhatsApp',
+      cta: 'Bora!',
       href: 'https://chat.whatsapp.com/Bfb3e2bsvrt1SWnUV7f8kB',
       icone: 'whatsapp',
       cor: 'verde',
     },
     {
       id: 'bonde',
-      titulo: 'Entrar no Bonde da Áurea',
+      titulo: 'Somar no Bonde da Áurea',
       texto:
-        'Seja voluntária ou voluntário: ajuda na rua, na militância, nas redes. Todo mundo tem lugar no bonde.',
-      cta: 'Quero ser voluntária(o)',
+        'Faça parte das ações de rua, das missões digitais ou do trabalho voluntário na campanha',
+      cta: 'Vamos nessa!',
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSftATtjysqWaWVUUiztqOoTIfzu3P_u-J9HG7DmdjxCuHAYgA/viewform',
       icone: 'mao',
       cor: 'laranja',
@@ -474,22 +539,62 @@ export const apoiar = {
     {
       id: 'doacao',
       titulo: 'Fazer uma doação',
-      texto:
-        'Campanha popular se sustenta com quem acredita nela. Qualquer valor ajuda a levar a Áurea pra mais gente.',
-      cta: 'Doar agora',
+      texto: 'Campanha popular é construída com quem acredita. Cada pix conta!',
+      cta: 'Quero fortalecer!',
       href: 'https://doarpara.com.br/aurea',
       icone: 'coracao',
       cor: 'roxo',
     },
     {
       id: 'material',
-      titulo: 'Receber material no interior',
+      titulo: 'Receber material',
       texto:
-        'Mora fora de Belo Horizonte? Pede santinho e adesivo da campanha pra levar pro seu município pelo grupo do zap.',
-      cta: 'Pedir pelo zap',
+        'Cadastre-se para ser um ponto de distribuição dos nossos santinhos e adesivos no interior',
+      cta: 'Só vamos!',
       href: 'https://chat.whatsapp.com/Bfb3e2bsvrt1SWnUV7f8kB',
       icone: 'caixa',
       cor: 'amarelo',
+    },
+  ],
+}
+
+/* ---------------------------------------------------------------------------
+   TIME DO LULA EM MINAS GERAIS
+
+   A chapa aparece junta, na ordem em que a campanha a apresenta: a candidata
+   ao Senado, a candidata ao Governo, o outro candidato ao Senado e o
+   presidente.
+
+   `pronto` é o interruptor da seção. Enquanto as quatro fotos não estiverem em
+   `public/assets/time/`, ele fica em `false` e a seção não é montada — melhor
+   não existir do que existir com imagem quebrada. Assim que os arquivos
+   entrarem, vira `true` e nada mais precisa mudar.
+   ------------------------------------------------------------------------- */
+
+export const timeDoLula = {
+  pronto: true,
+  tarja: 'Time do Lula em Minas Gerais',
+  titulo: 'Juntos por Minas',
+  apoio:
+    'Áurea, Marília e Patrus: é com esse time que a gente vai reconstruir o Brasil e virar o jogo em Minas Gerais.',
+  /* Flagras de evento, inteiros — sem recorte. Não são fotos de estúdio uma
+     por pessoa; são registros do mesmo palanque, com os três juntos em cada
+     uma. */
+  fotos: [
+    {
+      id: 'dancando',
+      arquivo: 'evento-dancando',
+      alt: 'Áurea, Patrus e Marília de mãos dadas, dançando num evento de campanha.',
+    },
+    {
+      id: 'coracao',
+      arquivo: 'evento-coracao',
+      alt: 'Áurea e Marília fazendo um coração com as mãos, Patrus ao lado, num evento de campanha.',
+    },
+    {
+      id: 'maos-erguidas',
+      arquivo: 'evento-maos-erguidas',
+      alt: 'Áurea, Patrus e Marília de mãos erguidas no palco, com o rosto de Lula projetado atrás.',
     },
   ],
 }
@@ -502,10 +607,11 @@ export const secoes = [
   { id: 'quem', rotulo: 'Quem sou' },
   { id: 'provas', rotulo: 'O que fiz' },
   { id: 'trajetoria', rotulo: 'Trajetória' },
+  ...(timeDoLula.pronto ? [{ id: 'time', rotulo: 'Time do Lula' }] : []),
   { id: 'atos', rotulo: 'Nas ruas' },
   { id: 'bandeiras', rotulo: 'Bandeiras' },
   { id: 'pecas', rotulo: 'Peças' },
-  { id: 'apoiar', rotulo: 'Apoiar' },
+  { id: 'apoiar', rotulo: 'Apoie' },
 ]
 
 export const redes = [

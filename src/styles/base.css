@@ -3,7 +3,7 @@
    ----------------------------------------------------------------------------
    O manual da campanha não descreve um site, descreve cartazes. Esta folha
    traduz aquela gramática para a tela: a tarja de fonte expandida, o título
-   com contorno e sombra dura, o sol de filamentos, o grão.
+   com contorno e sombra dura, o clarão de fundo, o grão.
 
    Tudo que se repete em mais de uma seção mora aqui. O que é de uma seção só
    mora na folha da seção.
@@ -216,46 +216,70 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
-   O SOL DE PEQUI · o grafismo assinatura
+   A MARCA E A FLOR
 
-   A flor de pequi tem filamentos radiais que o manual descreve como
-   "lembrança distante do símbolo antigo e energia solar". Nos cartazes eles
-   viram raios saindo de trás da Áurea. Aqui são um `repeating-conic-gradient`
-   mascarado, que gira devagar. É o único movimento contínuo da página.
+   As duas vêm do pacote oficial como arquivo, não remontadas em HTML. Só
+   precisam de uma regra: largura mandada pelo contexto, altura pela proporção
+   do arquivo.
    ------------------------------------------------------------------------- */
 
-.sol {
+.marca,
+.flor {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   OS RAIOS · o miolo da flor, sozinho
+
+   O manual guarda os filamentos da flor de pequi como grafismo à parte
+   (`04. Grafismos`), e as peças os usam do mesmo jeito toda vez: grandes,
+   atrás da Áurea, num tom vizinho do fundo — nunca como desenho em cima da
+   composição, sempre como textura por baixo dela.
+
+   O arquivo é o vetor oficial, e entra como máscara: a forma vem do SVG e a
+   cor vem do CSS, então cada seção pinta os raios com a cor que já usa. Assim
+   um arquivo só serve o herói laranja e o painel bege, sem virar dois.
+   ------------------------------------------------------------------------- */
+
+.raios {
+  position: absolute;
+  aspect-ratio: 1376 / 1350;
+  pointer-events: none;
+  background: var(--raios-cor, var(--color-amarelo));
+  -webkit-mask: url('/assets/raios.svg') center / contain no-repeat;
+  mask: url('/assets/raios.svg') center / contain no-repeat;
+}
+
+/* ---------------------------------------------------------------------------
+   A LUZ · o degradê de apoio
+
+   Aqui existiu um "sol de pequi": os filamentos radiais da flor virados em
+   `repeating-conic-gradient` e girando devagar atrás das seções. Saiu. Era
+   bonito, mas destoava da identidade, e o manual não pede animação — pede
+   degradê: "usaremos os degradês presentes na flor de pequi áurea como
+   elemento gráfico de campanha, mesmo que a flor não esteja presente na peça".
+
+   O que ficou é isso: um clarão radial parado, na cor que cada seção escolhe,
+   com a borda dissolvida para não virar bola. Sem rotação e sem quadro por
+   segundo gasto. É o mesmo grafismo de fundo das peças impressas.
+
+   Os filamentos voltaram depois, em `.raios`, mas como o desenho oficial e
+   parados: uma coisa é a luz, outra é a trama.
+   ------------------------------------------------------------------------- */
+
+.luz {
   position: absolute;
   aspect-ratio: 1;
   pointer-events: none;
   border-radius: 50%;
-  background: repeating-conic-gradient(
-    from 0deg at 50% 50%,
-    var(--sol-cor, rgb(255 255 255 / 0.4)) 0deg 1.25deg,
-    transparent 1.25deg 5deg
-  );
-  mask-image: radial-gradient(
+  background: radial-gradient(
     circle at 50% 50%,
-    transparent 0%,
-    #000 14%,
-    #000 62%,
-    transparent 78%
+    var(--luz-cor, rgb(255 255 255 / 0.35)) 0%,
+    color-mix(in srgb, var(--luz-cor, rgb(255 255 255 / 0.35)) 45%, transparent) 38%,
+    transparent 70%
   );
-  animation: sol-girar 240s linear infinite;
-}
-
-.sol--denso {
-  background: repeating-conic-gradient(
-    from 0deg at 50% 50%,
-    var(--sol-cor, rgb(255 255 255 / 0.4)) 0deg 0.7deg,
-    transparent 0.7deg 3deg
-  );
-}
-
-@keyframes sol-girar {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -406,11 +430,9 @@ html {
    rodapé, 0.95 nas provas.
 
    Regra agrupada de propósito: é um contorno único para um recurso de CSS
-   usado em cinco lugares. Repetir o remendo em cada folha de seção espalharia
-   o mesmo motivo por cinco arquivos.
+   usado em dois lugares. Repetir o remendo em cada folha de seção espalharia
+   o mesmo motivo por dois arquivos.
    ------------------------------------------------------------------------- */
-.marca__numero,
-.marca__numero--pequeno,
 .prova__contado,
 .marco[data-marco='sim'] .marco__digitos {
   padding: 0.1em 0.12em 0.16em;

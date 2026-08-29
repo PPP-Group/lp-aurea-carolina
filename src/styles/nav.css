@@ -29,29 +29,12 @@
   text-decoration: none;
 }
 
-/* ---------- A marca em linha ---------- */
+/* ---------- A marca em linha ----------
+   Negativa, porque a barra é vinho, e sem suplentes: a esta largura os nomes
+   deles não seriam legíveis. Eles aparecem por extenso no rodapé. */
 
 .marca--linha {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.marca--linha .marca__letreiro {
-  width: 7.5rem;
-  color: var(--color-bege);
-}
-
-.marca__numero--pequeno {
-  font-family: var(--font-titulo);
-  font-weight: 900;
-  font-size: 1.15rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  background: var(--grad-petala);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  width: 8.5rem;
 }
 
 /* ---------- Links ---------- */
@@ -159,8 +142,8 @@
   .nav__botao {
     display: none;
   }
-  .marca--linha .marca__letreiro {
-    width: 9rem;
+  .marca--linha {
+    width: 10rem;
   }
 }
 

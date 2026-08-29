@@ -44,7 +44,7 @@ export function Atos() {
 
   return (
     <section id="atos" className="secao atos grao">
-      <div className="sol atos__sol" aria-hidden="true" />
+      <div className="luz atos__luz" aria-hidden="true" />
 
       <div className="limite">
         <header className="atos__cabeca revelar" ref={cabeca}>

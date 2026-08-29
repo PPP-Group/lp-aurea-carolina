@@ -14,10 +14,10 @@
   overflow: clip;
 }
 
-/* Denso e largo: a esta escala, o traço padrão do sol vira faixa grossa e o
-   rodapé fica listrado em vez de iluminado. */
-.rodape__sol {
-  --sol-cor: rgb(250 196 0 / 0.07);
+/* Larga e baixa: o clarão nasce fora da tela, embaixo, e só encosta no pé do
+   rodapé — é a última luz da página, não um segundo cartaz. */
+.rodape__luz {
+  --luz-cor: rgb(250 196 0 / 0.1);
   bottom: -70%;
   left: 50%;
   width: min(120rem, 220vw);
@@ -35,55 +35,32 @@
 
 /* ---------------------------------------------------------------------------
    Assinatura
+
+   Aqui entra a montagem negativa e completa: é o único lugar da página com
+   espaço para os suplentes por extenso, e é onde eles têm que estar.
    ------------------------------------------------------------------------- */
 
-.marca--completa {
-  display: grid;
-  gap: 0.65rem;
-  justify-items: start;
+.rodape__marca {
+  width: clamp(11rem, 30vw, 15rem);
 }
 
-.marca__topo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.marca--completa .marca__letreiro {
-  width: clamp(10rem, 26vw, 14rem);
-  color: var(--color-bege);
-}
-
-.marca__flor {
-  width: clamp(2.75rem, 7vw, 4rem);
-  height: auto;
-}
-
-.marca__base {
+/* Flor e sol do PSOL lado a lado, logo abaixo da marca — a mesma dupla que
+   assina o canto das peças, aqui deitada porque o rodapé já é uma coluna. */
+.rodape__canto {
   display: flex;
   align-items: flex-end;
-  gap: 0.9rem;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
 }
 
-.marca__descritor {
-  font-family: var(--font-faixa);
-  font-size: clamp(0.68rem, 1.6vw, 0.82rem);
-  letter-spacing: 0.05em;
-  line-height: 1.25;
-  text-transform: uppercase;
-  color: var(--color-claro-fraco);
+.rodape__flor {
+  width: clamp(2.9rem, 9vw, 3.9rem);
 }
 
-.marca__numero {
-  font-family: var(--font-titulo);
-  font-weight: 900;
-  font-size: clamp(2.5rem, 8vw, 3.5rem);
-  line-height: 0.8;
-  letter-spacing: -0.045em;
-  background: var(--grad-petala);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.rodape__psol {
+  display: block;
+  width: clamp(2.6rem, 8vw, 3.4rem);
+  height: auto;
 }
 
 .rodape__grito {
@@ -146,8 +123,35 @@
 .rodape__site {
   display: inline-block;
   margin-top: 0.35rem;
-  font-size: 0.9375rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--color-bege);
+}
+
+.rodape__site:hover {
+  color: var(--color-amarelo);
+}
+
+/* Os dois domínios de apoio. Existem e redirecionam para o principal; ficam
+   aqui em corpo menor porque são os que aparecem no material impresso e as
+   pessoas digitam de memória. */
+.rodape__site-apoio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.9rem;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
   color: var(--color-claro-fraco);
+}
+
+.rodape__site-apoio a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rodape__site-apoio a:hover {
+  color: var(--color-amarelo);
 }
 
 /* ---------------------------------------------------------------------------
@@ -185,10 +189,15 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Botão flutuante de compartilhar
+   Balão flutuante do zap
+
+   Era o botão de compartilhar; virou a porta de entrada da conversa com a
+   campanha. Continua um `<a>` com cara de botão, então precisa desligar o
+   sublinhado que o link herda.
    ------------------------------------------------------------------------- */
 
 .compartilhar {
+  text-decoration: none;
   position: fixed;
   right: clamp(0.85rem, 3vw, 1.75rem);
   bottom: clamp(0.85rem, 3vw, 1.75rem);
@@ -217,12 +226,33 @@
   box-shadow: 6px 6px 0 var(--color-vinho);
 }
 
+/* A chamada aparece em qualquer largura. Antes ela sumia abaixo de 30rem e
+   sobrava só o ícone verde — que é justamente o que a campanha pediu para
+   trocar: o convite tem que estar escrito. "Vem de zap" é curto o bastante
+   para caber no canto de um telefone de 360px. */
 .compartilhar__texto {
-  display: none;
+  display: inline;
 }
 
-@media (min-width: 30rem) {
-  .compartilhar__texto {
-    display: inline;
+/* Com a chamada escrita o balão passou de ~67px para ~160px de largura, e ele
+   é fixo no canto: em tela estreita isso cobre o que estiver embaixo à
+   direita. Aqui ele encolhe a tipografia (não o alvo de toque, que continua
+   nos 3,25rem de altura) para caber sem empurrar o resto da página. */
+@media (max-width: 30rem) {
+  .compartilhar {
+    gap: 0.45rem;
+    padding: 0.75rem 0.95rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* Nos aparelhos de 360px o balão e o segundo botão do herói disputam o mesmo
+   milímetro: medido, sobrava 1px entre eles. Mais um aperto aqui resolve sem
+   mexer no rótulo do botão, que já está no limite de caber numa linha. */
+@media (max-width: 23rem) {
+  .compartilhar {
+    gap: 0.4rem;
+    padding: 0.75rem 0.8rem;
+    font-size: 0.875rem;
   }
 }

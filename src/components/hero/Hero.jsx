@@ -1,126 +1,82 @@
-import { useEffect, useRef } from 'react'
 import { hero, identidade } from '../../data/campanha.js'
 import { useTelaLarga } from '../../lib/useTelaLarga.js'
 import { Flor } from '../Flor.jsx'
-import { Letreiro } from '../Letreiro.jsx'
+import { Marca } from '../Marca.jsx'
+import { Psol } from '../Psol.jsx'
 import { Icone } from '../Icone.jsx'
 import { Filme } from '../Filme.jsx'
 
 /* ============================================================================
    HERÓI
    ----------------------------------------------------------------------------
-   A composição é a do cartaz oficial, na ordem em que o manual a monta:
-   assinatura no alto, retrato recortado sangrando pela borda, e o grito da
-   campanha embaixo, na fonte de impacto, com contorno e sombra dura.
+   A composição segue os cartazes de exemplo do manual: retrato de um lado,
+   marca e texto do outro, e o canto de flor + sol do PSOL sempre encostado no
+   retrato — não na marca. Nos exemplos, o retrato fica à esquerda e o canto
+   sobe no topo esquerdo, junto dele; aqui o retrato está à direita, então o
+   canto sobe no topo direito — o mesmo encontro, espelhado.
 
-   O sol de filamentos gira atrás do retrato — o centro dele fica na cabeça
-   dela, como nas peças. É o único movimento contínuo da página, e existe
-   porque no cartaz impresso os raios estão parados: é exatamente o que a tela
-   pode acrescentar ao papel.
+   O fundo é o degradê previsto pela Cambia — laranja-papaia com o clarão
+   quente atrás dela e a cunha rosa-bougainville descendo da direita. Não há
+   mais o sol de filamentos girando: era bonito, mas destoava da identidade, e
+   o manual pede degradê, não animação.
+
+   A coluna esquerda é uma pilha só (`.heroi__coluna`): marca, credencial,
+   grito, apoio e botões, com o mesmo respiro entre cada bloco e ancorada
+   embaixo — é o que estava faltando antes, quando o grito ficava sozinho
+   flutuando no meio de uma linha de grade elástica, longe da marca em cima e
+   longe dos botões embaixo.
+
+   O retrato é a foto oficial (André Solano, arquivo `AureaOficial2`). O pacote
+   trouxe dois recortes prontos; o outro (`_recorte`) guardava a cor do fundo
+   antigo nos pixels da borda e desenhava um halo claro em volta do cabelo — o
+   `AureaOficial2` não tem esse problema, é o que este arquivo usa direto, só
+   aparado no alfa. A foto vetada, de blusa roxa, não é nenhum dos dois. Entra
+   num enquadramento mais fechado, com o rosto grande — é o que a campanha
+   pediu para a primeira seção: foto maior e mais próxima.
 
    No celular o recorte dá lugar ao filme da campanha, e a composição vira
-   simétrica: marca centralizada, filme no meio, grito centralizado embaixo.
-   No desktop o recorte fica onde estava — lá o filme tem seção própria, logo
-   abaixo — e a composição continua assimétrica, como no cartaz.
+   simétrica: marca centralizada, filme no meio, grito centralizado embaixo. O
+   canto de flor + PSOL continua fixo no topo direito nas duas versões.
    ========================================================================== */
-/* Onde a cabeça dela cai dentro do recorte, medido no arquivo: 62,7% da
-   largura, 7% da altura. */
-const CABECA = { x: 0.627, y: 0.07 }
 
 export function Hero() {
   const telaLarga = useTelaLarga()
-  const secao = useRef(null)
-  const retrato = useRef(null)
-
-  /* O centro do sol precisa cair na cabeça dela, e a conta não cabe em CSS:
-     o recorte é alinhado pela grade da `.limite`, que tem largura máxima, então
-     a posição dele em relação ao herói (que sangra a tela inteira) muda com o
-     tamanho da janela. Em 1280 a cabeça fica em 83,5% da largura do herói; em
-     1920, em 72%. Uma porcentagem fixa erraria o alvo por mais de 170px.
-
-     Os valores do CSS continuam valendo como ponto de partida e como reserva se
-     o JS não rodar — o sol é enfeite, e errar o centro dele não quebra nada. */
-  useEffect(() => {
-    const sec = secao.current
-    if (!sec) return
-
-    const img = retrato.current
-    if (!img) {
-      sec.style.removeProperty('--sol-x')
-      sec.style.removeProperty('--sol-y')
-      return
-    }
-
-    const posicionar = () => {
-      const r = img.getBoundingClientRect()
-      const s = sec.getBoundingClientRect()
-      if (!r.width || !s.width) return
-      sec.style.setProperty('--sol-x', `${((r.left - s.left + r.width * CABECA.x) / s.width) * 100}%`)
-      sec.style.setProperty('--sol-y', `${((r.top - s.top + r.height * CABECA.y) / s.height) * 100}%`)
-    }
-
-    posicionar()
-
-    /* Três gatilhos, porque nenhum sozinho cobre tudo: o observador pega a
-       troca de layout, o `resize` pega o caso em que a janela muda mas as
-       caixas observadas não chegam a reportar, e o `load` cobre a primeira
-       pintura em conexão lenta. */
-    const observador = new ResizeObserver(posicionar)
-    observador.observe(img)
-    observador.observe(sec)
-    window.addEventListener('resize', posicionar)
-    img.addEventListener('load', posicionar)
-
-    return () => {
-      observador.disconnect()
-      window.removeEventListener('resize', posicionar)
-      img.removeEventListener('load', posicionar)
-    }
-  }, [telaLarga])
 
   return (
-    <section id="inicio" className="heroi grao" ref={secao}>
+    <section id="inicio" className="heroi grao">
+      {/* Nesta ordem: os filamentos por baixo, o clarão por cima. É o clarão que
+          apaga o miolo dos raios, e é assim que eles aparecem nas peças — trama
+          nas pontas, luz no centro. */}
       <div className="heroi__ceu" aria-hidden="true">
-        <div className="sol sol--denso heroi__sol" />
+        <div className="raios heroi__raios" />
+        <div className="luz heroi__luz" />
       </div>
 
-      <div className="heroi__interior limite">
-        <header className="heroi__assinatura">
-          <span className="heroi__marca">
-            <Letreiro variante="empilhado" className="heroi__letreiro" />
-            <Flor cor="laranja" tamanho={120} className="heroi__flor" aria-hidden="true" />
-          </span>
+      {/* O canto das peças: flor em cima, sol do PSOL embaixo, sempre no topo
+          junto do retrato — não preso à marca. */}
+      <span className="heroi__canto" aria-hidden="true">
+        <Flor tamanho={110} className="heroi__flor" />
+        <Psol variante="claro" className="heroi__psol" />
+      </span>
 
-          <p className="heroi__credencial">
-            <span className="tarja tarja--caixa">
-              <span className="tarja__marca" aria-hidden="true" />
-              {hero.tarja}
-            </span>
-            <span className="heroi__legenda">
-              {identidade.cargoCompleto} por {identidade.estado} · {identidade.partido} ·{' '}
-              {identidade.coligacao}
-            </span>
-          </p>
-        </header>
+      <div className="heroi__interior">
+        <div className="heroi__coluna">
+          <header className="heroi__assinatura">
+            <Marca variante="quente" className="heroi__assinatura-marca" />
 
-        {telaLarga ? (
-          <img
-            ref={retrato}
-            className="heroi__retrato"
-            src="/assets/aurea-rindo.webp"
-            alt="Áurea Carolina sorrindo, de blusa vinho"
-            width="704"
-            height="1500"
-            decoding="async"
-          />
-        ) : (
-          <div className="heroi__filme filme">
-            <Filme />
-          </div>
-        )}
+            <p className="heroi__credencial">
+              <span className="tarja tarja--caixa">
+                <span className="tarja__marca" aria-hidden="true" />
+                {hero.tarja}
+              </span>
+              <span className="heroi__legenda">
+                {identidade.cargoCompleto} por {identidade.estado} · {identidade.partido} ·{' '}
+                {identidade.coligacao}
+              </span>
+            </p>
+          </header>
 
-        <div className="heroi__grito">
-          <h1 className="heroi__titulo cartaz">
+          <h1 className="heroi__grito heroi__titulo cartaz">
             {hero.grito.map((palavra) => (
               <span className="heroi__palavra" key={palavra}>
                 {palavra}
@@ -128,25 +84,39 @@ export function Hero() {
             ))}
           </h1>
 
-          <p className="heroi__numero">
-            <span className="heroi__numero-rotulo">Senadora</span>
-            <strong className="heroi__numero-digitos">{identidade.numero}</strong>
-          </p>
-        </div>
+          <div className="heroi__pe">
+            <div className="heroi__apoio">
+              {hero.apoio.map((paragrafo) => (
+                <p key={paragrafo.slice(0, 24)}>{paragrafo}</p>
+              ))}
+            </div>
 
-        <div className="heroi__pe">
-          <p className="heroi__apoio">{hero.apoio}</p>
-
-          <div className="heroi__acoes">
-            <a className="btn btn--forte" href={hero.chamadaPrimaria.href}>
-              <Icone nome="tocar" tamanho={20} />
-              {hero.chamadaPrimaria.texto}
-            </a>
-            <a className="btn btn--vazado" href={hero.chamadaSecundaria.href}>
-              {hero.chamadaSecundaria.texto}
-            </a>
+            <div className="heroi__acoes">
+              <a className="btn btn--forte" href={hero.chamadaPrimaria.href}>
+                <Icone nome="tocar" tamanho={20} />
+                {hero.chamadaPrimaria.texto}
+              </a>
+              <a className="btn btn--vazado" href={hero.chamadaSecundaria.href}>
+                {hero.chamadaSecundaria.texto}
+              </a>
+            </div>
           </div>
         </div>
+
+        {telaLarga ? (
+          <img
+            className="heroi__retrato"
+            src="/assets/aurea-oficial.webp"
+            alt="Áurea Carolina sorrindo, de vestido verde e laranja"
+            width="1200"
+            height="2125"
+            decoding="async"
+          />
+        ) : (
+          <div className="heroi__filme filme">
+            <Filme />
+          </div>
+        )}
       </div>
     </section>
   )

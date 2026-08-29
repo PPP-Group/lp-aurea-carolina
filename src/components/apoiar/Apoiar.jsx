@@ -48,7 +48,7 @@ export function Apoiar() {
 
   return (
     <section id="apoiar" className="secao apoiar grao">
-      <div className="sol apoiar__sol" aria-hidden="true" />
+      <div className="luz apoiar__luz" aria-hidden="true" />
 
       <div className="limite">
         <header className="apoiar__cabeca revelar" ref={cabeca}>

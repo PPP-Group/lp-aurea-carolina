@@ -1,42 +1,66 @@
-import { Flor } from './Flor.jsx'
-import { Letreiro } from './Letreiro.jsx'
+import { identidade } from '../data/campanha.js'
 
-/* A assinatura da campanha, remontada em HTML.
+/* ============================================================================
+   A ASSINATURA DA CAMPANHA
+   ----------------------------------------------------------------------------
+   Vem pronta do pacote oficial (`01. Logos`). Antes era remontada em HTML —
+   letreiro "Áurea Carolina" em SVG, flor no canto, "500" como texto — porque a
+   marca antiga era monocromática e cabia num `currentColor`.
 
-   O letreiro vem do arquivo oficial. O número e o descritor são texto de
-   verdade, não imagem: assim o "500" herda o degradê da pétala, cresce junto
-   com o resto e continua legível para leitor de tela e para busca.
+   A marca nova não cabe: é "SENADORA / ÁUREA / 500", cada palavra numa cor, e
+   o 500 num degradê. Remontar isso em HTML seria redesenhar a marca, então ela
+   entra como arquivo, do jeito que a Cambia entregou.
 
-   Duas montagens, as mesmas do manual:
-   `completa`  o bloco empilhado com flor e número. Rodapé.
-   `linha`     uma linha só, sem flor. Barra de navegação. */
-export function Marca({ variante = 'completa', className = '' }) {
-  if (variante === 'linha') {
-    return (
-      <span className={`marca marca--linha ${className}`}>
-        <Letreiro variante="linha" className="marca__letreiro" />
-        <span className="marca__numero marca__numero--pequeno" aria-hidden="true">
-          500
-        </span>
-      </span>
-    )
-  }
+   Três montagens, uma por fundo:
+
+   `quente`    ÁUREA em vinho, 500 em amarelo. É a que lê melhor sobre o
+               laranja do herói. Horizontal e sem suplentes — igual ao que a
+               `linha` já resolvia embaixo, o retrato do herói não tem altura
+               de sobra para uma marca empilhada em três linhas.
+   `negativa`  bege e amarelo, vertical, com os suplentes. Rodapé.
+   `linha`     negativa horizontal, sem suplentes. Barra de navegação — a
+               120px de largura os nomes dos suplentes seriam ilegíveis, e
+               eles aparecem por extenso no rodapé.
+
+   O alt descreve a marca inteira porque é assim que ela é lida em voz alta:
+   quem usa leitor de tela precisa do número da urna, que é a informação mais
+   importante da página.
+   ========================================================================== */
+
+const MONTAGENS = {
+  quente: {
+    arquivo: 'marca-horizontal-quente',
+    largura: 1400,
+    altura: 249,
+  },
+  negativa: {
+    arquivo: 'marca-vertical-negativa',
+    largura: 800,
+    altura: 653,
+    suplentes: true,
+  },
+  linha: {
+    arquivo: 'marca-horizontal-negativa',
+    largura: 1100,
+    altura: 281,
+  },
+}
+
+export function Marca({ variante = 'negativa', className = '' }) {
+  const montagem = MONTAGENS[variante] ?? MONTAGENS.negativa
+
+  const alt = montagem.suplentes
+    ? `Senadora ${identidade.nome} ${identidade.numero}. 1ª suplente Raquell Guimarães, 2º suplente Felipe Fonseca.`
+    : `Senadora ${identidade.nome} ${identidade.numero}`
 
   return (
-    <span className={`marca marca--completa ${className}`}>
-      <span className="marca__topo">
-        <Letreiro variante="empilhado" className="marca__letreiro" />
-        <Flor cor="laranja" tamanho={96} className="marca__flor" aria-hidden="true" />
-      </span>
-
-      <span className="marca__base">
-        <span className="marca__descritor">
-          A senadora
-          <br />
-          do povo
-        </span>
-        <span className="marca__numero">500</span>
-      </span>
-    </span>
+    <img
+      className={`marca marca--${variante} ${className}`.trim()}
+      src={`/assets/marca/${montagem.arquivo}.webp`}
+      alt={alt}
+      width={montagem.largura}
+      height={montagem.altura}
+      decoding="async"
+    />
   )
 }

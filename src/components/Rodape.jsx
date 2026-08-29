@@ -1,5 +1,7 @@
 import { identidade, redes, secoes } from '../data/campanha.js'
 import { Marca } from './Marca.jsx'
+import { Psol } from './Psol.jsx'
+import { Flor } from './Flor.jsx'
 import { Icone } from './Icone.jsx'
 
 /* O rodapé fecha a página com a assinatura completa da campanha, do mesmo
@@ -14,12 +16,20 @@ export function Rodape() {
 
   return (
     <footer className="rodape grao">
-      <div className="sol rodape__sol" aria-hidden="true" />
+      <div className="luz rodape__luz" aria-hidden="true" />
 
       <div className="limite rodape__interior">
         <div className="rodape__assinatura">
-          <Marca variante="completa" className="rodape__marca" />
-          <p className="rodape__grito">Com Áurea são outros 500</p>
+          <Marca variante="negativa" className="rodape__marca" />
+          {/* O mesmo canto do herói, na versão que o manual manda usar sobre
+              fundo escuro: a flor amarela, de uso terciário, ao lado do sol do
+              partido. O PSOL leva `alt` porque é a única vez em que aparece
+              sem o nome escrito ao lado. */}
+          <span className="rodape__canto">
+            <Flor variante="amarela" tamanho={120} className="rodape__flor" />
+            <Psol variante="claro" className="rodape__psol" alt={identidade.partido} />
+          </span>
+          <p className="rodape__grito">Bora que é possível</p>
         </div>
 
         <nav className="rodape__mapa" aria-label="Seções da página">
@@ -46,9 +56,19 @@ export function Rodape() {
             ))}
           </ul>
           <p className="rodape__arroba">{identidade.arroba}</p>
+
+          {/* O endereço principal em destaque; os dois de apoio logo abaixo,
+              porque são os que circulam impressos e as pessoas digitam. */}
           <a className="rodape__site" href={`https://${identidade.site}`}>
             {identidade.site}
           </a>
+          <p className="rodape__site-apoio">
+            {identidade.sitesApoio.map((dominio) => (
+              <a key={dominio} href={`https://${dominio}`}>
+                {dominio}
+              </a>
+            ))}
+          </p>
         </div>
       </div>
 

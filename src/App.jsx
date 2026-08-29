@@ -1,8 +1,7 @@
 import { useEffect, useMemo } from 'react'
-import { faixa, filme, secoes } from './data/campanha.js'
+import { faixa, filme, jingle, secoes, timeDoLula } from './data/campanha.js'
 import { iniciarRolagem } from './lib/rolagem.js'
 import { useSecaoAtiva } from './lib/useSecaoAtiva.js'
-import { useTelaLarga } from './lib/useTelaLarga.js'
 
 import { Nav } from './components/Nav.jsx'
 import { Faixa } from './components/Faixa.jsx'
@@ -16,6 +15,7 @@ import { Provas } from './components/provas/Provas.jsx'
 import { Trajetoria } from './components/trajetoria/Trajetoria.jsx'
 import { Atos } from './components/atos/Atos.jsx'
 import { Bandeiras } from './components/bandeiras/Bandeiras.jsx'
+import { Time } from './components/time/Time.jsx'
 import { Pecas } from './components/pecas/Pecas.jsx'
 import { Apoiar } from './components/apoiar/Apoiar.jsx'
 
@@ -30,9 +30,6 @@ import { Apoiar } from './components/apoiar/Apoiar.jsx'
 export default function App() {
   const ids = useMemo(() => secoes.map((s) => s.id), [])
   const secaoAtiva = useSecaoAtiva(ids)
-  /* No celular o filme já está dentro do herói. Aqui ele só existe no desktop,
-     onde o herói mantém o retrato recortado. */
-  const telaLarga = useTelaLarga()
 
   useEffect(() => iniciarRolagem(), [])
 
@@ -47,34 +44,57 @@ export default function App() {
       <main>
         <Hero />
 
-        {telaLarga && (
-          <section id="filme" className="secao filme filme--secao grao">
-            <div className="limite filme__interior">
-              <header className="filme__cabeca">
-                <p className="tarja filme__tarja">
-                  <span className="tarja__marca" aria-hidden="true" />
-                  {filme.tarja}
-                </p>
-                <h2 className="filme__titulo cartaz">{filme.titulo}</h2>
-              </header>
+        {/* O filme original ganha seção própria em qualquer tela, não só no
+            desktop. No celular ele também toca dentro do herói, no lugar do
+            retrato: aqui embaixo é a versão com controles e cabeçalho, para
+            quem quiser assistir de novo com calma. */}
+        <section id="filme" className="secao filme filme--secao grao">
+          <div className="limite filme__interior">
+            <header className="filme__cabeca">
+              <p className="tarja filme__tarja">
+                <span className="tarja__marca" aria-hidden="true" />
+                {filme.tarja}
+              </p>
+              <h2 className="filme__titulo cartaz">{filme.titulo}</h2>
+            </header>
 
-              <Filme largo />
-            </div>
-          </section>
-        )}
+            <Filme largo />
+          </div>
+        </section>
+
+        {/* O jingle não substitui o filme original — os dois convivem, cada
+            um na própria seção. Mesma moldura, vídeo diferente. */}
+        <section id="jingle" className="secao filme filme--secao grao">
+          <div className="limite filme__interior">
+            <header className="filme__cabeca">
+              <p className="tarja filme__tarja">
+                <span className="tarja__marca" aria-hidden="true" />
+                {jingle.tarja}
+              </p>
+              <h2 className="filme__titulo cartaz">{jingle.titulo}</h2>
+            </header>
+
+            <Filme largo dados={jingle} />
+          </div>
+        </section>
 
         {/* Do cartaz para o papel. */}
         <Faixa frases={faixa} variante="vinho" />
         <Quem />
 
         {/* Do papel para a noite, onde ficam os números. */}
-        <Faixa frases={['Bora vencer', 'Com Áurea são outros 500']} variante="amarela" velocidade={30} />
+        <Faixa frases={['Com ousadia e coragem', 'Mulheres no Senado']} variante="amarela" velocidade={30} />
         <Provas />
 
         <Trajetoria />
 
-        {/* Do bege da linha do tempo para o vinho: a mesma história, agora
-            acontecendo. */}
+        {/* A chapa entra logo depois da trajetória: quem acabou de ver de
+            onde ela veio vê, em seguida, com quem ela caminha agora. Ambas em
+            vinho, sem faixa entre elas — é a mesma virada de bege pro vinho
+            que a linha do tempo já fazia sozinha. Só existe quando as três
+            fotos estão em `public/assets/time/` (ver `timeDoLula.pronto`). */}
+        {timeDoLula.pronto && <Time />}
+
         <Atos />
 
         <Bandeiras />

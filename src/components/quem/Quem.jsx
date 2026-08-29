@@ -1,5 +1,7 @@
 import { quem, principios } from '../../data/campanha.js'
 import { useRevelar } from '../../lib/useRevelar.js'
+import { Flor } from '../Flor.jsx'
+import { Psol } from '../Psol.jsx'
 
 /* ============================================================================
    QUEM SOU EU
@@ -54,19 +56,30 @@ export function Quem() {
           </blockquote>
         </div>
 
-        <figure className="quem__figura">
-          {/* O recorte de terracota, e não o de roupa branca: sobre o bege
-              deste painel o branco se dissolveria. */}
-          <img
-            src="/assets/aurea-terracota.webp"
-            alt="Áurea Carolina sorrindo, de roupa terracota"
-            width="923"
-            height="1400"
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="sol quem__sol" aria-hidden="true" />
-        </figure>
+        {/* A pílula recorta tudo que encosta nela, então a flor fica do lado de
+            fora: é um bloco só, com o retrato dentro e a flor por cima da
+            borda — o canto de flor que o manual põe nas peças de fundo claro. */}
+        <div className="quem__retrato">
+          <span className="quem__canto" aria-hidden="true">
+            <Flor variante="rosa" tamanho={150} className="quem__flor" />
+            <Psol variante="escuro" className="quem__psol" />
+          </span>
+          <figure className="quem__figura">
+            {/* Uma das fotos de apoio, recortada do fundo branco em que foram
+                entregues. A de blusa vinho e não a de roupa clara: sobre o bege
+                deste painel o claro se dissolveria, e o vinho é cor da casa. */}
+            <img
+              src="/assets/aurea-quem.webp"
+              alt="Áurea Carolina sorrindo, de blusa vinho, com uma das mãos no bolso"
+              width="900"
+              height="1720"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="raios quem__raios" aria-hidden="true" />
+            <div className="luz quem__luz" aria-hidden="true" />
+          </figure>
+        </div>
       </div>
 
       <div className="limite quem__principios">

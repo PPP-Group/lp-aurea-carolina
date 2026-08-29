@@ -69,6 +69,29 @@ export function Bandeiras() {
             <Bandeira key={item.id} item={item} indice={i} />
           ))}
         </ul>
+
+        {/* O caderno inteiro de propostas fecha a seção: quem leu as sete
+            bandeiras e quer mais tem para onde ir. Enquanto o arquivo está em
+            construção o botão continua visível, mas desligado e dizendo por
+            quê — é mais honesto do que sumir com ele ou levar a lugar nenhum. */}
+        <div className="bandeiras__fecho">
+          {bandeiras.propostas.href ? (
+            <a
+              className="btn btn--claro bandeiras__propostas"
+              href={bandeiras.propostas.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icone nome="baixar" tamanho={20} />
+              {bandeiras.propostas.texto}
+            </a>
+          ) : (
+            <span className="btn btn--claro bandeiras__propostas" aria-disabled="true">
+              {bandeiras.propostas.texto}
+              <span className="bandeiras__aviso">{bandeiras.propostas.aviso}</span>
+            </span>
+          )}
+        </div>
       </div>
     </section>
   )
