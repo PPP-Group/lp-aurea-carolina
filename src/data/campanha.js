@@ -485,6 +485,43 @@ export const bandeiras = {
 }
 
 /* ---------------------------------------------------------------------------
+   OS REELS
+   ----------------------------------------------------------------------------
+   Dois vídeos que já estão no Instagram da campanha e continuam morando lá: a
+   página não hospeda cópia deles. O cartão é a chamada; o post inteiro — vídeo,
+   legenda, perfil e contadores — aparece no embed oficial do Instagram, dentro
+   do modal.
+
+   `codigo` é o trecho final da URL do reel (instagram.com/reel/<codigo>/). É
+   dele que saem o embed e o link, então é o único campo que precisa mudar
+   quando a campanha trocar de vídeo.
+
+   `legenda` é texto nosso, escrito para o cartão. A legenda verdadeira do post
+   é a que o Instagram entrega dentro do modal, e ela não é copiada aqui.
+   ------------------------------------------------------------------------- */
+
+export const reels = {
+  tarja: 'No Instagram da campanha',
+  titulo: 'Direto das redes',
+  apoio:
+    'Os vídeos que estão rodando no @aureacarolina. Toque para assistir aqui mesmo, com a legenda e o post completo.',
+  itens: [
+    {
+      codigo: 'DXKAYnMuvBU',
+      rotulo: 'Apresentação',
+      titulo: 'Quem é Áurea Carolina',
+      legenda: 'A apresentação da candidatura, na voz dela.',
+    },
+    {
+      codigo: 'DccFdL2Bffp',
+      rotulo: 'Propostas',
+      titulo: 'O que eu vou levar pro Senado',
+      legenda: 'As propostas da campanha, em um minuto.',
+    },
+  ],
+}
+
+/* ---------------------------------------------------------------------------
    PEÇAS
    ------------------------------------------------------------------------- */
 

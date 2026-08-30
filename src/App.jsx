@@ -11,6 +11,7 @@ import { Filme } from './components/Filme.jsx'
 
 import { Hero } from './components/hero/Hero.jsx'
 import { Quem } from './components/quem/Quem.jsx'
+import { Reels } from './components/reels/Reels.jsx'
 import { Provas } from './components/provas/Provas.jsx'
 import { Trajetoria } from './components/trajetoria/Trajetoria.jsx'
 import { Atos } from './components/atos/Atos.jsx'
@@ -81,6 +82,11 @@ export default function App() {
         {/* Do cartaz para o papel. */}
         <Faixa frases={faixa} variante="vinho" />
         <Quem />
+
+        {/* Logo depois do texto dela, a voz dela em vídeo: os dois reels que
+            estão no Instagram da campanha. Ficam hospedados lá — aqui entra o
+            embed oficial, e o post inteiro abre em modal. */}
+        <Reels />
 
         {/* Do papel para a noite, onde ficam os números. */}
         <Faixa frases={['Com ousadia e coragem', 'Mulheres no Senado']} variante="amarela" velocidade={30} />

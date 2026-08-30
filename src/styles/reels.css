@@ -1,0 +1,252 @@
+/* ============================================================================
+   DIRETO DAS REDES
+   ----------------------------------------------------------------------------
+   A seção fica logo depois do "quem sou eu" e continua no papel — só que no
+   bege recuado, o mesmo das divisórias. É o degrau que separa o texto longo do
+   cartaz seguinte sem trocar de família de cor.
+
+   O que aparece dentro dos quadros é documento do Instagram: outra origem,
+   fora do alcance do CSS daqui. Por isso a moldura é toda nossa — borda, canto,
+   sombra dura — e o embed entra como conteúdo, com altura reservada de
+   antemão para não empurrar a página enquanto carrega.
+   ========================================================================== */
+
+.reels {
+  background: var(--color-papel-fundo);
+}
+
+.reels__cabeca {
+  max-width: 42rem;
+}
+
+.reels__tarja {
+  color: var(--color-roxo-tinta);
+  margin-bottom: 1rem;
+}
+
+.reels__titulo {
+  font-weight: 300;
+  font-size: var(--text-mega);
+  letter-spacing: -0.035em;
+  color: var(--color-vinho);
+}
+
+.reels__apoio {
+  margin-top: 1.15rem;
+  max-width: var(--largura-leitura);
+  color: var(--color-tinta);
+}
+
+.reels__lista {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+  margin: clamp(2.25rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reels__item {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+/* ---------------------------------------------------------------------------
+   O cartão
+
+   O cartão é a capa do vídeo, e só ela: perfil, curtidas e legenda ficam para
+   o modal. Como o embed do Instagram vem sempre com essas faixas em volta, o
+   corte é feito aqui — a moldura tem a proporção do reel e o documento entra
+   maior do que ela, deslocado, com o que sobra clipado.
+   ------------------------------------------------------------------------- */
+
+.reels__moldura {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 3px solid var(--color-vinho);
+  border-radius: 1rem;
+  background: var(--color-papel);
+  box-shadow: 6px 6px 0 var(--color-roxo);
+  transition:
+    transform 0.22s var(--ease-saida),
+    box-shadow 0.22s var(--ease-saida);
+}
+
+.reels__quadro {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  background: var(--color-papel);
+}
+
+/* O recorte da capa.
+
+   O embed desenha o reel dentro de uma caixa 4:5 e enche as laterais de preto
+   — o vídeo em pé ocupa ~70% da largura do documento. Alargando o iframe nesse
+   mesmo fator, o vídeo passa a ter exatamente a largura da moldura e as tarjas
+   pretas saem pelas beiradas. A faixa do perfil tem altura fixa e sai por
+   cima, puxada para fora pelo `top` negativo.
+
+   Os dois números são medidos do embed real. Se o Instagram mudar a moldura
+   dele, é aqui que se ajusta — e nada mais na seção precisa mudar.
+
+   A prévia também não é interface: quem recebe o toque é o botão por cima.
+   Sem isso o clique cairia dentro do Instagram e levaria a pessoa embora da
+   página em vez de abrir o modal. */
+.reels__quadro--capa {
+  /* O zoom é um fio maior do que o necessário para o vídeo encher a largura:
+     a sobra de altura cobre as duas beiradas, que é o que impede uma linha de
+     branco de aparecer em cima ou embaixo quando o embed arredonda diferente. */
+  --capa-zoom: 1.46;
+  --capa-cabeca: 52px;
+
+  position: absolute;
+  top: calc(-1 * var(--capa-cabeca));
+  left: 50%;
+  width: calc(100% * var(--capa-zoom));
+  height: calc(200% + var(--capa-cabeca));
+  aspect-ratio: auto;
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.reels__toque {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.reels__play {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 999px;
+  background: var(--color-vinho);
+  color: var(--color-amarelo);
+  box-shadow: 0 14px 30px -12px rgb(80 0 43 / 0.7);
+  transition:
+    transform 0.22s var(--ease-saida),
+    background 0.22s var(--ease-saida);
+}
+
+.reels__toque:hover .reels__play,
+.reels__toque:focus-visible .reels__play {
+  transform: scale(1.08);
+  background: var(--color-roxo);
+  color: var(--color-bege);
+}
+
+.reels__item:hover .reels__moldura {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 0 var(--color-roxo);
+}
+
+.reels__legenda {
+  max-width: 30rem;
+}
+
+.reels__item-tarja {
+  color: var(--color-roxo-tinta);
+  margin-bottom: 0.6rem;
+}
+
+.reels__item-titulo {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: var(--text-medio);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-vinho);
+}
+
+.reels__item-texto {
+  margin-top: 0.65rem;
+  color: var(--color-tinta);
+}
+
+/* ---------------------------------------------------------------------------
+   O post aberto
+
+   Reaproveita a lupa das peças — mesmo fundo, mesma entrada, mesmas ações no
+   pé. O que muda é o miolo: em vez de uma imagem que se ajusta sozinha, um
+   documento de outra origem, que precisa de largura e altura ditas por nós.
+   ------------------------------------------------------------------------- */
+
+/* Com o post aberto, a barra fixa e o botão do zap saem da frente: os dois
+   moram acima da página, o modal também, e os três empilhados na mesma tela
+   pequena viram um amontoado de botões concorrentes. Voltam ao fechar. */
+body:has(.reels__lupa) .nav,
+body:has(.reels__lupa) .compartilhar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* O topo desce a altura da barra fixa: sem isso o título do post nasce atrás
+   dela. O resto é a lupa das peças sem mudança — o modal não rola, quem rola
+   é a legenda dentro do post. */
+.reels__lupa {
+  padding-top: calc(var(--nav-altura, 0px) + clamp(1rem, 4vw, 2.5rem));
+}
+
+.reels__post {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1rem;
+  width: min(28rem, 100%);
+  min-height: 0;
+  color: var(--color-bege);
+}
+
+.reels__post-cabeca {
+  text-align: center;
+}
+
+.reels__post-tarja {
+  color: var(--color-amarelo);
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.reels__post-titulo {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: var(--text-medio);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-bege);
+}
+
+/* Aqui o quadro não tem proporção fixa: ele ocupa a altura que sobra entre o
+   cabeçalho e as ações. O post com legenda é mais alto que qualquer tela — e
+   quem rola o excedente é o próprio documento do Instagram, por dentro. Assim
+   o "Fechar" e o "Ver no Instagram" nunca saem da vista. */
+.reels__post .reels__quadro {
+  aspect-ratio: auto;
+  height: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.5);
+}
+
+/* Os dois lado a lado assim que couberem: são duas capas de reel, e ver as
+   duas de uma vez é o que diz que a campanha tem mais de um vídeo. O texto
+   fica embaixo de cada uma, na largura da própria capa. */
+@media (min-width: 46rem) {
+  .reels__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
