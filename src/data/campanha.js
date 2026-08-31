@@ -54,15 +54,6 @@ export const zap = {
              — não substitui o filme original, os dois convivem.
    ------------------------------------------------------------------------- */
 
-export const filme = {
-  largo: '/assets/video/aurea-filme-1080.mp4',
-  estreito: '/assets/video/aurea-filme-720.mp4',
-  poster: '/assets/video/aurea-filme-poster.webp',
-  alt: 'Vídeo de campanha de Áurea Carolina, candidata ao Senado por Minas Gerais.',
-  tarja: 'O filme da campanha',
-  titulo: 'Bora vencer',
-}
-
 export const jingle = {
   largo: '/assets/video/aurea-1080.mp4',
   estreito: '/assets/video/aurea-720.mp4',

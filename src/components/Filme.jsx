@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { filme } from '../data/campanha.js'
+import { jingle } from '../data/campanha.js'
 import { useTelaLarga } from '../lib/useTelaLarga.js'
 
 /* ============================================================================
@@ -37,7 +37,7 @@ import { useTelaLarga } from '../lib/useTelaLarga.js'
    controles visíveis, porque tem fala e alguém vai querer ouvir. Quem pediu
    menos movimento no sistema recebe o pôster parado e aperta o play.
    ========================================================================== */
-export function Filme({ largo = false, className = '', dados = filme }) {
+export function Filme({ largo = false, className = '', dados = jingle }) {
   const video = useRef(null)
   const telaLarga = useTelaLarga()
   const [perto, setPerto] = useState(false)

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { faixa, filme, jingle, secoes, timeDoLula } from './data/campanha.js'
+import { faixa, jingle, secoes, timeDoLula } from './data/campanha.js'
 import { iniciarRolagem } from './lib/rolagem.js'
 import { useSecaoAtiva } from './lib/useSecaoAtiva.js'
 
@@ -45,26 +45,6 @@ export default function App() {
       <main>
         <Hero />
 
-        {/* O filme original ganha seção própria em qualquer tela, não só no
-            desktop. No celular ele também toca dentro do herói, no lugar do
-            retrato: aqui embaixo é a versão com controles e cabeçalho, para
-            quem quiser assistir de novo com calma. */}
-        <section id="filme" className="secao filme filme--secao grao">
-          <div className="limite filme__interior">
-            <header className="filme__cabeca">
-              <p className="tarja filme__tarja">
-                <span className="tarja__marca" aria-hidden="true" />
-                {filme.tarja}
-              </p>
-              <h2 className="filme__titulo cartaz">{filme.titulo}</h2>
-            </header>
-
-            <Filme largo />
-          </div>
-        </section>
-
-        {/* O jingle não substitui o filme original — os dois convivem, cada
-            um na própria seção. Mesma moldura, vídeo diferente. */}
         <section id="jingle" className="secao filme filme--secao grao">
           <div className="limite filme__interior">
             <header className="filme__cabeca">

@@ -29,17 +29,16 @@
 
 /* ---------- Seção própria (desktop) ---------- */
 
-/* No celular o herói já mostra este mesmo filme (ver `Hero.jsx`), então a
-   seção que o repete some — só o jingle continua abaixo. Ela some por CSS, e
-   não deixa de ser montada: `useTelaLarga` decide o hero pelo mesmo ponto de
-   corte, então tirar o componente daqui dessincronizaria os dois no instante
-   da troca de tela. */
-#filme.filme--secao {
+/* No celular o herói já mostra este mesmo jingle (ver `Hero.jsx`), então a
+   seção que o repete some. Ela some por CSS, e não deixa de ser montada:
+   `useTelaLarga` decide o hero pelo mesmo ponto de corte, então tirar o
+   componente daqui dessincronizaria os dois no instante da troca de tela. */
+#jingle.filme--secao {
   display: none;
 }
 
 @media (min-width: 62rem) {
-  #filme.filme--secao {
+  #jingle.filme--secao {
     display: block;
   }
 }
