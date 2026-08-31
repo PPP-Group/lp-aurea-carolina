@@ -76,6 +76,12 @@
   --text-corpo: clamp(1.0625rem, 0.4vw + 1rem, 1.225rem);
   --text-mini: 0.8125rem;
 
+  /* O corpo da tarja mora aqui, e não solto dentro de `.tarja`, porque quem
+     precisa alinhar texto com o texto de dentro da caixa (a legenda do herói,
+     por exemplo) tem de fazer a conta com esta mesma medida. Duas cópias do
+     mesmo `clamp` em arquivos diferentes desalinham no dia em que uma muda. */
+  --tarja-corpo: clamp(0.72rem, 1.4vw, 0.95rem);
+
   /* ---------- Ritmo ---------- */
   --espaco-secao: clamp(4.5rem, 9vw, 8.5rem);
   --largura-max: 82rem;

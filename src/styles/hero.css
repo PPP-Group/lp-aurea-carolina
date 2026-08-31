@@ -336,18 +336,43 @@
 
 @media (max-width: 61.99rem) {
 
+  /* Marca, tarja e legenda encostadas na esquerda, como no desktop. Centradas,
+     as três tinham larguras diferentes e cada uma nascia num ponto — a marca
+     curta, a tarja média, a legenda quebrando em duas linhas: três eixos onde
+     devia haver um. Alinhadas à esquerda, todas partem da mesma vertical, que
+     é a margem da página. */
   .heroi__assinatura {
+    justify-items: start;
     gap: 0.5rem;
     /* O canto (flor + PSOL) é fixo no topo direito e não reserva espaço
        próprio — ele flutua por cima de tudo. Sem esta folga, a legenda em
        maiúsculas ("SENADO FEDERAL POR..."), que agora ocupa a largura
        inteira por estar empilhada sob a tarja, passava por baixo do canto e
-       as duas coisas se atropelavam. */
-    padding-right: clamp(3.75rem, 17vw, 5rem);
+       as duas coisas se atropelavam.
+
+       Os 17vw de antes sobravam: numa tela de 375px eles deixavam 271px para
+       uma tarja que pede 272 — faltava um pixel, e "A SENADORA DO POVO
+       MINEIRO" quebrava em duas linhas por causa dele. Com 12vw sobram 290px
+       e a tarja fecha numa linha, ainda a 26px do canto. */
+    padding-right: clamp(2.75rem, 12vw, 5rem);
+  }
+
+  .heroi__credencial {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* A tarja é uma caixa: o texto dela não começa na borda, começa depois do
+     padding e da bolinha. Alinhar a legenda pela borda da caixa deixava as
+     duas linhas de maiúsculas nascendo em pontos diferentes — o que se vê é
+     texto contra texto, não caixa contra texto. O recuo abaixo é a mesma
+     medida que a tarja usa por dentro (ver `--tarja-recuo`). */
+  .heroi__legenda {
+    padding-left: calc(var(--tarja-corpo) * 2.22);
   }
 
   .heroi__assinatura-marca {
-    width: clamp(6.5rem, 30vw, 10rem);
+    width: clamp(8rem, 36vw, 12rem);
   }
 
   /* O canto flutua solto (`position: absolute`) desde a versão desktop, então
@@ -366,17 +391,38 @@
 
   .heroi__filme {
     justify-self: center;
-    width: min(100%, 18.5rem);
+    width: min(100%, 21.5rem);
     margin-block: 0.25rem;
   }
 
+  /* A folga de baixo cresceu porque os botões deixaram de desviar do balão do
+     zap pela lateral e passaram a passar por cima dele — quer dizer, por baixo:
+     o balão é fixo a ~14px do fim da tela e tem ~52px de altura, então tudo
+     que terminar acima de 4.75rem do fundo está livre dele. É esse espaço que
+     devolve a largura inteira para as duas chamadas. */
   .heroi__pe {
     gap: 0.6rem;
-    padding-block: 0.45rem 0.85rem;
+    padding-block: 0.45rem 4.75rem;
   }
 
+  /* Os dois numa linha só. Antes o segundo caía embaixo, e a página abria com
+     um botão largo e outro solto embaixo dele. `1 1 0` dá a mesma largura aos
+     dois: lidos como par, que é o que eles são — a ação principal e a saída
+     alternativa. */
   .heroi__acoes {
-    gap: 0.6rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    padding-right: 0;
+  }
+
+  .heroi__acoes .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 0.4rem;
+    min-height: 3rem;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.9375rem;
+    white-space: nowrap;
   }
 }
 
@@ -387,7 +433,7 @@
    leitura. */
 @media (max-width: 61.99rem) and (max-height: 50rem) {
   .heroi__filme {
-    width: min(100%, 16.5rem);
+    width: min(100%, 16rem);
   }
 
   .heroi__apoio {
@@ -395,8 +441,12 @@
     line-height: 1.35;
   }
 
+  /* A folga que tira os botões de baixo do balão do zap não pode cair aqui:
+     ela é o que impede o balão de tapar "Ver as bandeiras". Quem cede altura
+     nesta faixa é o vídeo, acima — foi para isso que ele encolheu. */
   .heroi__pe {
-    padding-block: 0.35rem 0.7rem;
+    gap: 0.5rem;
+    padding-block: 0.35rem 4.5rem;
   }
 }
 

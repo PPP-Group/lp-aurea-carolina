@@ -162,11 +162,16 @@ html {
    ------------------------------------------------------------------------- */
 
 .tarja {
+  /* Quanto o texto anda para dentro em relação à borda esquerda da caixa:
+     o padding, mais a bolinha, mais o respiro entre ela e a palavra. Fica
+     escrito como medida para quem precisa alinhar outra linha por baixo. */
+  --tarja-recuo: calc(var(--tarja-corpo) * 2.22);
+
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
   font-family: var(--font-faixa);
-  font-size: clamp(0.72rem, 1.4vw, 0.95rem);
+  font-size: var(--tarja-corpo);
   letter-spacing: 0.06em;
   line-height: 1;
   text-transform: uppercase;
