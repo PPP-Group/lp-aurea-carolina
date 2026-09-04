@@ -65,10 +65,6 @@ export function Hero() {
             <Marca variante="quente" className="heroi__assinatura-marca" />
 
             <p className="heroi__credencial">
-              <span className="tarja tarja--caixa">
-                <span className="tarja__marca" aria-hidden="true" />
-                {hero.tarja}
-              </span>
               <span className="heroi__legenda">
                 {identidade.cargoCompleto} por {identidade.estado} · {identidade.partido} ·{' '}
                 {identidade.coligacao}

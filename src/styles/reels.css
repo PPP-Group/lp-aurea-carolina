@@ -13,6 +13,9 @@
 
 .reels {
   background: var(--color-papel-fundo);
+  /* A fila corre até a borda da tela. Sem isto, a sangria dela abriria rolagem
+     horizontal na página inteira. */
+  overflow: hidden;
 }
 
 .reels__cabeca {
@@ -37,18 +40,66 @@
   color: var(--color-tinta);
 }
 
-.reels__lista {
-  display: grid;
-  gap: clamp(2rem, 5vw, 3rem);
+/* ---------------------------------------------------------------------------
+   A fila
+
+   São muitos posts, e de dois feitios: reel em pé (9:16) e foto ou carrossel
+   (3:4). Empilhados na vertical, sozinhos fariam uma seção mais alta que o
+   resto da página — por isso correm na horizontal, com encaixe, como o mural
+   das peças.
+
+   O que alinha a fila é a altura: ela é a mesma para todo mundo, e a largura
+   de cada cartão é o que sobra da proporção do próprio post. O reel fica
+   estreito, o carrossel fica largo, e as capas terminam todas na mesma linha —
+   é o que impede a fila de virar um serrote.
+   ------------------------------------------------------------------------- */
+
+.reels__fila {
+  --altura-capa: clamp(21rem, 72vw, 26rem);
+  --sangria: max(1.25rem, calc((100vw - var(--largura-max)) / 2));
+
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: start;
   margin: clamp(2.25rem, 5vw, 3.5rem) 0 0;
-  padding: 0;
+  padding: 0.5rem var(--sangria) 1.5rem;
   list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--sangria);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-roxo) var(--color-papel);
+}
+
+/* O `scrollbar-color` acima resolve o Firefox; os outros navegadores olham só
+   para os pseudo-elementos. Mesma barra do mural das peças, trocada a cor do
+   trilho porque aqui o fundo da seção é o bege recuado. */
+.reels__fila::-webkit-scrollbar {
+  height: 0.7rem;
+}
+.reels__fila::-webkit-scrollbar-track {
+  background: var(--color-papel);
+}
+.reels__fila::-webkit-scrollbar-thumb {
+  background: var(--color-roxo);
+  border: 2px solid var(--color-papel);
+  border-radius: 999px;
+}
+.reels__fila::-webkit-scrollbar-thumb:hover {
+  background: var(--color-roxo-fundo);
 }
 
 .reels__item {
+  flex: none;
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
   align-content: start;
+  width: calc(var(--altura-capa) * 9 / 16);
+  scroll-snap-align: start;
+}
+
+.reels__item[data-formato='imagem'] {
+  width: calc(var(--altura-capa) * 3 / 4);
 }
 
 /* ---------------------------------------------------------------------------
@@ -63,7 +114,6 @@
 .reels__moldura {
   position: relative;
   width: 100%;
-  max-width: 26rem;
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border: 3px solid var(--color-vinho);
@@ -73,6 +123,12 @@
   transition:
     transform 0.22s var(--ease-saida),
     box-shadow 0.22s var(--ease-saida);
+}
+
+/* A foto e o carrossel vêm em 3:4 — a moldura acompanha, e como a largura do
+   cartão já saiu dessa mesma conta, a capa termina na altura das outras. */
+.reels__item[data-formato='imagem'] .reels__moldura {
+  aspect-ratio: 3 / 4;
 }
 
 .reels__quadro {
@@ -98,20 +154,44 @@
    Sem isso o clique cairia dentro do Instagram e levaria a pessoa embora da
    página em vez de abrir o modal. */
 .reels__quadro--capa {
-  /* O zoom é um fio maior do que o necessário para o vídeo encher a largura:
-     a sobra de altura cobre as duas beiradas, que é o que impede uma linha de
-     branco de aparecer em cima ou embaixo quando o embed arredonda diferente. */
-  --capa-zoom: 1.46;
+  /* O recorte da capa, em três medidas.
+
+     `cabeca` é a faixa de perfil do embed, que sai por cima pelo `top`
+     negativo. `folga` é a sobra que fica escondida em cima E embaixo: sem ela
+     o corte bate na régua exata da faixa e sobra uma linha clara numa das duas
+     pontas, porque o navegador arredonda a conta.
+
+     `zoom` é quem paga essa folga. Alargar o iframe também estica a altura da
+     mídia dentro dele — o embed desenha o post numa caixa 4:5, então a altura
+     da capa é sempre 1,25 vez a largura do iframe. Por isso o zoom não é mais
+     só o necessário para encher a largura: ele é o necessário para a altura da
+     mídia cobrir a moldura inteira mais as duas folgas, na pior das telas (o
+     celular, onde o cartão é mais estreito). O preço é cerca de 3% de corte em
+     cada lateral — um fio a mais que o corte que já existia, longe do texto
+     das peças.
+
+     Os números saem do embed real. Se o Instagram mudar a moldura dele, é aqui
+     que se ajusta — e nada mais na seção precisa mudar. */
+  --capa-zoom: 1.52;
   --capa-cabeca: 52px;
+  --capa-folga: 8px;
 
   position: absolute;
-  top: calc(-1 * var(--capa-cabeca));
+  top: calc(-1 * (var(--capa-cabeca) + var(--capa-folga)));
   left: 50%;
   width: calc(100% * var(--capa-zoom));
-  height: calc(200% + var(--capa-cabeca));
+  height: calc(200% + var(--capa-cabeca) + var(--capa-folga));
   aspect-ratio: auto;
   translate: -50% 0;
   pointer-events: none;
+}
+
+/* A foto não tem tarja preta em volta: ela já ocupa quase toda a largura do
+   embed (938 de 1000), então precisa de bem menos zoom que o vídeo para o
+   mesmo resultado — o que sobra é a mesma conta de altura, com a moldura em
+   3:4 no lugar de 9:16. */
+.reels__item[data-formato='imagem'] .reels__quadro--capa {
+  --capa-zoom: 1.13;
 }
 
 .reels__toque {
@@ -155,27 +235,27 @@
   box-shadow: 8px 8px 0 var(--color-roxo);
 }
 
+/* A reserva embaixo é para o pé da fila não ficar serrilhado quando um título
+   ocupa duas linhas e o vizinho, uma. */
 .reels__legenda {
-  max-width: 30rem;
+  min-height: 4.5rem;
 }
 
 .reels__item-tarja {
   color: var(--color-roxo-tinta);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.55rem;
 }
 
+/* Um corpo abaixo do que a seção usava quando eram dois cartões largos: aqui o
+   título mora numa coluna estreita, do tamanho da capa. */
 .reels__item-titulo {
   font-family: var(--font-titulo);
   font-weight: 700;
-  font-size: var(--text-medio);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: var(--text-sub);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
   color: var(--color-vinho);
-}
-
-.reels__item-texto {
-  margin-top: 0.65rem;
-  color: var(--color-tinta);
+  text-wrap: balance;
 }
 
 /* ---------------------------------------------------------------------------
@@ -241,12 +321,18 @@ body:has(.reels__lupa) .compartilhar {
   box-shadow: 0 24px 60px rgb(0 0 0 / 0.5);
 }
 
-/* Os dois lado a lado assim que couberem: são duas capas de reel, e ver as
-   duas de uma vez é o que diz que a campanha tem mais de um vídeo. O texto
-   fica embaixo de cada uma, na largura da própria capa. */
-@media (min-width: 46rem) {
-  .reels__lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+/* Quem pediu menos movimento no sistema não deve receber uma fila que desliza
+   sozinha ao chegar no cartão: o encaixe sai, a rolagem continua. */
+@media (prefers-reduced-motion: reduce) {
+  .reels__fila {
+    scroll-snap-type: none;
+  }
+}
+
+/* No desktop sobra tela: os cartões crescem, sem mexer no celular, onde o
+   tamanho já estava certo. */
+@media (min-width: 60rem) {
+  .reels__fila {
+    --altura-capa: clamp(27rem, 37.5vw, 34rem);
   }
 }

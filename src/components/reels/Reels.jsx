@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { reels } from '../../data/campanha.js'
 import { useRevelar } from '../../lib/useRevelar.js'
 import { Icone } from '../Icone.jsx'
@@ -6,22 +6,27 @@ import { Icone } from '../Icone.jsx'
 /* ============================================================================
    DIRETO DAS REDES
    ----------------------------------------------------------------------------
-   Depois do papel, a tela do celular. A página não hospeda cópia destes dois
-   vídeos: eles estão no Instagram da campanha e continuam lá.
+   Depois do papel, a tela do celular. A página não hospeda cópia destes posts:
+   eles estão no Instagram e continuam lá.
 
    O cartão mostra o post pequeno, no embed oficial (`/embed/`), sem legenda e
    sem interação — quem recebe o clique é o botão que cobre o quadro inteiro,
    não o Instagram. Quando o modal abre, entra o embed com legenda
-   (`/embed/captioned/`): aí sim o post completo, com vídeo, legenda, perfil e
-   contadores, do jeito que o Instagram entrega.
+   (`/embed/captioned/`): aí sim o post completo, com vídeo ou imagem, legenda,
+   perfil e contadores, do jeito que o Instagram entrega.
 
    Dois embeds diferentes de propósito. O do cartão é vitrine e não precisa de
    texto; o do modal é o post, e é onde a legenda tem que estar.
+
+   A fila rola na horizontal, como o mural das peças: são muitos posts, e
+   empilhá-los na vertical faria a seção sozinha ser mais alta que o resto da
+   página. É região rolável de verdade, então as setas do teclado funcionam.
    ========================================================================== */
 
-const url = (codigo) => `https://www.instagram.com/reel/${codigo}/`
-const embed = (codigo, comLegenda) =>
-  `${url(codigo)}embed/${comLegenda ? 'captioned/' : ''}`
+/* O endereço `/p/` abre qualquer post — vídeo ou imagem. O `/reel/`, que estava
+   aqui antes, só resolve para vídeo, e a fila hoje é mista. */
+const url = (codigo) => `https://www.instagram.com/p/${codigo}/`
+const embed = (codigo, comLegenda) => `${url(codigo)}embed/${comLegenda ? 'captioned/' : ''}`
 
 /* O post aberto. O embed do Instagram é um documento de outra origem: não dá
    para estilizar por dentro nem medir o tamanho da legenda daqui. Por isso o
@@ -58,7 +63,7 @@ function Post({ item, aoFechar }) {
         <iframe
           className="reels__quadro"
           src={embed(item.codigo, true)}
-          title={`Reel no Instagram: ${item.titulo}`}
+          title={`Post no Instagram: ${item.titulo}`}
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
           allowFullScreen
         />
@@ -83,33 +88,73 @@ function Post({ item, aoFechar }) {
   )
 }
 
-/* O cartão observa a própria entrada em tela, como os princípios logo acima —
-   e o embed só é montado depois disso: são dois documentos de terceiro, e
-   carregar os dois no primeiro pixel da página custa caro em rede. */
+/* O cartão observa a própria entrada em tela, como os princípios logo acima — e
+   o embed só é montado depois disso.
+
+   Isso aqui não é enfeite: cada capa é um documento de terceiro, com o script
+   do Instagram dentro. Montar os oito de uma vez, no primeiro pixel da página,
+   custaria mais rede que o resto do site inteiro. A margem generosa faz a capa
+   começar a descer um pouco antes de entrar na tela — inclusive quando ela vem
+   pelo lado, que é como esta fila anda. Enquanto não chega, a moldura fica com
+   o fundo de papel: o espaço já está reservado, então nada pula quando o
+   documento entra. */
 function Cartao({ item, indice, aoAbrir }) {
   const alvo = useRevelar()
+  const moldura = useRef(null)
+  const [perto, setPerto] = useState(false)
+
+  useEffect(() => {
+    const no = moldura.current
+    if (!no) return
+
+    if (!('IntersectionObserver' in window)) {
+      setPerto(true)
+      return
+    }
+
+    const observador = new IntersectionObserver(
+      ([entrada]) => {
+        if (!entrada.isIntersecting) return
+        setPerto(true)
+        observador.disconnect()
+      },
+      { rootMargin: '300px' },
+    )
+
+    observador.observe(no)
+    return () => observador.disconnect()
+  }, [])
 
   return (
-    <li className="reels__item revelar" style={{ '--atraso': `${indice * 110}ms` }} ref={alvo}>
-      <div className="reels__moldura">
-        <iframe
-          className="reels__quadro reels__quadro--capa"
-          src={embed(item.codigo, false)}
-          title={`Prévia do reel: ${item.titulo}`}
-          loading="lazy"
-          scrolling="no"
-          tabIndex={-1}
-          aria-hidden="true"
-        />
+    <li
+      className="reels__item revelar"
+      data-formato={item.formato}
+      style={{ '--atraso': `${Math.min(indice, 5) * 90}ms` }}
+      ref={alvo}
+    >
+      <div className="reels__moldura" ref={moldura}>
+        {perto && (
+          <iframe
+            className="reels__quadro reels__quadro--capa"
+            src={embed(item.codigo, false)}
+            title={`Prévia do post: ${item.titulo}`}
+            loading="lazy"
+            scrolling="no"
+            tabIndex={-1}
+            aria-hidden="true"
+          />
+        )}
 
         <button
           className="reels__toque"
           type="button"
           onClick={aoAbrir}
-          aria-label={`Assistir: ${item.titulo}`}
+          aria-label={`Abrir o post: ${item.titulo}`}
         >
+          {/* Vídeo pede play; foto e carrossel pedem a marca da rede, que é o
+              que a pessoa vai encontrar do outro lado do clique. */}
           <span className="reels__play" aria-hidden="true">
-            <Icone nome="tocar" tamanho={26} />
+            <Icone nome={item.formato === 'video' ? 'tocar' : 'instagram'} tamanho={24} />
           </span>
         </button>
       </div>
@@ -120,7 +165,6 @@ function Cartao({ item, indice, aoAbrir }) {
           {item.rotulo}
         </p>
         <h3 className="reels__item-titulo">{item.titulo}</h3>
-        <p className="reels__item-texto">{item.legenda}</p>
       </div>
     </li>
   )
@@ -141,13 +185,15 @@ export function Reels() {
           <h2 className="reels__titulo">{reels.titulo}</h2>
           <p className="reels__apoio">{reels.apoio}</p>
         </header>
-
-        <ul className="reels__lista">
-          {reels.itens.map((item, i) => (
-            <Cartao key={item.codigo} item={item} indice={i} aoAbrir={() => setAberto(item)} />
-          ))}
-        </ul>
       </div>
+
+      {/* A fila sangra pela direita, fora do `limite`: o cartão cortado na borda
+          é o que avisa que tem mais coisa para o lado. */}
+      <ul className="reels__fila" tabIndex={0} aria-label="Posts da campanha, role para o lado">
+        {reels.itens.map((item, i) => (
+          <Cartao key={item.codigo} item={item} indice={i} aoAbrir={() => setAberto(item)} />
+        ))}
+      </ul>
 
       {aberto && <Post item={aberto} aoFechar={fechar} />}
     </section>

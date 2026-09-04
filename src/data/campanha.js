@@ -24,7 +24,6 @@ export const identidade = {
   /* O domínio principal da campanha. Os dois de apoio existem e redirecionam
      para cá; ficam listados no rodapé porque são os que circulam impressos. */
   site: 'aurea500.com.br',
-  sitesApoio: ['aureacarolina.com.br', 'aureasenadora.com.br'],
   arroba: '@aureacarolina',
   slogan: 'A senadora do povo mineiro',
 }
@@ -60,11 +59,10 @@ export const jingle = {
   poster: '/assets/video/aurea-poster.webp',
   alt: 'Jingle da campanha de Áurea Carolina, candidata ao Senado por Minas Gerais.',
   tarja: 'O jingle da campanha',
-  titulo: 'Nosso jingle',
+  titulo: 'Bora vencer',
 }
 
 export const hero = {
-  tarja: 'A senadora do povo mineiro',
   grito: ['Bora', 'vencer'],
   /* Primeira pessoa, como o resto da página. O texto em terceira pessoa que
      estava aqui não constava do documento aprovado. */
@@ -98,12 +96,7 @@ export const frases = [
 
 /* A faixa que corre entre as seções puxa quatro delas. As duas de fora entram
    na segunda faixa, no meio da página, para a barra não se repetir inteira. */
-export const faixa = [
-  'Bora que é possível',
-  'Bora vencer',
-  'A senadora do povo mineiro',
-  'Outro Senado é possível',
-]
+export const faixa = ['Bora que é possível', 'Bora vencer']
 
 /* ---------------------------------------------------------------------------
    QUEM SOU EU
@@ -113,7 +106,7 @@ export const quem = {
   tarja: 'Quem sou eu',
   titulo: 'Sou Áurea Carolina',
   paragrafos: [
-    'Nasci em Tucuruí, no Pará, e vim pra Belo Horizonte ainda criança. Cresci no bairro João Pinheiro, estudei em escola pública a vida inteira e sou mãe solo. Antes de qualquer cargo que eu tenha ocupado, sou de uma família de mulheres batalhadoras.',
+    'Cresci no bairro João Pinheiro, em Belo Horizonte, estudei em escola pública a vida inteira e sou mãe solo. Antes de qualquer cargo que eu tenha ocupado, sou de uma família de mulheres batalhadoras.',
     'Me formei em Ciências Sociais na UFMG, com bolsa de assistência estudantil. Fiz especialização em Gênero e Igualdade na Universitat Autònoma de Barcelona e mestrado em Ciência Política, também na UFMG.',
   ],
   destaque:
@@ -229,7 +222,7 @@ export const provas = {
    ------------------------------------------------------------------------- */
 
 export const trajetoria = {
-  tarja: 'De Tucuruí ao Senado',
+  tarja: 'Minha trajetória',
   titulo: 'Somos começo, meio e começo',
   marcos: [
     {
@@ -476,38 +469,84 @@ export const bandeiras = {
 }
 
 /* ---------------------------------------------------------------------------
-   OS REELS
+   OS POSTS DAS REDES
    ----------------------------------------------------------------------------
-   Dois vídeos que já estão no Instagram da campanha e continuam morando lá: a
-   página não hospeda cópia deles. O cartão é a chamada; o post inteiro — vídeo,
-   legenda, perfil e contadores — aparece no embed oficial do Instagram, dentro
-   do modal.
+   O que a campanha publicou e continua morando no Instagram: a página não
+   hospeda cópia de nada disso. O cartão é a chamada; o post inteiro — vídeo ou
+   imagem, legenda, perfil e contadores — aparece no embed oficial, dentro do
+   modal.
 
-   `codigo` é o trecho final da URL do reel (instagram.com/reel/<codigo>/). É
-   dele que saem o embed e o link, então é o único campo que precisa mudar
-   quando a campanha trocar de vídeo.
+   `codigo` é o trecho final da URL do post (instagram.com/p/<codigo>/). É dele
+   que saem o embed e o link, então é o único campo que precisa mudar quando a
+   campanha trocar um post. O endereço `/p/` serve aos dois tipos; o `/reel/`
+   só abre vídeo, e aqui a lista é mista.
 
-   `legenda` é texto nosso, escrito para o cartão. A legenda verdadeira do post
-   é a que o Instagram entrega dentro do modal, e ela não é copiada aqui.
+   `formato` diz o que o embed vai desenhar: 'video' para os cortes e reels, que
+   o Instagram entrega em 9:16, e 'imagem' para foto e carrossel, que vêm em
+   3:4. É esse campo que define a proporção do cartão e o recorte da capa — as
+   duas medidas estão em `reels.css`.
+
+   A ordem é a da campanha, do mais recente para o mais antigo. A apresentação
+   fecha a fila porque é peça de pré-campanha.
+
+   O corte do encontro de mulheres foi publicado no perfil do presidente
+   (@lulaoficial, em parceria com a Marília), e não no da campanha — por isso o
+   texto de apoio da seção fala em "redes", no plural, e não no arroba dela.
    ------------------------------------------------------------------------- */
 
 export const reels = {
   tarja: 'No Instagram da campanha',
   titulo: 'Direto das redes',
   apoio:
-    'Os vídeos que estão rodando no @aureacarolina. Toque para assistir aqui mesmo, com a legenda e o post completo.',
+    'Os cortes, os atos e as peças que estão rodando nas redes. Toque para ver aqui mesmo, com a legenda e o post completo.',
   itens: [
     {
-      codigo: 'DXKAYnMuvBU',
-      rotulo: 'Apresentação',
-      titulo: 'Quem é Áurea Carolina',
-      legenda: 'A apresentação da candidatura, na voz dela.',
+      codigo: 'DcFn30eNNri',
+      formato: 'imagem',
+      rotulo: 'Santinho digital',
+      titulo: 'Chegou a hora, Minas Gerais',
+    },
+    {
+      codigo: 'Dct5JLYpRcG',
+      formato: 'video',
+      rotulo: 'Na TV',
+      titulo: 'Nossos programas de TV',
+    },
+    {
+      codigo: 'DcyU4QSHIAy',
+      formato: 'imagem',
+      rotulo: 'Memes',
+      titulo: 'São dois votos pro Senado',
+    },
+    {
+      codigo: 'Dcw5ENBp-Gi',
+      formato: 'video',
+      rotulo: 'Entrevista',
+      titulo: 'O corte da entrevista na Record',
+    },
+    {
+      codigo: 'DcrNMtYtDni',
+      formato: 'video',
+      rotulo: 'Com Lula',
+      titulo: 'Lula no encontro de mulheres',
+    },
+    {
+      codigo: 'DckFCfzpO6Z',
+      formato: 'video',
+      rotulo: 'No ato',
+      titulo: 'Minha fala no ato do Lula',
     },
     {
       codigo: 'DccFdL2Bffp',
+      formato: 'video',
       rotulo: 'Propostas',
       titulo: 'O que eu vou levar pro Senado',
-      legenda: 'As propostas da campanha, em um minuto.',
+    },
+    {
+      codigo: 'DXKAYnMuvBU',
+      formato: 'video',
+      rotulo: 'Apresentação',
+      titulo: 'Quem é Áurea Carolina',
     },
   ],
 }
@@ -522,14 +561,23 @@ export const pecas = {
   apoio:
     'Peças da campanha para compartilhar com geral e fazer nossa mensagem chegar mais longe',
   itens: [
-    { arquivo: 'peca-02', alvo: 'Bora vencer', proporcao: '3 / 4' },
-    { arquivo: 'peca-01', alvo: 'Bora que é possível', proporcao: '3 / 4' },
-    { arquivo: 'peca-05', alvo: 'A senadora do povo mineiro', proporcao: '1126 / 1597' },
-    { arquivo: 'peca-03', alvo: 'Áurea, com Áurea é outros 500', proporcao: '3 / 4' },
-    { arquivo: 'peca-08', alvo: 'Minas Gerais mais forte no Senado', proporcao: '1126 / 1597' },
-    { arquivo: 'peca-09', alvo: 'Áurea Carolina, com Áurea é outros 500', proporcao: '1126 / 1597' },
-    { arquivo: 'peca-10', alvo: 'Bora vencer, 500', proporcao: '1126 / 1597' },
-    { arquivo: 'peca-07', alvo: 'Flor de pequi, símbolo da campanha', proporcao: '1126 / 1597' },
+    {
+      arquivo: 'peca-11',
+      alvo: 'Senadora Áurea 500, com Raquell Guimarães e Felipe Fonseca',
+      proporcao: '3 / 4',
+    },
+    { arquivo: 'peca-12', alvo: 'Fim da escala 6x1 já! Bora pro plenário', proporcao: '3 / 4' },
+    {
+      arquivo: 'peca-15',
+      alvo: 'Bora que é possível! Senadora Áurea 500',
+      proporcao: '3 / 4',
+    },
+    { arquivo: 'peca-19', alvo: 'Lugar de mulher é onde ela quiser', proporcao: '3 / 4' },
+    { arquivo: 'peca-14', alvo: 'Bora comigo por uma política mais Áurea', proporcao: '3 / 4' },
+    { arquivo: 'peca-17', alvo: 'Trabalhadores merecem descanso', proporcao: '3 / 4' },
+    { arquivo: 'peca-13', alvo: 'Cultura é um direito', proporcao: '3 / 4' },
+    { arquivo: 'peca-18', alvo: 'Cuidado é um dever de todos', proporcao: '3 / 4' },
+    { arquivo: 'peca-16', alvo: 'Recursos naturais não são eternos', proporcao: '3 / 4' },
   ],
 }
 
@@ -579,7 +627,7 @@ export const apoiar = {
       texto:
         'Cadastre-se para ser um ponto de distribuição dos nossos santinhos e adesivos no interior',
       cta: 'Só vamos!',
-      href: 'https://chat.whatsapp.com/Bfb3e2bsvrt1SWnUV7f8kB',
+      href: 'https://bit.ly/kitAurea500',
       icone: 'caixa',
       cor: 'amarelo',
     },
@@ -601,10 +649,10 @@ export const apoiar = {
 
 export const timeDoLula = {
   pronto: true,
-  tarja: 'Time do Lula em Minas Gerais',
-  titulo: 'Juntos por Minas',
+  tarja: 'Time do Lula',
+  titulo: 'Juntos por Minas Gerais',
   apoio:
-    'Áurea, Marília e Patrus: é com esse time que a gente vai reconstruir o Brasil e virar o jogo em Minas Gerais.',
+    'Áurea, Marília e Patrus: é com esse time que a gente vai reconstruir o Brasil e virar o jogo em nosso estado.',
   /* Flagras de evento, inteiros — sem recorte. Não são fotos de estúdio uma
      por pessoa; são registros do mesmo palanque, com os três juntos em cada
      uma. */
@@ -646,5 +694,10 @@ export const redes = [
   { rede: 'instagram', rotulo: 'Instagram', href: 'https://instagram.com/aureacarolina' },
   { rede: 'x', rotulo: 'X', href: 'https://x.com/aureacarolina' },
   { rede: 'facebook', rotulo: 'Facebook', href: 'https://facebook.com/aureacarolina' },
-  { rede: 'linkedin', rotulo: 'LinkedIn', href: 'https://linkedin.com/in/aureacarolina' },
+  { rede: 'tiktok', rotulo: 'TikTok', href: 'https://www.tiktok.com/@aureacarolina500' },
+  {
+    rede: 'youtube',
+    rotulo: 'YouTube',
+    href: 'https://www.youtube.com/@%C3%81ureaCarolina-u4u',
+  },
 ]

@@ -57,18 +57,9 @@ export function Rodape() {
           </ul>
           <p className="rodape__arroba">{identidade.arroba}</p>
 
-          {/* O endereço principal em destaque; os dois de apoio logo abaixo,
-              porque são os que circulam impressos e as pessoas digitam. */}
           <a className="rodape__site" href={`https://${identidade.site}`}>
             {identidade.site}
           </a>
-          <p className="rodape__site-apoio">
-            {identidade.sitesApoio.map((dominio) => (
-              <a key={dominio} href={`https://${dominio}`}>
-                {dominio}
-              </a>
-            ))}
-          </p>
         </div>
       </div>
 
