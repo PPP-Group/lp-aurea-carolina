@@ -71,7 +71,7 @@ export const hero = {
     'Agora nós vamos fazer história mais uma vez: sou candidata ao Senado Federal por Minas Gerais. Bora que é possível!',
   ],
   chamadaPrimaria: { texto: 'Quero apoiar', href: '#apoiar' },
-  chamadaSecundaria: { texto: 'Ver as bandeiras', href: '#bandeiras' },
+  chamadaSecundaria: { texto: 'Ver as propostas', href: '#bandeiras' },
 }
 
 /* ---------------------------------------------------------------------------
@@ -375,7 +375,7 @@ export const atos = {
    ------------------------------------------------------------------------- */
 
 export const bandeiras = {
-  tarja: 'Nossas bandeiras',
+  tarja: 'Nossas propostas',
   titulo: 'Para um Senado do lado do povo',
   apoio: 'Clique para expandir o texto e conhecer nossos compromissos',
   /* O caderno completo de propostas fecha a seção. Enquanto o arquivo está em
@@ -685,7 +685,7 @@ export const secoes = [
   { id: 'trajetoria', rotulo: 'Trajetória' },
   ...(timeDoLula.pronto ? [{ id: 'time', rotulo: 'Time do Lula' }] : []),
   { id: 'atos', rotulo: 'Nas ruas' },
-  { id: 'bandeiras', rotulo: 'Bandeiras' },
+  { id: 'bandeiras', rotulo: 'Propostas' },
   { id: 'pecas', rotulo: 'Peças' },
   { id: 'apoiar', rotulo: 'Apoie' },
 ]
