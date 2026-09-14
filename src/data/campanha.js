@@ -656,8 +656,17 @@ export const timeDoLula = {
   apoio:
     'Áurea, Marília e Patrus: é com esse time que a gente vai reconstruir o Brasil e virar o jogo em nosso estado.',
   /* Flagras de evento, inteiros — sem recorte. Não são fotos de estúdio uma
-     por pessoa; são registros do mesmo palanque, com os três juntos em cada
-     uma. */
+     por pessoa; são registros do palanque e dos comícios, do acervo da
+     campanha e do time do Lula em Minas.
+
+     `tamanho` é quantas colunas a foto ocupa no mosaico: ausente = 1,
+     'larga' = 2, 'cheia' = a linha inteira. A ORDEM importa duas vezes.
+     Primeiro na conta: 7 normais + 4 largas + 1 cheia dá 18 colunas, ou seis
+     linhas de três cheias — sem sobrar foto sozinha com meia linha vazia ao
+     lado. Depois no desenho: a larga troca de lado a cada linha (normal +
+     larga, larga + normal) para o mosaico ziguezaguear em vez de empilhar
+     todas as fotos pequenas na mesma coluna. Quem mexer aqui refaz as duas
+     contas. */
   fotos: [
     {
       id: 'dancando',
@@ -673,6 +682,56 @@ export const timeDoLula = {
       id: 'maos-erguidas',
       arquivo: 'evento-maos-erguidas',
       alt: 'Áurea, Patrus e Marília de mãos erguidas no palco, com o rosto de Lula projetado atrás.',
+    },
+    {
+      id: 'mulheres-lula',
+      arquivo: 'evento-mulheres-lula',
+      alt: 'Áurea Carolina e Lula comemoram juntos, de braços erguidos, no Ato Nacional Mulheres com Lula.',
+    },
+    {
+      id: 'mulheres-palco',
+      arquivo: 'evento-mulheres-palco',
+      alt: 'Áurea Carolina e outras lideranças de mãos dadas e erguidas no palco do Mulheres com Lula 13.',
+      tamanho: 'larga',
+    },
+    {
+      id: 'mulheres-discurso',
+      arquivo: 'evento-mulheres-discurso',
+      alt: 'Lula aplaude ao lado de Áurea Carolina e de outras lideranças no palco do Mulheres com Lula 13.',
+      tamanho: 'larga',
+    },
+    {
+      id: 'mulheres-elenco',
+      arquivo: 'evento-mulheres-elenco',
+      alt: 'Lula, Áurea Carolina e outras lideranças de mãos dadas e erguidas no palco do Mulheres com Lula 13.',
+    },
+    {
+      id: 'comicio-patrus',
+      arquivo: 'evento-comicio-patrus',
+      alt: 'Lula discursa ao microfone num palco com tapete vermelho escrito "Patrus", cercado por apoiadores e pela multidão.',
+    },
+    {
+      id: 'mulheres-hino',
+      arquivo: 'evento-mulheres-hino',
+      alt: 'Lula e Áurea Carolina, de mãos dadas com outras lideranças, comemoram no palco do Mulheres com Lula 13.',
+      tamanho: 'larga',
+    },
+    {
+      id: 'mulheres-cantando',
+      arquivo: 'evento-mulheres-cantando',
+      alt: 'Áurea Carolina e outra apoiadora de mãos dadas e erguidas, sorrindo, no palco do Mulheres com Lula 13.',
+      tamanho: 'larga',
+    },
+    {
+      id: 'comicio-aereo',
+      arquivo: 'evento-comicio-aereo',
+      alt: 'Vista aérea de uma multidão tomando uma praça à noite, em comício ao lado do prédio histórico iluminado de vermelho.',
+    },
+    {
+      id: 'tapete-vermelho',
+      arquivo: 'evento-tapete-vermelho',
+      alt: 'Lula posa com um grupo grande de apoiadores e jovens de camisas coloridas em tapete vermelho, à noite.',
+      tamanho: 'cheia',
     },
   ],
 }

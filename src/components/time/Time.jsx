@@ -7,9 +7,9 @@ import { useRevelar } from '../../lib/useRevelar.js'
    A chapa inteira num bloco só, logo depois da trajetória: quem acabou de ver
    de onde ela veio vê, em seguida, com quem ela caminha agora.
 
-   Não são retratos de estúdio, um por pessoa — são flagras do mesmo palanque,
-   com os três juntos em cada foto (acervo da campanha). Por isso a seção é
-   uma galeria, e as fotos entram inteiras: sem recorte, sem forçar quadrado.
+   Não são retratos de estúdio, um por pessoa — são flagras dos palanques e
+   comícios (acervo da campanha). Por isso a seção é uma galeria, e as fotos
+   entram inteiras: sem recorte, sem forçar quadrado.
    Cada moldura segue a proporção do arquivo original; quem enquadra é a
    própria foto, não o CSS.
 
@@ -21,7 +21,12 @@ function Foto({ foto, indice }) {
   const alvo = useRevelar()
 
   return (
-    <li className="timao__foto revelar" style={{ '--atraso': `${indice * 80}ms` }} ref={alvo}>
+    <li
+      className="timao__foto revelar"
+      data-tamanho={foto.tamanho || 'normal'}
+      style={{ '--atraso': `${indice * 80}ms` }}
+      ref={alvo}
+    >
       <img src={`/assets/time/${foto.arquivo}.webp`} alt={foto.alt} loading="lazy" decoding="async" />
     </li>
   )

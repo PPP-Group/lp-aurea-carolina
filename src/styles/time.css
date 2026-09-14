@@ -63,17 +63,51 @@
    As fotos
    ------------------------------------------------------------------------- */
 
+/* Uma coluna no celular, duas a partir de 40rem, três a partir de 64rem — e
+   só nas três o desenho vira mosaico: lá cada foto ocupa 1, 2 ou todas as
+   colunas conforme o `data-tamanho` que vem do dado. É isso que dá linha de
+   três fotos pequenas, linha de uma larga com uma normal ao lado e a
+   panorâmica sozinha na largura inteira, em vez de contagem igual em toda
+   linha. `dense` é rede de segurança: se alguém acrescentar uma foto e a
+   conta das colunas deixar de fechar, o motor do grid puxa uma foto de baixo
+   para tapar o buraco em vez de deixar meia linha vazia. */
 .timao__grade {
   display: grid;
-  /* Uma coluna no celular (18rem não cabe ao lado de outra em telas
-     estreitas, então `auto-fit` desiste e empilha); a partir de ~600px de
-     contêiner já cabem duas, e as três lado a lado quando sobra espaço para
-     isso — sem consulta de largura escrita à mão. */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  grid-template-columns: 1fr;
+  grid-auto-flow: dense;
+  /* `align-items: start` impede o grid de esticar cada moldura até a altura
+     da linha inteira — com fotos de proporções tão diferentes lado a lado,
+     esticar deixaria um vão vazio (o `grad-petala` de placeholder) embaixo
+     das mais baixas. Cada moldura fica só do tamanho da própria foto. */
+  align-items: start;
   gap: clamp(1.25rem, 3vw, 2rem);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Duas colunas e nenhum vão: aqui todas as fotos valem uma coluna. São doze,
+   número par, então fecham seis linhas exatas. O mosaico de tamanhos
+   diferentes espera o desktop — em duas colunas ele só criaria linha com
+   metade vazia. */
+@media (min-width: 40rem) {
+  .timao__grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .timao__grade {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .timao__foto[data-tamanho='larga'] {
+    grid-column: span 2;
+  }
+
+  .timao__foto[data-tamanho='cheia'] {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Moldura com o canto arredondado do manual ("dando preferência sempre a
