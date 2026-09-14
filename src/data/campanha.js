@@ -228,7 +228,16 @@ export const trajetoria = {
     {
       ano: '1983',
       texto:
-        'Nasço em Tucuruí, no Pará. Ainda criança, minha família se muda pra Belo Horizonte, no bairro João Pinheiro.',
+        'Nasci em Tucuruí, no Pará. Meus pais, mineiros, trabalharam na construção da Usina Hidrelétrica de Tucuruí.',
+    },
+    {
+      ano: '1986',
+      texto: 'Minha família se muda pra Belo Horizonte. Sou criada no bairro João Pinheiro com minha mãe e minhas irmãs.',
+    },
+    {
+      ano: '1991',
+      texto:
+        'Estudo o ensino fundamental em escolas públicas: Escola Municipal João Pinheiro, Escola Municipal Professor Mário Werneck e Escola Estadual Cândida Cabral.',
     },
     {
       ano: '1999',
@@ -238,9 +247,11 @@ export const trajetoria = {
     { ano: '2002', texto: 'Ingresso na graduação em Ciências Sociais na UFMG.' },
     {
       ano: '2004',
-      ate: '2006',
-      texto:
-        'Participo da criação do Fórum das Juventudes da Grande BH e me torno conselheira municipal de Juventude.',
+      texto: 'Participo da criação do Fórum das Juventudes da Grande BH.',
+    },
+    {
+      ano: '2006',
+      texto: 'Sou eleita conselheira municipal de juventude de Belo Horizonte.',
     },
     {
       ano: '2010',
@@ -378,15 +389,6 @@ export const bandeiras = {
   tarja: 'Nossas propostas',
   titulo: 'Para um Senado do lado do povo',
   apoio: 'Clique para expandir o texto e conhecer nossos compromissos',
-  /* O caderno completo de propostas fecha a seção. Enquanto o arquivo está em
-     construção, `href` fica nulo e o botão entra desligado, avisando que vem
-     depois — assim ninguém clica num link que ainda não existe. Quando o PDF
-     chegar, basta preencher o endereço aqui. */
-  propostas: {
-    texto: 'Leia mais sobre as propostas',
-    href: null,
-    aviso: 'Em breve',
-  },
   itens: [
     {
       id: 'mulheres',
